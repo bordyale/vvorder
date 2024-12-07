@@ -1,33 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE file distributed 
+	with this work for additional information regarding copyright ownership. The ASF licenses this file to you under the Apache License, 
+	Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License 
+	at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under 
+	the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License 
+	for the specific language governing permissions and limitations under the License. -->
 
-http://www.apache.org/licenses/LICENSE-2.0
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
+	<description>Vvorder Services</description>
+	<vendor></vendor>
+	<version>1.0</version>
 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
--->
-
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
-    <description>Vvorder Services</description>
-    <vendor></vendor>
-    <version>1.0</version>
-
-    <service name="noSyntaxError" engine="interface">
-        <description>
+	<service name="noSyntaxError" engine="interface">
+		<description>
             Dummy service to prevent empty files and syntax error - Remove when the 1st real service will be added here 
         </description>
-    </service> 
-    
+	</service>
+
+	<service name="createVvProduct" default-entity-name="VvProduct" engine="entity-auto" invoke="create" auth="true">
+		<description>Create a VvProduct</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="CREATE" />
+		<auto-attributes include="pk" mode="OUT" optional="false" />
+		<auto-attributes include="nonpk" mode="IN" optional="true" />
+		<override name="name" optional="false" />
+		<override name="weight" optional="false" />
+	</service>
+	<service name="updateVvProduct" default-entity-name="VvProduct" engine="entity-auto" invoke="update" auth="true">
+		<description>Update a VvProduct</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="UPDATE" />
+		<auto-attributes include="pk" mode="IN" optional="false" />
+		<auto-attributes include="nonpk" mode="IN" optional="true" />
+	</service>
+	<service name="deleteVvProduct" default-entity-name="VvProduct" engine="entity-auto" invoke="delete" auth="true">
+		<description>Delete a VvProduct</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="DELETE" />
+		<auto-attributes include="pk" mode="IN" optional="false" />
+	</service>
+
+	<service name="createVvPartner" default-entity-name="VvPartner" engine="entity-auto" invoke="create" auth="true">
+		<description>Create a VvPartner</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="CREATE" />
+		<auto-attributes include="pk" mode="OUT" optional="false" />
+		<auto-attributes include="nonpk" mode="IN" optional="true" />
+		<override name="name" optional="false" />
+		<override name="weight" optional="false" />
+	</service>
+	<service name="updateVvPartner" default-entity-name="VvPartner" engine="entity-auto" invoke="update" auth="true">
+		<description>Update a VvPartner</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="UPDATE" />
+		<auto-attributes include="pk" mode="IN" optional="false" />
+		<auto-attributes include="nonpk" mode="IN" optional="true" />
+	</service>
+	<service name="deleteVvPartner" default-entity-name="VvPartner" engine="entity-auto" invoke="delete" auth="true">
+		<description>Delete a VvPartner</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="DELETE" />
+		<auto-attributes include="pk" mode="IN" optional="false" />
+	</service>
+
+	<service name="createVvOrder" default-entity-name="VvOrder" engine="entity-auto" invoke="create" auth="true">
+		<description>Create a VvOrder</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="CREATE" />
+		<auto-attributes include="pk" mode="OUT" optional="false" />
+		<auto-attributes include="nonpk" mode="IN" optional="true" />
+		<override name="partnerId" optional="false" />
+		<override name="vvorderDate" optional="false" />
+		<override name="dueDate" optional="false" />
+	</service>
+	<service name="updateVvOrder" default-entity-name="VvOrder" engine="entity-auto" invoke="update" auth="true">
+		<description>Update a VvOrder</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="UPDATE" />
+		<auto-attributes include="pk" mode="IN" optional="false" />
+		<auto-attributes include="nonpk" mode="IN" optional="true" />
+	</service>
+	<service name="deleteVvOrder" default-entity-name="VvOrder" engine="entity-auto" invoke="delete" auth="true">
+		<description>Delete a VvOrder</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="DELETE" />
+		<auto-attributes include="pk" mode="IN" optional="false" />
+	</service>
+
+	<service name="createVvOrderItem" default-entity-name="VvOrderItem" engine="entity-auto" invoke="create" auth="true">
+		<description>Create a VvOrderItem</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="CREATE" />
+		<auto-attributes include="pk" mode="IN" optional="false" />
+		<auto-attributes include="nonpk" mode="IN" optional="true" />
+		<override name="vvorderItemSeqId" mode="OUT" /> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->
+	</service>
+	<service name="updateVvOrderItem" default-entity-name="VvOrderItem" engine="entity-auto" invoke="update" auth="true">
+		<description>Update a VvOrderItem</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="UPDATE" />
+		<auto-attributes include="pk" mode="IN" optional="false" />
+		<auto-attributes include="nonpk" mode="IN" optional="true" />
+	</service>
+	<service name="deleteVvOrderItem" default-entity-name="VvOrderItem" engine="entity-auto" invoke="delete" auth="true">
+		<description>Delete a VvOrderItem</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="DELETE" />
+		<auto-attributes include="pk" mode="IN" optional="false" />
+	</service>
+
+	<service name="createVvShipment" default-entity-name="VvShipment" engine="entity-auto" invoke="create" auth="true">
+		<description>Create a VvShipment</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="CREATE" />
+		<auto-attributes include="pk" mode="OUT" optional="false" />
+		<auto-attributes include="nonpk" mode="IN" optional="true" />
+		<override name="partnerId" optional="false" />
+		<override name="dueDate" optional="false" />
+	</service>
+	<service name="updateVvShipment" default-entity-name="VvShipment" engine="entity-auto" invoke="update" auth="true">
+		<description>Update a VvShipment</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="UPDATE" />
+		<auto-attributes include="pk" mode="IN" optional="false" />
+		<auto-attributes include="nonpk" mode="IN" optional="true" />
+	</service>
+	<service name="deleteVvShipment" default-entity-name="VvShipment" engine="entity-auto" invoke="delete" auth="true">
+		<description>Delete a VvShipment</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="DELETE" />
+		<auto-attributes include="pk" mode="IN" optional="false" />
+	</service>
+
+	<service name="createVvShipmentItem" default-entity-name="VvShipmentItem" engine="entity-auto" invoke="create" auth="true">
+		<description>Create a VvShipmentItem</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="CREATE" />
+		<auto-attributes include="pk" mode="IN" optional="false" />
+		<auto-attributes include="nonpk" mode="IN" optional="true" />
+		<override name="vvshipmentItemSeqId" mode="OUT" /> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->
+	</service>
+	<service name="updateVvShipmentItem" default-entity-name="VvShipmentItem" engine="entity-auto" invoke="update" auth="true">
+		<description>Update a VvShipmentItem</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="UPDATE" />
+		<auto-attributes include="pk" mode="IN" optional="false" />
+		<auto-attributes include="nonpk" mode="IN" optional="true" />
+	</service>
+	<service name="deleteVvShipmentItem" default-entity-name="VvShipmentItem" engine="entity-auto" invoke="delete" auth="true">
+		<description>Delete a VvShipmentItem</description>
+		<permission-service service-name="vvorderGenericPermission" main-action="DELETE" />
+		<auto-attributes include="pk" mode="IN" optional="false" />
+	</service>
+
+
 </services>
