@@ -1,25 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE file distributed 
+	with this work for additional information regarding copyright ownership. The ASF licenses this file to you under the Apache License, 
+	Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License 
+	at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under 
+	the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License 
+	for the specific language governing permissions and limitations under the License. -->
 
-http://www.apache.org/licenses/LICENSE-2.0
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form"
+	xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
--->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+	<form name="EditVvPartner" type="single" target="updateVvPartner" title="" default-map-name="VvPartner" default-entity-name="VvPartner">
+		<alt-target use-when="VvPartner==null" target="createVvPartner" />
+		<!-- <auto-fields-service service-name="updateShipment"/> -->
+		<field use-when="VvPartner!=null" name="partnerId" title="${uiLabelMap.PartnerId}">
+			<display />
+		</field>
+		<field use-when="VvPartner==null @and partnerId==null" name="partnerId" title="${uiLabelMap.GeneralId}">
+			<ignored />
+		</field>
+
+
+		<field name="name" title="${uiLabelMap.Name}">
+			<text size="50" maxlength="50" />
+		</field>
+
+
+		<field name="submitButton" use-when="VvPartner==null" title="${uiLabelMap.CommonCreate}">
+			<submit button-type="button" />
+		</field>
+		<field name="submitButton" use-when="VvPartner!=null" title="${uiLabelMap.CommonUpdate}">
+			<submit button-type="button" />
+		</field>
+
+
+	</form>
+
+	<form name="FindVvPartners" type="single" target="findVvPartners" default-entity-name="VvPartner">
+
+		<field name="noConditionFind">
+			<hidden value="Y" /><!-- if this isn't there then with all fields empty no query will be done -->
+		</field>
+		
+		<field name="name" title="${uiLabelMap.Name}">
+
+			<text-find />
+		</field>
+
+
+
+		<field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+			<submit button-type="button" />
+		</field>
+
+
+	</form>
+
+	<form name="ListVvPartners" list-name="list" target="" title="" type="list" paginate-target="findVvPartners" odd-row-style="alternate-row"
+		default-table-style="basic-table hover-bar" header-row-style="header-row-2" override-list-size="true">
+
+		<actions>
+			<set field="requestParameters.noConditionFind" value="Y" />
+			<set field="entityName" value="VvPartner" />
+			<service service-name="performFindList" result-map="result" result-map-list="list">
+				<field-map field-name="inputFields" from-field="requestParameters" />
+				<field-map field-name="entityName" from-field="entityName" />
+				<field-map field-name="orderBy" from-field="parameters.sortField" />
+				<field-map field-name="viewIndex" from-field="viewIndex" />
+				<field-map field-name="viewSize" from-field="viewSize" />
+			</service>
+		</actions>
+
+
+
+		<field name="partnerId" title="${uiLabelMap.GeneralId}" widget-style="buttontext" sort-field="true">
+			<hyperlink description="${partnerId}" target="EditVvPartner" also-hidden="false">
+				<parameter param-name="partnerId" />
+			</hyperlink>
+		</field>
+
+		<field name="name" title="${uiLabelMap.Name}" widget-style="buttontext" sort-field="true">
+			<display />
+		</field>
+
+
+
+
+
+		<field name="deleteLink" title=" " widget-style="buttontext">
+			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvPartner" also-hidden="false"
+				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
+				<parameter param-name="partnerId" />
+			</hyperlink>
+		</field>
+
+
+	</form>
 
 
 </forms>

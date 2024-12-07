@@ -26,6 +26,38 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
 
     <description>Vvorder Component Site Configuration File</description>
+    
+    <request-map uri="findVvPartners">
+		<security https="true" auth="true" />
+		<response name="success" type="view" value="findVvPartners" />
+	</request-map>
+	<request-map uri="EditVvPartner">
+		<security https="true" auth="true" />
+		<response name="success" type="view" value="EditVvPartner" />
+	</request-map>
+	<request-map uri="createVvPartner">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="createVvPartner" />
+		<response name="success" type="request-redirect" value="findVvPartners">
+			<!-- <response name="success" type="request-redirect" value="EditVvPartner"> <redirect-parameter name="productId" /> -->
+		</response>
+		<response name="error" type="view" value="EditVvPartner" />
+	</request-map>
+	<request-map uri="updateVvPartner">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="updateVvPartner" />
+		<response name="success" type="view" value="EditVvPartner" />
+		<response name="error" type="view" value="EditVvPartner" />
+	</request-map>
+	<request-map uri="deleteVvPartner">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="deleteVvPartner" />
+		<response name="success" type="view" value="findVvPartners" />
+		<response name="error" type="view" value="findVvPartners" />
+	</request-map>
+    
+    
+    
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
@@ -44,4 +76,10 @@ under the License.
     
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://vvorder/widget/VvorderScreens.xml#main"/>
+    
+    <view-map name="findVvPartners" type="screen" page="component://vvorder/widget/VvorderScreens.xml#FindVvPartners" />
+	<view-map name="EditVvPartner" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvPartner" />
+    
+    
+    
 </site-conf>

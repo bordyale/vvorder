@@ -34,5 +34,68 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="FindVvPartners">
+		<section>
+			<actions>
+				<set field="titleProperty" value="FindVvPartners" />
+				<set field="headerItem" value="findVvPartners" />
+
+				<set field="formShippingListName" value="${groovy: return 'ListVvPartners';}" />
+				<!-- <script location="component://vforder/groovyScripts/FindShipping.groovy" /> -->
+
+				<!-- asmselect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
+
+			</actions>
+			<widgets>
+				<decorator-screen name="VvorderCommonDecorator" location="${parameters.mainDecoratorLocation}">
+					<decorator-section name="body">
+						<section>
+							<widgets>
+								<container style="h2">
+									<label>${uiLabelMap.NewCommon}</label>
+								</container>
+								<container>
+									<include-form name="EditVvPartner" location="component://vvorder/widget/VvorderForms.xml" />
+								</container>
+								<decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+									<decorator-section name="search-options">
+										<include-form name="FindVvPartners" location="component://vvorder/widget/VvorderForms.xml" />
+									</decorator-section>
+									<decorator-section name="search-results">
+										<include-form name="${formShippingListName}" location="component://vvorder/widget/VvorderForms.xml" />
+									</decorator-section>
+								</decorator-screen>
+
+							</widgets>
+						</section>
+					</decorator-section>
+				</decorator-screen>
+			</widgets>
+		</section>
+	</screen>
+	
+	<screen name="EditVvPartner">
+		<section>
+			<actions>
+				<set field="titleProperty" value="FindVvPartner" />
+				<set field="headerItem" value="findVvPartners" />
+				<set field="partnerId" from-field="parameters.partnerId" />
+				<!-- <set field="workpapersId" from-field="parameters.workpapersId" /> -->
+				<entity-one entity-name="VvPartner" value-field="VvPartner" />
+			</actions>
+			<widgets>
+				<decorator-screen name="VvorderCommonDecorator" location="${parameters.mainDecoratorLocation}">
+					<decorator-section name="body">
+
+						<screenlet title="${uiLabelMap.EditVvPartner}">
+							<include-form name="EditVvPartner" location="component://vvorder/widget/VvorderForms.xml" />
+						</screenlet>
+
+					</decorator-section>
+				</decorator-screen>
+			</widgets>
+		</section>
+	</screen>
 
 </screens>

@@ -135,6 +135,11 @@
 		<permission-service service-name="vvorderGenericPermission" main-action="DELETE" />
 		<auto-attributes include="pk" mode="IN" optional="false" />
 	</service>
+	
+	<service name="vvorderGenericPermission" engine="simple" location="component://vvorder/minilang/VvOrderPermissionServices.xml"
+		invoke="vvorderGenericPermission">
+		<implements service="permissionInterface" />
+	</service>
 
 
 </services>
