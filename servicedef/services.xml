@@ -63,7 +63,7 @@
 		<auto-attributes include="pk" mode="OUT" optional="false" />
 		<auto-attributes include="nonpk" mode="IN" optional="true" />
 		<override name="partnerId" optional="false" />
-		<override name="vvorderDate" optional="false" />
+		<override name="orderDate" optional="false" />
 		<override name="dueDate" optional="false" />
 	</service>
 	<service name="updateVvOrder" default-entity-name="VvOrder" engine="entity-auto" invoke="update" auth="true">
@@ -83,7 +83,7 @@
 		<permission-service service-name="vvorderGenericPermission" main-action="CREATE" />
 		<auto-attributes include="pk" mode="IN" optional="false" />
 		<auto-attributes include="nonpk" mode="IN" optional="true" />
-		<override name="vvorderItemSeqId" mode="OUT" /> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->
+		<override name="orderItemSeqId" mode="OUT" />		
 	</service>
 	<service name="updateVvOrderItem" default-entity-name="VvOrderItem" engine="entity-auto" invoke="update" auth="true">
 		<description>Update a VvOrderItem</description>

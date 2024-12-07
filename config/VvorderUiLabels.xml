@@ -21,6 +21,7 @@ under the License.
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="VvorderApplication">
         <value xml:lang="en">Vvorder Application</value>
+        <value xml:lang="en">Vulkán Rendelések App</value>
         <value xml:lang="zh">Vvorder应用程序</value>
         <value xml:lang="zh-TW">Vvorder應用程式</value>
     </property>
@@ -38,5 +39,37 @@ under the License.
         <value xml:lang="en">You are not allowed to view this page.</value>
         <value xml:lang="zh">不允许你浏览这个页面。</value>
         <value xml:lang="zh-TW">不允許您檢視這個頁面.</value>
+    </property>
+    
+    <property key="FindVvProduct">
+        <value xml:lang="en">Find Vulkán Products</value>
+        <value xml:lang="hu">Vulkán Termékek</value>
+        
+    </property>
+    <property key="FindVvPartners">
+        <value xml:lang="en">Find Vulkán Partners</value>
+        <value xml:lang="hu">Vulkán Partnerek</value>
+        
+    </property>
+    
+    <property key="VvPartners">
+        <value xml:lang="en">Partners</value>
+        <value xml:lang="hu">Partners</value>   
+    </property>
+     <property key="VvProducts">
+        <value xml:lang="en">Products</value>
+        <value xml:lang="hu">Termékek</value>   
+    </property>
+    <property key="VvNew">
+        <value xml:lang="en">New</value>
+        <value xml:lang="hu">Új</value>   
+    </property>
+    <property key="VvName">
+        <value xml:lang="en">Name</value>
+        <value xml:lang="hu">Név</value>   
+    </property>
+    <property key="VvOrders">
+        <value xml:lang="en">Orders</value>
+        <value xml:lang="hu">Rendelések</value>   
     </property>
 </resource>

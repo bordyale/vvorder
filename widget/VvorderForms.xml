@@ -19,41 +19,27 @@
 		<field use-when="VvPartner==null @and partnerId==null" name="partnerId" title="${uiLabelMap.GeneralId}">
 			<ignored />
 		</field>
-
-
-		<field name="name" title="${uiLabelMap.Name}">
+		<field name="name" title="${uiLabelMap.VvName}">
 			<text size="50" maxlength="50" />
 		</field>
-
-
 		<field name="submitButton" use-when="VvPartner==null" title="${uiLabelMap.CommonCreate}">
 			<submit button-type="button" />
 		</field>
 		<field name="submitButton" use-when="VvPartner!=null" title="${uiLabelMap.CommonUpdate}">
 			<submit button-type="button" />
 		</field>
-
-
 	</form>
 
 	<form name="FindVvPartners" type="single" target="findVvPartners" default-entity-name="VvPartner">
-
 		<field name="noConditionFind">
 			<hidden value="Y" /><!-- if this isn't there then with all fields empty no query will be done -->
 		</field>
-		
-		<field name="name" title="${uiLabelMap.Name}">
-
+		<field name="name" title="${uiLabelMap.VvName}">
 			<text-find />
 		</field>
-
-
-
 		<field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
 			<submit button-type="button" />
 		</field>
-
-
 	</form>
 
 	<form name="ListVvPartners" list-name="list" target="" title="" type="list" paginate-target="findVvPartners" odd-row-style="alternate-row"
@@ -70,31 +56,209 @@
 				<field-map field-name="viewSize" from-field="viewSize" />
 			</service>
 		</actions>
-
-
-
 		<field name="partnerId" title="${uiLabelMap.GeneralId}" widget-style="buttontext" sort-field="true">
 			<hyperlink description="${partnerId}" target="EditVvPartner" also-hidden="false">
 				<parameter param-name="partnerId" />
 			</hyperlink>
 		</field>
-
-		<field name="name" title="${uiLabelMap.Name}" widget-style="buttontext" sort-field="true">
+		<field name="name" title="${uiLabelMap.VvName}" widget-style="buttontext" sort-field="true">
 			<display />
 		</field>
-
-
-
-
-
 		<field name="deleteLink" title=" " widget-style="buttontext">
 			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvPartner" also-hidden="false"
 				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
 				<parameter param-name="partnerId" />
 			</hyperlink>
 		</field>
+	</form>
+	<form name="EditVvProduct" type="single" target="updateVvProduct" title="" default-map-name="VvProduct" default-entity-name="VvProduct">
+		<alt-target use-when="VvProduct==null" target="createVvProduct" />
+		<!-- <auto-fields-service service-name="updateShipment"/> -->
+		<field use-when="VvProduct!=null" name="productId" title="${uiLabelMap.ProductId}">
+			<display />
+		</field>
+		<field use-when="VvProduct==null @and productId==null" name="productId" title="${uiLabelMap.GeneralId}">
+			<ignored />
+		</field>
+		<field name="name" title="${uiLabelMap.VvName}">
+			<text size="50" maxlength="50" />
+		</field>
+		<field name="weight" title="${uiLabelMap.VvWeight}">
+			<text size="50" maxlength="50" />
+		</field>
+		<field name="submitButton" use-when="VvProduct==null" title="${uiLabelMap.CommonCreate}">
+			<submit button-type="button" />
+		</field>
+		<field name="submitButton" use-when="VvProduct!=null" title="${uiLabelMap.CommonUpdate}">
+			<submit button-type="button" />
+		</field>
+	</form>
 
+	<form name="FindVvProducts" type="single" target="findVvProducts" default-entity-name="VvProduct">
+		<field name="noConditionFind">
+			<hidden value="Y" /><!-- if this isn't there then with all fields empty no query will be done -->
+		</field>
+		<field name="name" title="${uiLabelMap.VvName}">
+			<text-find />
+		</field>
+		<field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+			<submit button-type="button" />
+		</field>
+	</form>
 
+	<form name="ListVvProducts" list-name="list" target="" title="" type="list" paginate-target="findVvProducts" odd-row-style="alternate-row"
+		default-table-style="basic-table hover-bar" header-row-style="header-row-2" override-list-size="true">
+
+		<actions>
+			<set field="requestParameters.noConditionFind" value="Y" />
+			<set field="entityName" value="VvProduct" />
+			<service service-name="performFindList" result-map="result" result-map-list="list">
+				<field-map field-name="inputFields" from-field="requestParameters" />
+				<field-map field-name="entityName" from-field="entityName" />
+				<field-map field-name="orderBy" from-field="parameters.sortField" />
+				<field-map field-name="viewIndex" from-field="viewIndex" />
+				<field-map field-name="viewSize" from-field="viewSize" />
+			</service>
+		</actions>
+		<field name="productId" title="${uiLabelMap.GeneralId}" widget-style="buttontext" sort-field="true">
+			<hyperlink description="${productId}" target="EditVvProduct" also-hidden="false">
+				<parameter param-name="productId" />
+			</hyperlink>
+		</field>
+		<field name="name" title="${uiLabelMap.VvName}" widget-style="buttontext" sort-field="true">
+			<display />
+		</field>
+		<field name="deleteLink" title=" " widget-style="buttontext">
+			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvProduct" also-hidden="false"
+				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
+				<parameter param-name="productId" />
+			</hyperlink>
+		</field>
+	</form>
+
+	<form name="EditVvOrder" type="single" target="updateVvOrder" title="" default-map-name="VvOrder" default-entity-name="VvOrder">
+		<alt-target use-when="VvOrder==null" target="createVvOrder" />
+		<!-- <auto-fields-service service-name="updateShipment"/> -->
+		<field use-when="VvOrder!=null" name="orderId" title="${uiLabelMap.VvOrderId}">
+			<display />
+		</field>
+		<field use-when="VvOrder==null @and orderId==null" name="orderId" title="${uiLabelMap.GeneralId}">
+			<ignored />
+		</field>
+		<field name="orderName" title="${uiLabelMap.VvName}">
+			<text size="50" maxlength="50" />
+		</field>
+		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
+			<text size="50" maxlength="50" />
+		</field>
+		<field name="orderDate" title="${uiLabelMap.vvorderDate}">
+			<date-time />
+		</field>
+		<field name="dueDate" title="${uiLabelMap.dueDate}">
+			<date-time />
+		</field>
+		<field name="submitButton" use-when="VvOrder==null" title="${uiLabelMap.CommonCreate}">
+			<submit button-type="button" />
+		</field>
+		<field name="submitButton" use-when="VvOrder!=null" title="${uiLabelMap.CommonUpdate}">
+			<submit button-type="button" />
+		</field>
+	</form>
+
+	<form name="FindVvOrders" type="single" target="findVvOrders" default-entity-name="VvOrder">
+		<field name="noConditionFind">
+			<hidden value="Y" /><!-- if this isn't there then with all fields empty no query will be done -->
+		</field>
+		<field name="orderName" title="${uiLabelMap.VvName}">
+			<text-find />
+		</field>
+		<field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+			<submit button-type="button" />
+		</field>
+	</form>
+
+	<form name="ListVvOrders" list-name="list" target="" title="" type="list" paginate-target="findVvOrders" odd-row-style="alternate-row"
+		default-table-style="basic-table hover-bar" header-row-style="header-row-2" override-list-size="true">
+
+		<actions>
+			<set field="requestParameters.noConditionFind" value="Y" />
+			<set field="entityName" value="VvOrder" />
+			<service service-name="performFindList" result-map="result" result-map-list="list">
+				<field-map field-name="inputFields" from-field="requestParameters" />
+				<field-map field-name="entityName" from-field="entityName" />
+				<field-map field-name="orderBy" from-field="parameters.sortField" />
+				<field-map field-name="viewIndex" from-field="viewIndex" />
+				<field-map field-name="viewSize" from-field="viewSize" />
+			</service>
+		</actions>
+		<field name="orderId" title="${uiLabelMap.GeneralId}" widget-style="buttontext" sort-field="true">
+			<hyperlink description="${orderId}" target="EditVvOrder" also-hidden="false">
+				<parameter param-name="orderId" />
+			</hyperlink>
+		</field>
+		<field name="orderName" title="${uiLabelMap.VvName}">
+			<text size="50" maxlength="50" />
+		</field>
+		<field name="partnerId" title="${uiLabelMap.GeneralId}" widget-style="buttontext" sort-field="true">
+			<text size="50" maxlength="50" />
+		</field>
+		<field name="orderDate" title="${uiLabelMap.vvorderDate}">
+			<date-time />
+		</field>
+		<field name="dueDate" title="${uiLabelMap.dueDate}">
+			<date-time />
+		</field>
+		<field name="deleteLink" title=" " widget-style="buttontext">
+			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvOrder" also-hidden="false"
+				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
+				<parameter param-name="orderId" />
+			</hyperlink>
+		</field>
+	</form>
+
+	<!-- VvOrderItem -->
+	<grid name="ListVvOrderItems" list-name="orderItems" target="updateVvOrderItem">
+		<actions>
+			<entity-condition entity-name="VvOrderItem">
+				<condition-expr field-name="orderId" from-field="orderId" />
+				<order-by field-name="orderItemSeqId" />
+			</entity-condition>
+		</actions>
+		<auto-fields-service service-name="updateVvOrderItem" />
+		<field name="orderId">
+			<hidden />
+		</field>
+		<field name="orderItemSeqId" title="${uiLabelMap.CommonItem}">
+			<display />
+		</field>
+		<field name="description">
+			<text size="30" />
+		</field>
+
+		<field name="deleteLink" title=" " widget-style="buttontext">
+			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvOrderItem" also-hidden="false"
+				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
+				<parameter param-name="orderId" />
+				<parameter param-name="orderItemSeqId" />
+			</hyperlink>
+		</field>
+		<field name="submitButton" title="${uiLabelMap.CommonUpdate}">
+			<submit button-type="button" />
+		</field>
+	</grid>
+
+	<form name="AddVvOrderItem" type="single" target="createVvOrderItem" title="">
+		<auto-fields-service service-name="createVvOrderItem" />
+		<field name="orderId">
+			<hidden />
+		</field>
+		<field name="orderItemSeqId">
+			<ignored /><!-- this will be auto-sequenced -->
+		</field>
+
+		<field name="submitButton" title="${uiLabelMap.CommonAdd}">
+			<submit button-type="button" request-confirmation="true" />
+		</field>
 	</form>
 
 

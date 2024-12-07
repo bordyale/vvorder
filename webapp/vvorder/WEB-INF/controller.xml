@@ -55,8 +55,94 @@ under the License.
 		<response name="success" type="view" value="findVvPartners" />
 		<response name="error" type="view" value="findVvPartners" />
 	</request-map>
+	
+	
+	
+	<request-map uri="findVvProducts">
+		<security https="true" auth="true" />
+		<response name="success" type="view" value="findVvProducts" />
+	</request-map>
+	<request-map uri="EditVvProduct">
+		<security https="true" auth="true" />
+		<response name="success" type="view" value="EditVvProduct" />
+	</request-map>
+	<request-map uri="createVvProduct">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="createVvProduct" />
+		<response name="success" type="request-redirect" value="findVvProducts">
+			<!-- <response name="success" type="request-redirect" value="EditVvProduct"> <redirect-parameter name="productId" /> -->
+		</response>
+		<response name="error" type="view" value="EditVvProduct" />
+	</request-map>
+	<request-map uri="updateVvProduct">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="updateVvProduct" />
+		<response name="success" type="view" value="EditVvProduct" />
+		<response name="error" type="view" value="EditVvProduct" />
+	</request-map>
+	<request-map uri="deleteVvProduct">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="deleteVvProduct" />
+		<response name="success" type="view" value="findVvProducts" />
+		<response name="error" type="view" value="findVvProducts" />
+	</request-map>
+	
+	
+	
+	<request-map uri="findVvOrders">
+		<security https="true" auth="true" />
+		<response name="success" type="view" value="findVvOrders" />
+	</request-map>
+	<request-map uri="EditVvOrder">
+		<security https="true" auth="true" />
+		<response name="success" type="view" value="EditVvOrder" />
+	</request-map>
+	<request-map uri="createVvOrder">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="createVvOrder" />
+		<response name="success" type="request-redirect" value="findVvOrders">
+			<!-- <response name="success" type="request-redirect" value="EditVvOrder"> <redirect-parameter name="productId" /> -->
+		</response>
+		<response name="error" type="view" value="EditVvOrder" />
+	</request-map>
+	<request-map uri="updateVvOrder">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="updateVvOrder" />
+		<response name="success" type="view" value="EditVvOrder" />
+		<response name="error" type="view" value="EditVvOrder" />
+	</request-map>
+	<request-map uri="deleteVvOrder">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="deleteVvOrder" />
+		<response name="success" type="view" value="findVvOrders" />
+		<response name="error" type="view" value="findVvOrders" />
+	</request-map>
     
-    
+    <request-map uri="EditVvOrderItems"><security https="true" auth="true"/><response name="success" type="view" value="EditVvOrderItems"/></request-map>
+    <request-map uri="createVvOrderItem">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createVvOrderItem"/>
+        <response name="success" type="request-redirect" value="EditVvOrderItems">
+            <redirect-parameter name="orderId"/>
+        </response>
+        <response name="error" type="view" value="EditVvOrderItems"/>
+    </request-map>
+    <request-map uri="updateVvOrderItem">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateVvOrderItem"/>
+        <response name="success" type="request-redirect" value="EditVvOrderItems">
+            <redirect-parameter name="orderId"/>
+        </response>
+        <response name="error" type="view" value="EditVvOrderItems"/>
+    </request-map>
+    <request-map uri="deleteVvOrderItem">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteVvOrderItem"/>
+        <response name="success" type="request-redirect" value="EditVvOrderItems">
+            <redirect-parameter name="orderId"/>
+        </response>
+        <response name="error" type="view" value="EditVvOrderItems"/>
+    </request-map>
     
 
     <!-- Events to run on every request before security (chains exempt) -->
@@ -79,6 +165,13 @@ under the License.
     
     <view-map name="findVvPartners" type="screen" page="component://vvorder/widget/VvorderScreens.xml#FindVvPartners" />
 	<view-map name="EditVvPartner" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvPartner" />
+	
+	<view-map name="findVvProducts" type="screen" page="component://vvorder/widget/VvorderScreens.xml#FindVvProducts" />
+	<view-map name="EditVvProduct" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvProduct" />
+	
+	<view-map name="findVvOrders" type="screen" page="component://vvorder/widget/VvorderScreens.xml#FindVvOrders" />
+	<view-map name="EditVvOrder" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvOrder" />
+	<view-map name="EditVvOrderItems" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvOrderItems"/>
     
     
     

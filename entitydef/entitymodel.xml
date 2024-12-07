@@ -30,36 +30,36 @@
 
 
 	<entity entity-name="VvOrder" package-name="org.apache.ofbiz.vvorder.vvorder" title="VvOrder Entity">
-		<field name="vvorderId" type="id">
+		<field name="orderId" type="id">
 			<description>primary sequenced ID</description>
 		</field>
 		<field name="statusId" type="id"></field>
 		<field name="partnerId" type="id"></field>
-		<field name="vvorderName" type="name"></field>
+		<field name="orderName" type="name"></field>
 		<field name="description" type="description"></field>
 		<field name="comments" type="comment"></field>
-		<field name="vvorderDate" type="date-time"></field>
+		<field name="orderDate" type="date-time"></field>
 		<field name="dueDate" type="date-time"></field>
-		<prim-key field="vvorderId" />
+		<prim-key field="orderId" />
 		<relation type="one" fk-name="partnerId" rel-entity-name="VvPartner">
 			<key-map field-name="partnerId" />
 		</relation>
 	</entity>
 	<entity entity-name="VvOrderItem" package-name="org.apache.ofbiz.vvorder.vvorder" title="VvOrder Item Entity">
-		<field name="vvorderId" type="id"></field>
-		<field name="vvorderItemSeqId" type="id">
+		<field name="orderId" type="id"></field>
+		<field name="orderItemSeqId" type="id">
 			<description>secondary sequenced ID</description>
 		</field>
 		<field name="quantity" type="floating-point"></field>
 		<field name="productId" type="id"></field>
-		<prim-key field="vvorderId" />
-		<prim-key field="vvorderItemSeqId" />
+		<prim-key field="orderId" />
+		<prim-key field="orderItemSeqId" />
 		<relation type="one" fk-name="PRODUCT_ID" title="productId" rel-entity-name="VvProduct">
 			<key-map field-name="productId" rel-field-name="productId" />
 		</relation>
 	</entity>
 	<entity entity-name="VvShipment" package-name="org.apache.ofbiz.vvshipment.vvshipment" title="VvShipment Entity">
-		<field name="vvshipmentId" type="id">
+		<field name="shipmentId" type="id">
 			<description>primary sequenced ID</description>
 		</field>
 		<field name="statusId" type="id"></field>
@@ -67,29 +67,29 @@
 
 		<field name="description" type="description"></field>
 		<field name="comments" type="comment"></field>
-		<field name="vvshipmentDate" type="date-time"></field>
+		<field name="shipmentDate" type="date-time"></field>
 
-		<prim-key field="vvshipmentId" />
+		<prim-key field="shipmentId" />
 		<relation type="one" fk-name="partnerId" rel-entity-name="VvPartner">
 			<key-map field-name="partnerId" />
 		</relation>
 	</entity>
 	<entity entity-name="VvShipmentItem" package-name="org.apache.ofbiz.vvshipment.vvshipment" title="VvShipment Item Entity">
-		<field name="vvshipmentId" type="id"></field>
-		<field name="vvshipmentItemSeqId" type="id">
+		<field name="shipmentId" type="id"></field>
+		<field name="shipmentItemSeqId" type="id">
 			<description>secondary sequenced ID</description>
 		</field>
-		<field name="vvorderId" type="id"></field>
-		<field name="vvorderItemSeqId" type="id"></field>
+		<field name="orderId" type="id"></field>
+		<field name="orderItemSeqId" type="id"></field>
 		<field name="quantity" type="floating-point"></field>
 		<field name="productId" type="id"></field>
-		<prim-key field="vvshipmentId" />
-		<prim-key field="vvshipmentItemSeqId" />
+		<prim-key field="shipmentId" />
+		<prim-key field="shipmentItemSeqId" />
 		<relation type="one" fk-name="PRODUCT_ID" title="productId" rel-entity-name="VvProduct">
 			<key-map field-name="productId" rel-field-name="productId" />
 		</relation>
 		<relation type="one" fk-name="vvorderId" rel-entity-name="VvOrderItem">
-			<key-map field-name="vvorderId" />
+			<key-map field-name="orderId" />
 		</relation>
 		<relation type="one" fk-name="vvorderItemSeqId" rel-entity-name="VvOrderItem">
 			<key-map field-name="vvorderItemSeqId" />
