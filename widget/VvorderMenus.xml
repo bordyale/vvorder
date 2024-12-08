@@ -30,20 +30,49 @@
 			</condition>
 			<link target="findVvOrders" />
 		</menu-item>
+		<menu-item name="findVvShipments" title="${uiLabelMap.VvShipments}">
+			<condition>
+				<if-has-permission permission="VVORDER" action="_VIEW" />
+			</condition>
+			<link target="findVvShipments" />
+		</menu-item>
+		<menu-item name="findVvWarehouses" title="${uiLabelMap.VvWarehouses}">
+			<condition>
+				<if-has-permission permission="VVORDER" action="_VIEW" />
+			</condition>
+			<link target="findVvWarehouses" />
+		</menu-item>
+		<menu-item name="findVvReports" title="${uiLabelMap.VvReports}">
+			<condition>
+				<if-has-permission permission="VVORDER" action="_VIEW" />
+			</condition>
+			<link target="findVvReports" />
+		</menu-item>
 
 	</menu>
-	
+
 	<menu name="EditVvOrder" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="EditVvOrder" title="${uiLabelMap.VvOrderVvOrder}">
-            <link target="EditVvOrder">
-                <parameter param-name="orderId"/>
-            </link>
-        </menu-item>
-        <menu-item name="EditVvOrderItems" title="${uiLabelMap.CommonItems}">
-            <link target="EditVvOrderItems">
-                <parameter param-name="orderId"/>
-            </link>
-        </menu-item>
-       
-    </menu>
+		<menu-item name="EditVvOrder" title="${uiLabelMap.VvOrderVvOrder}">
+			<link target="EditVvOrder">
+				<parameter param-name="orderId" />
+			</link>
+		</menu-item>
+		<menu-item name="EditVvOrderItems" title="${uiLabelMap.CommonItems}">
+			<link target="EditVvOrderItems">
+				<parameter param-name="orderId" />
+			</link>
+		</menu-item>
+	</menu>
+	<menu name="EditVvShipment" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+		<menu-item name="EditVvShipment" title="${uiLabelMap.VvShipmentVvShipment}">
+			<link target="EditVvShipment">
+				<parameter param-name="shipmentId" />
+			</link>
+		</menu-item>
+		<menu-item name="EditVvShipmentItems" title="${uiLabelMap.CommonItems}">
+			<link target="EditVvShipmentItems">
+				<parameter param-name="shipmentId" />
+			</link>
+		</menu-item>
+	</menu>
 </menus>

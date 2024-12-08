@@ -72,4 +72,32 @@ under the License.
         <value xml:lang="en">Orders</value>
         <value xml:lang="hu">Rendelések</value>   
     </property>
+    <property key="VvShipments">
+        <value xml:lang="en">Shipments</value>
+        <value xml:lang="hu">Szállítások</value>   
+    </property>
+    <property key="VvWarehouses">
+        <value xml:lang="en">Warehouses</value>
+        <value xml:lang="hu">Raktár</value>   
+    </property>
+    <property key="VvReports">
+        <value xml:lang="en">Reports</value>
+        <value xml:lang="hu">Osszesítók</value>   
+    </property>
+    <property key="VvShipmentId">
+        <value xml:lang="en">Shipment Id</value>
+        <value xml:lang="hu">Shipment Id</value>   
+    </property>
+    <property key="VvStatusId">
+        <value xml:lang="en">Status Id</value>
+        <value xml:lang="hu">Status Id</value>   
+    </property>
+    <property key="VvPartnerId">
+        <value xml:lang="en">Partner Id</value>
+        <value xml:lang="hu">Partner Id</value>   
+    </property>
+    <property key="VvShipmentDateId">
+        <value xml:lang="en">Shipment Date</value>
+        <value xml:lang="hu">Szállítási Dátum</value>   
+    </property>
 </resource>

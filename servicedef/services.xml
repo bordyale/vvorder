@@ -121,8 +121,8 @@
 		<description>Create a VvShipmentItem</description>
 		<permission-service service-name="vvorderGenericPermission" main-action="CREATE" />
 		<auto-attributes include="pk" mode="IN" optional="false" />
-		<auto-attributes include="nonpk" mode="IN" optional="true" />
-		<override name="vvshipmentItemSeqId" mode="OUT" /> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->
+		<auto-attributes include="nonpk" mode="IN" optional="true" />	
+		<override name="shipmentItemSeqId" mode="OUT" /> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->
 	</service>
 	<service name="updateVvShipmentItem" default-entity-name="VvShipmentItem" engine="entity-auto" invoke="update" auth="true">
 		<description>Update a VvShipmentItem</description>

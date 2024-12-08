@@ -144,6 +144,61 @@ under the License.
         <response name="error" type="view" value="EditVvOrderItems"/>
     </request-map>
     
+    <request-map uri="findVvShipments">
+		<security https="true" auth="true" />
+		<response name="success" type="view" value="findVvShipments" />
+	</request-map>
+	<request-map uri="EditVvShipment">
+		<security https="true" auth="true" />
+		<response name="success" type="view" value="EditVvShipment" />
+	</request-map>
+	<request-map uri="createVvShipment">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="createVvShipment" />
+		<response name="success" type="request-redirect" value="findVvShipments">
+			<!-- <response name="success" type="request-redirect" value="EditVvShipment"> <redirect-parameter name="productId" /> -->
+		</response>
+		<response name="error" type="view" value="EditVvShipment" />
+	</request-map>
+	<request-map uri="updateVvShipment">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="updateVvShipment" />
+		<response name="success" type="view" value="EditVvShipment" />
+		<response name="error" type="view" value="EditVvShipment" />
+	</request-map>
+	<request-map uri="deleteVvShipment">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="deleteVvShipment" />
+		<response name="success" type="view" value="findVvShipments" />
+		<response name="error" type="view" value="findVvShipments" />
+	</request-map>
+    
+    <request-map uri="EditVvShipmentItems"><security https="true" auth="true"/><response name="success" type="view" value="EditVvShipmentItems"/></request-map>
+    <request-map uri="createVvShipmentItem">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createVvShipmentItem"/>
+        <response name="success" type="request-redirect" value="EditVvShipmentItems">
+            <redirect-parameter name="shipmentId"/>
+        </response>
+        <response name="error" type="view" value="EditVvShipmentItems"/>
+    </request-map>
+    <request-map uri="updateVvShipmentItem">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateVvShipmentItem"/>
+        <response name="success" type="request-redirect" value="EditVvShipmentItems">
+            <redirect-parameter name="shipmentId"/>
+        </response>
+        <response name="error" type="view" value="EditVvShipmentItems"/>
+    </request-map>
+    <request-map uri="deleteVvShipmentItem">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteVvShipmentItem"/>
+        <response name="success" type="request-redirect" value="EditVvShipmentItems">
+            <redirect-parameter name="shipmentId"/>
+        </response>
+        <response name="error" type="view" value="EditVvShipmentItems"/>
+    </request-map>
+    
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
@@ -172,6 +227,10 @@ under the License.
 	<view-map name="findVvOrders" type="screen" page="component://vvorder/widget/VvorderScreens.xml#FindVvOrders" />
 	<view-map name="EditVvOrder" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvOrder" />
 	<view-map name="EditVvOrderItems" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvOrderItems"/>
+	
+	<view-map name="findVvShipments" type="screen" page="component://vvorder/widget/VvorderScreens.xml#FindVvShipments" />
+	<view-map name="EditVvShipment" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvShipment" />
+	<view-map name="EditVvShipmentItems" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvShipmentItems"/>
     
     
     
