@@ -30,6 +30,7 @@
 	<entity entity-name="VvPartner" package-name="org.apache.ofbiz.order.vvorder" never-cache="true" title="VvPartner Entity">
 		<field name="partnerId" type="id"></field>
 		<field name="name" type="value"></field>
+		<field name="address" type="value"></field>
 		<prim-key field="partnerId" />
 	</entity>
 
