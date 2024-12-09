@@ -16,10 +16,15 @@
 	<version></version>
 
 	<entity entity-name="VvProduct" package-name="org.apache.ofbiz.order.vvorder" never-cache="true" title="VvProduct Entity">
+		<!-- cikk szám -->
 		<field name="productId" type="id"></field>
+		<field name="partnerId" type="id"></field>
 		<field name="name" type="value"></field>
 		<field name="weight" type="fixed-point"></field>
 		<prim-key field="productId" />
+		<relation type="one" fk-name="partnerId" rel-entity-name="VvPartner">
+			<key-map field-name="partnerId" />
+		</relation>
 	</entity>
 
 	<entity entity-name="VvPartner" package-name="org.apache.ofbiz.order.vvorder" never-cache="true" title="VvPartner Entity">
@@ -38,7 +43,7 @@
 		<field name="orderName" type="name"></field>
 		<field name="description" type="description"></field>
 		<field name="comments" type="comment"></field>
-		<field name="orderDate" type="date-time"></field>
+		
 		<field name="dueDate" type="date-time"></field>
 		<prim-key field="orderId" />
 		<relation type="one" fk-name="partnerId" rel-entity-name="VvPartner">
