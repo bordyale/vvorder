@@ -217,6 +217,7 @@
 		<section>
 			<actions>
 				<set field="titleProperty" value="PageTitleEditVvOrderItems" />
+				<set field="headerItem" value="findVvOrders" />
 				<set field="tabButtonItem" value="EditVvOrderItems" />
 				<set field="orderId" from-field="parameters.orderId" />
 			</actions>
@@ -298,6 +299,7 @@
 		<section>
 			<actions>
 				<set field="titleProperty" value="PageTitleEditVvShipmentItems" />
+				<set field="headerItem" value="findVvShipments" />
 				<set field="tabButtonItem" value="EditVvShipmentItems" />
 				<set field="orderId" from-field="parameters.orderId" />
 			</actions>

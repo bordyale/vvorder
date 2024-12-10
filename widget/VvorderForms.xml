@@ -22,6 +22,9 @@
 		<field name="name" title="${uiLabelMap.VvName}">
 			<text size="50" maxlength="50" />
 		</field>
+		<field name="address" title="${uiLabelMap.VvAddress}">
+			<text size="50" maxlength="50" />
+		</field>
 		<field name="submitButton" use-when="VvPartner==null" title="${uiLabelMap.CommonCreate}">
 			<submit button-type="button" />
 		</field>
@@ -62,6 +65,9 @@
 			</hyperlink>
 		</field>
 		<field name="name" title="${uiLabelMap.VvName}" widget-style="buttontext" sort-field="true">
+			<display />
+		</field>
+		<field name="address" title="${uiLabelMap.VvAddress}" widget-style="buttontext" sort-field="true">
 			<display />
 		</field>
 		<field name="deleteLink" title=" " widget-style="buttontext">
@@ -155,7 +161,7 @@
 			</service>
 		</actions>
 		<field name="productId" title="${uiLabelMap.GeneralId}" widget-style="buttontext" sort-field="true">
-			<hyperlink description="${productId}" target="EditVvProduct" also-hidden="false">
+			<hyperlink description="${productId}" target="EditFaseA" also-hidden="false">
 				<parameter param-name="productId" />
 			</hyperlink>
 		</field>
@@ -163,7 +169,7 @@
 			<display />
 		</field>
 		<field name="deleteLink" title=" " widget-style="buttontext">
-			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvProduct" also-hidden="false"
+			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteFaseA" also-hidden="false"
 				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
 				<parameter param-name="productId" />
 			</hyperlink>
@@ -183,7 +189,7 @@
 			<text size="50" maxlength="50" />
 		</field>
 		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
-			<text size="50" maxlength="50" />
+			<lookup target-form-name="LookupPartner" position="center" />
 		</field>
 		<field name="orderDate" title="${uiLabelMap.vvorderDate}">
 			<date-time />
@@ -289,6 +295,9 @@
 		<field name="orderItemSeqId">
 			<ignored /><!-- this will be auto-sequenced -->
 		</field>
+		<field name="productId" title="${uiLabelMap.VvProductId}">
+			<lookup target-form-name="LookupProduct" position="center" />
+		</field>
 
 		<field name="submitButton" title="${uiLabelMap.CommonAdd}">
 			<submit button-type="button" request-confirmation="true" />
@@ -309,7 +318,7 @@
 			<text size="50" maxlength="50" />
 		</field>
 		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
-			<text size="50" maxlength="50" />
+			<lookup target-form-name="LookupPartner" position="center" />
 		</field>
 		<field name="shipmentDate" title="${uiLabelMap.VvShipmentDate}">
 			<date-time />
@@ -419,11 +428,11 @@
 
 	<form name="AddVvShipmentItem" type="single" target="createVvShipmentItem" title="">
 		<auto-fields-service service-name="createVvShipmentItem" />
-		<field name="orderId">
+		<field name="shipmentId">
 			<hidden />
 		</field>
-		<field name="productId">
-			<text size="30" />
+		<field name="productId" title="${uiLabelMap.VvProductId}">
+			<lookup target-form-name="LookupProduct" position="center" />
 		</field>
 		<field name="quantity">
 			<text size="30" />
