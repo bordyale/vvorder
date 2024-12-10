@@ -194,7 +194,7 @@
 		<field name="orderDate" title="${uiLabelMap.vvorderDate}">
 			<date-time />
 		</field>
-		<field name="dueDate" title="${uiLabelMap.dueDate}">
+		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}">
 			<date-time />
 		</field>
 		<field name="submitButton" use-when="VvOrder==null" title="${uiLabelMap.CommonCreate}">
@@ -245,7 +245,7 @@
 		<field name="orderDate" title="${uiLabelMap.vvorderDate}">
 			<date-time />
 		</field>
-		<field name="dueDate" title="${uiLabelMap.dueDate}">
+		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}">
 			<date-time />
 		</field>
 		<field name="deleteLink" title=" " widget-style="buttontext">
@@ -367,7 +367,7 @@
 			<display />
 		</field>
 		<field name="shipmentDate" title="${uiLabelMap.VvShipmentDate}" sort-field="true">
-			<date-time />
+			<display />
 		</field>
 
 		<field name="deleteLink" title=" " widget-style="buttontext">
@@ -441,6 +441,30 @@
 		<field name="submitButton" title="${uiLabelMap.CommonAdd}">
 			<submit button-type="button" request-confirmation="true" />
 		</field>
+	</form>
+	
+	<form name="AddProductToShippingWithOpenOrders" type="single" use-row-submit="true" list-name="productLine" title=""
+		target="AddProductToShippingWithOpenOrders" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+		paginate-target="EditShippingItems">
+		<!-- <row-actions> <entity-one entity-name="OrderItem" value-field="product" auto-field-map="true"/> </row-actions> -->
+		<field name="shipmentId">
+			<hidden value="${shipmentId}" />
+		</field>
+
+		<!-- <field name="orderId" title="${uiLabelMap.OrderOrderId}" widget-style="buttontext"> <hyperlink description="${orderId}" target="/catalog/control/EditProductInventoryItems" 
+			target-type="inter-app"> <parameter param-name="orderId"/> </hyperlink> </field> -->
+		<field name="productId">
+			<lookup target-form-name="LookupProduct" />
+		</field>
+
+
+		<field name="quantityToShip" title="${uiLabelMap.VvQuantity}">
+			<text size="5" maxlength="10" />
+		</field>
+		<field name="submitButton" title="${uiLabelMap.OrderAddToOrder}" widget-style="smallSubmit">
+			<submit />
+		</field>
+
 	</form>
 
 

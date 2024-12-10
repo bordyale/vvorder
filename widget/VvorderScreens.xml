@@ -276,6 +276,7 @@
 			<actions>
 				<set field="titleProperty" value="FindVvShipment" />
 				<set field="headerItem" value="findVvShipments" />
+				<set field="tabButtonItem" value="EditVvShipment" />
 				<set field="shipmentId" from-field="parameters.shipmentId" />
 				<!-- <set field="workpapersId" from-field="parameters.workpapersId" /> -->
 				<entity-one entity-name="VvShipment" value-field="VvShipment" />
@@ -301,11 +302,14 @@
 				<set field="titleProperty" value="PageTitleEditVvShipmentItems" />
 				<set field="headerItem" value="findVvShipments" />
 				<set field="tabButtonItem" value="EditVvShipmentItems" />
-				<set field="orderId" from-field="parameters.orderId" />
+				<set field="shipmentId" from-field="parameters.shipmentId" />
 			</actions>
 			<widgets>
 				<decorator-screen name="VvshipmentDetailCommonDecorator" location="${parameters.mainDecoratorLocation}">
 					<decorator-section name="body">
+						<screenlet title="${uiLabelMap.AddProductToShippingWithOpenOrders}">
+							<include-form name="AddProductToShippingWithOpenOrders" location="component://vvorder/widget/VvorderForms.xml" />
+						</screenlet>
 						<include-grid name="ListVvShipmentItems" location="component://vvorder/widget/VvorderForms.xml" />
 						<include-form name="AddVvShipmentItem" location="component://vvorder/widget/VvorderForms.xml" />
 					</decorator-section>

@@ -111,4 +111,12 @@ under the License.
         <value xml:lang="en">Find Products</value>
         <value xml:lang="hu">Termék keresése</value>   
     </property>
+    <property key="AddProductToShippingWithOpenOrders">
+        <value xml:lang="en">Add Product To Shipment from Open Orders</value>
+        <value xml:lang="hu">Termék hozzaadása nyított rendelésekból</value>   
+    </property>
+    <property key="OrderAddToOrder">
+        <value xml:lang="en">Add To Shipment</value>
+        <value xml:lang="hu">Termék hozzaadása</value>   
+    </property>
 </resource>

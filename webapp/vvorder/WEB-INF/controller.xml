@@ -200,6 +200,19 @@ under the License.
     </request-map>
     
     
+    <request-map uri="AddProductToShippingWithOpenOrders">
+		<security https="true" auth="true" />
+		<event type="java" path="org.apache.ofbiz.vvorder.VvorderEvents" invoke="addShippingItemWithOpenOrder" />
+		<response name="success" type="request-redirect" value="EditVvShipmentItems">
+			<redirect-parameter name="shipmentId" />
+		</response>
+		<response name="error" type="request-redirect" value="EditVvShipmentItems">
+			<redirect-parameter name="shipmentId" />
+			<redirect-parameter name="orderId" />
+		</response>
+	</request-map>
+    
+    
     
     <request-map uri="LookupProduct">
 		<security https="true" auth="true" />
