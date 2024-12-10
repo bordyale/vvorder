@@ -20,7 +20,13 @@
 		<field name="productId" type="id"></field>
 		<field name="partnerId" type="id"></field>
 		<field name="name" type="value"></field>
+		<field name="material" type="value"></field>
+		<field name="needWork" type="value"></field>
+		<field name="needPaint" type="value"></field>
+		<field name="castTemp" type="fixed-point"></field>
 		<field name="weight" type="fixed-point"></field>
+		<field name="comment" type="value"></field>
+		<field name="wageCode" type="value"></field>
 		<prim-key field="productId" />
 		<relation type="one" fk-name="partnerId" rel-entity-name="VvPartner">
 			<key-map field-name="partnerId" />

@@ -81,11 +81,45 @@
 			<ignored />
 		</field>
 		<field name="name" title="${uiLabelMap.VvName}">
-			<text size="50" maxlength="50" />
+			<text size="20" maxlength="20" />
+		</field>
+		<field name="material" title="${uiLabelMap.VvName}">
+			<text size="20" maxlength="20" />
+		</field>
+		<field name="needWork" title="${uiLabelMap.VvName}">
+			<drop-down allow-empty="true">
+				<option key="Y" description="${uiLabelMap.CommonY}" />
+				<option key="N" description="${uiLabelMap.CommonN}" />
+			</drop-down>
+		</field>
+		<field name="needPaint" title="${uiLabelMap.VvName}">
+			<drop-down allow-empty="true">
+				<option key="Y" description="${uiLabelMap.CommonY}" />
+				<option key="N" description="${uiLabelMap.CommonN}" />
+			</drop-down>
+		</field>
+		<field name="castTemp" title="${uiLabelMap.VvWeight}">
+			<text size="10" maxlength="10" />
 		</field>
 		<field name="weight" title="${uiLabelMap.VvWeight}">
-			<text size="50" maxlength="50" />
+			<text size="10" maxlength="10" />
 		</field>
+		<field name="comment" title="${uiLabelMap.VvWeight}">
+			<text size="10" maxlength="10" />
+		</field>
+		<field name="wageCode" title="${uiLabelMap.VvWeight}">
+			<text size="10" maxlength="10" />
+		</field>
+		<field name="partnerId" title="${uiLabelMap.VvWeight}">
+			<lookup target-form-name="LookupPartner" position="center" />
+		</field>
+		
+		
+		
+		
+		
+		
+		
 		<field name="submitButton" use-when="VvProduct==null" title="${uiLabelMap.CommonCreate}">
 			<submit button-type="button" />
 		</field>

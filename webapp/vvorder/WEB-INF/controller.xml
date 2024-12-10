@@ -199,6 +199,27 @@ under the License.
         <response name="error" type="view" value="EditVvShipmentItems"/>
     </request-map>
     
+    
+    
+    <request-map uri="LookupProduct">
+		<security https="true" auth="true" />
+		<response name="success" type="view" value="LookupProduct" />
+	</request-map>
+	<request-map uri="LookupProductJson">
+		<security https="true" auth="true" />
+		<response name="success" type="request" value="json" />
+		<response name="error" type="request" value="json" />
+	</request-map>
+	<request-map uri="LookupPartner">
+		<security https="true" auth="true" />
+		<response name="success" type="view" value="LookupPartner" />
+	</request-map>
+	<request-map uri="LookupPartnerJson">
+		<security https="true" auth="true" />
+		<response name="success" type="request" value="json" />
+		<response name="error" type="request" value="json" />
+	</request-map>
+    
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
@@ -232,6 +253,9 @@ under the License.
 	<view-map name="EditVvShipment" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvShipment" />
 	<view-map name="EditVvShipmentItems" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvShipmentItems"/>
     
+    
+    <view-map name="LookupProduct" type="screen" page="component://vvorder/widget/LookupScreens.xml#LookupProduct" />
+    <view-map name="LookupPartner" type="screen" page="component://vvorder/widget/LookupScreens.xml#LookupPartner" />
     
     
 </site-conf>

@@ -25,6 +25,13 @@ under the License.
         <value xml:lang="zh">Vvorder应用程序</value>
         <value xml:lang="zh-TW">Vvorder應用程式</value>
     </property>
+        
+        <property key="Vvorder">
+        <value xml:lang="en">Vvorder Application</value>
+        <value xml:lang="zh">Vvproduction应用程序</value>
+        <value xml:lang="zh-TW">Vvproduction應用程式</value>
+        <value xml:lang="hu">Rendelések</value>
+    </property>
     <property key="VvorderCompanyName">
         <value xml:lang="en">OFBiz: Vvorder</value>
         <value xml:lang="zh-TW">OFBiz: Vvorder</value>
@@ -99,5 +106,9 @@ under the License.
     <property key="VvShipmentDateId">
         <value xml:lang="en">Shipment Date</value>
         <value xml:lang="hu">Szállítási Dátum</value>   
+    </property>
+    <property key="FindVvProducts">
+        <value xml:lang="en">Find Products</value>
+        <value xml:lang="hu">Termék keresése</value>   
     </property>
 </resource>
