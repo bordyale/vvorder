@@ -1,122 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
--->
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE file distributed 
+	with this work for additional information regarding copyright ownership. The ASF licenses this file to you under the Apache License, 
+	Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License 
+	at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under 
+	the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License 
+	for the specific language governing permissions and limitations under the License. -->
 
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
-    <property key="VvorderApplication">
-        <value xml:lang="en">Vvorder Application</value>
-        <value xml:lang="en">Vulkán Rendelések App</value>
-        <value xml:lang="zh">Vvorder应用程序</value>
-        <value xml:lang="zh-TW">Vvorder應用程式</value>
-    </property>
-        
-        <property key="Vvorder">
-        <value xml:lang="en">Vvorder Application</value>
-        <value xml:lang="zh">Vvproduction应用程序</value>
-        <value xml:lang="zh-TW">Vvproduction應用程式</value>
-        <value xml:lang="hu">Rendelések</value>
-    </property>
-    <property key="VvorderCompanyName">
-        <value xml:lang="en">OFBiz: Vvorder</value>
-        <value xml:lang="zh-TW">OFBiz: Vvorder</value>
-    </property>
-    <property key="VvorderCompanySubtitle">
-        <value xml:lang="en">Part of the Apache OFBiz Family of Open Source Software</value>
-        <value xml:lang="it">Un modulo della famiglia di software open source Apache OFBiz</value>
-        <value xml:lang="zh">开源软件OFBiz的组成部分</value>
-        <value xml:lang="zh-TW">開源軟體OFBiz的組成部分</value>
-    </property>
-    <property key="VvorderViewPermissionError">
-        <value xml:lang="en">You are not allowed to view this page.</value>
-        <value xml:lang="zh">不允许你浏览这个页面。</value>
-        <value xml:lang="zh-TW">不允許您檢視這個頁面.</value>
-    </property>
-    
-    <property key="FindVvProduct">
-        <value xml:lang="en">Find Vulkán Products</value>
-        <value xml:lang="hu">Vulkán Termékek</value>
-        
-    </property>
-    <property key="FindVvPartners">
-        <value xml:lang="en">Find Vulkán Partners</value>
-        <value xml:lang="hu">Vulkán Partnerek</value>
-        
-    </property>
-    
-    <property key="VvPartners">
-        <value xml:lang="en">Partners</value>
-        <value xml:lang="hu">Partners</value>   
-    </property>
-     <property key="VvProducts">
-        <value xml:lang="en">Products</value>
-        <value xml:lang="hu">Termékek</value>   
-    </property>
-    <property key="VvNew">
-        <value xml:lang="en">New</value>
-        <value xml:lang="hu">Új</value>   
-    </property>
-    <property key="VvName">
-        <value xml:lang="en">Name</value>
-        <value xml:lang="hu">Név</value>   
-    </property>
-    <property key="VvOrders">
-        <value xml:lang="en">Orders</value>
-        <value xml:lang="hu">Rendelések</value>   
-    </property>
-    <property key="VvShipments">
-        <value xml:lang="en">Shipments</value>
-        <value xml:lang="hu">Szállítások</value>   
-    </property>
-    <property key="VvWarehouses">
-        <value xml:lang="en">Warehouses</value>
-        <value xml:lang="hu">Raktár</value>   
-    </property>
-    <property key="VvReports">
-        <value xml:lang="en">Reports</value>
-        <value xml:lang="hu">Osszesítók</value>   
-    </property>
-    <property key="VvShipmentId">
-        <value xml:lang="en">Shipment Id</value>
-        <value xml:lang="hu">Shipment Id</value>   
-    </property>
-    <property key="VvStatusId">
-        <value xml:lang="en">Status Id</value>
-        <value xml:lang="hu">Status Id</value>   
-    </property>
-    <property key="VvPartnerId">
-        <value xml:lang="en">Partner Id</value>
-        <value xml:lang="hu">Partner Id</value>   
-    </property>
-    <property key="VvShipmentDateId">
-        <value xml:lang="en">Shipment Date</value>
-        <value xml:lang="hu">Szállítási Dátum</value>   
-    </property>
-    <property key="FindVvProducts">
-        <value xml:lang="en">Find Products</value>
-        <value xml:lang="hu">Termék keresése</value>   
-    </property>
-    <property key="AddProductToShippingWithOpenOrders">
-        <value xml:lang="en">Add Product To Shipment from Open Orders</value>
-        <value xml:lang="hu">Termék hozzaadása nyított rendelésekból</value>   
-    </property>
-    <property key="OrderAddToOrder">
-        <value xml:lang="en">Add To Shipment</value>
-        <value xml:lang="hu">Termék hozzaadása</value>   
-    </property>
+	<property key="VvorderApplication">
+		<value xml:lang="en">Vvorder Application</value>
+		<value xml:lang="en">Vulkán Rendelések App</value>
+		<value xml:lang="zh">Vvorder应用程序</value>
+		<value xml:lang="zh-TW">Vvorder應用程式</value>
+	</property>
+
+	<property key="Vvorder">
+		<value xml:lang="en">Vvorder Application</value>
+		<value xml:lang="zh">Vvproduction应用程序</value>
+		<value xml:lang="zh-TW">Vvproduction應用程式</value>
+		<value xml:lang="hu">Rendelések</value>
+	</property>
+	<property key="VvorderCompanyName">
+		<value xml:lang="en">OFBiz: Vvorder</value>
+		<value xml:lang="zh-TW">OFBiz: Vvorder</value>
+	</property>
+	<property key="VvorderCompanySubtitle">
+		<value xml:lang="en">Part of the Apache OFBiz Family of Open Source Software</value>
+		<value xml:lang="it">Un modulo della famiglia di software open source Apache OFBiz</value>
+		<value xml:lang="zh">开源软件OFBiz的组成部分</value>
+		<value xml:lang="zh-TW">開源軟體OFBiz的組成部分</value>
+	</property>
+	<property key="VvorderViewPermissionError">
+		<value xml:lang="en">You are not allowed to view this page.</value>
+		<value xml:lang="zh">不允许你浏览这个页面。</value>
+		<value xml:lang="zh-TW">不允許您檢視這個頁面.</value>
+	</property>
+
+	<property key="FindVvProduct">
+		<value xml:lang="en">Find Vulkán Products</value>
+		<value xml:lang="hu">Vulkán Termékek</value>
+
+	</property>
+	<property key="FindVvPartners">
+		<value xml:lang="en">Find Vulkán Partners</value>
+		<value xml:lang="hu">Vulkán Partnerek</value>
+
+	</property>
+
+	<property key="VvPartners">
+		<value xml:lang="en">Partners</value>
+		<value xml:lang="hu">Partners</value>
+	</property>
+	<property key="VvProducts">
+		<value xml:lang="en">Products</value>
+		<value xml:lang="hu">Termékek</value>
+	</property>
+	<property key="VvNew">
+		<value xml:lang="en">New</value>
+		<value xml:lang="hu">Új</value>
+	</property>
+	<property key="VvName">
+		<value xml:lang="en">Name</value>
+		<value xml:lang="hu">Név</value>
+	</property>
+	<property key="VvOrders">
+		<value xml:lang="en">Orders</value>
+		<value xml:lang="hu">Rendelések</value>
+	</property>
+	<property key="VvShipments">
+		<value xml:lang="en">Shipments</value>
+		<value xml:lang="hu">Szállítások</value>
+	</property>
+	<property key="VvWarehouses">
+		<value xml:lang="en">Warehouses</value>
+		<value xml:lang="hu">Raktár</value>
+	</property>
+	<property key="VvReports">
+		<value xml:lang="en">Reports</value>
+		<value xml:lang="hu">Osszesítók</value>
+	</property>
+	<property key="VvShipmentId">
+		<value xml:lang="en">Shipment Id</value>
+		<value xml:lang="hu">Shipment Id</value>
+	</property>
+	<property key="VvStatusId">
+		<value xml:lang="en">Status Id</value>
+		<value xml:lang="hu">Status Id</value>
+	</property>
+	<property key="VvPartnerId">
+		<value xml:lang="en">Partner Id</value>
+		<value xml:lang="hu">Partner Id</value>
+	</property>
+	<property key="VvShipmentDateId">
+		<value xml:lang="en">Shipment Date</value>
+		<value xml:lang="hu">Szállítási Dátum</value>
+	</property>
+	<property key="FindVvProducts">
+		<value xml:lang="en">Find Products</value>
+		<value xml:lang="hu">Termék keresése</value>
+	</property>
+	<property key="AddProductToShippingWithOpenOrders">
+		<value xml:lang="en">Add Product To Shipment from Open Orders</value>
+		<value xml:lang="hu">Termék hozzaadása nyított rendelésekból</value>
+	</property>
+	<property key="OrderAddToOrder">
+		<value xml:lang="en">Add To Shipment</value>
+		<value xml:lang="hu">Termék hozzaadása</value>
+	</property>
+	<property key="VvShipmentDate">
+		<value xml:lang="en">Shipment Date</value>
+		<value xml:lang="hu">Szállítási Dátum</value>
+	</property>
+	<property key="VvShipmentVvShipment">
+		<value xml:lang="en">Edit Shipment</value>
+		<value xml:lang="hu">Szállítás Módósítása</value>
+	</property>
+	<property key="VvCommonItems">
+		<value xml:lang="en">Items</value>
+		<value xml:lang="hu">Tételek</value>
+	</property>
+	<property key="VvOrderVvOrder">
+		<value xml:lang="en">Edit Shipment</value>
+		<value xml:lang="hu">Szállítás Módósítása</value>
+	</property>
 </resource>

@@ -57,7 +57,7 @@
 				<parameter param-name="orderId" />
 			</link>
 		</menu-item>
-		<menu-item name="EditVvOrderItems" title="${uiLabelMap.CommonItems}">
+		<menu-item name="EditVvOrderItems" title="${uiLabelMap.VvCommonItems}">
 			<link target="EditVvOrderItems">
 				<parameter param-name="orderId" />
 			</link>
@@ -69,7 +69,7 @@
 				<parameter param-name="shipmentId" />
 			</link>
 		</menu-item>
-		<menu-item name="EditVvShipmentItems" title="${uiLabelMap.CommonItems}">
+		<menu-item name="EditVvShipmentItems" title="${uiLabelMap.VvCommonItems}">
 			<link target="EditVvShipmentItems">
 				<parameter param-name="shipmentId" />
 			</link>

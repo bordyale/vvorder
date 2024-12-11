@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.apache.ofbiz.vforder;
+package org.apache.ofbiz.vvorder;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -77,7 +77,7 @@ import org.apache.ofbiz.webapp.control.RequestHandler;
  */
 public class VvorderEvents {
 
-	public static String module = VforderEvents.class.getName();
+	public static String module = VvorderEvents.class.getName();
 
 	public static final String resource = "OrderUiLabels";
 	public static final String resource_error = "OrderErrorUiLabels";
@@ -87,8 +87,6 @@ public class VvorderEvents {
 	private static final String ERROR = "error";
 
 	public static final MathContext generalRounding = new MathContext(10);
-
-	
 
 	public static String addShippingItemWithOpenOrder(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
@@ -140,14 +138,14 @@ public class VvorderEvents {
 		GenericValue vfOrdItemShipItem = null;
 		GenericValue shipment = null;
 		try {
-			shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
+			shipment = delegator.findOne("VvShipment", UtilMisc.toMap("shipmentId", shipmentId), false);
 		} catch (GenericEntityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Integer shipItemId = 1;
 
-		/*try {
+		try {
 
 			// lookup payment applications which took place before the
 			// asOfDateTime for this invoice
@@ -156,10 +154,9 @@ public class VvorderEvents {
 							EntityCondition.makeCondition("quantityShippable", EntityOperator.GREATER_THAN, BigDecimal.ZERO)), EntityOperator.OR);
 
 			EntityConditionList<EntityCondition> conditions = EntityCondition.makeCondition(
-					UtilMisc.toList(dateCondition, EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
-							EntityCondition.makeCondition("orderHStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
+					UtilMisc.toList(dateCondition, EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId)), EntityOperator.AND);
 
-			List<GenericValue> vfOrdItemShipItems = delegator.findList("OrderItemShippingItemView", conditions, null, UtilMisc.toList("shipBeforeDate"), null, false);
+			List<GenericValue> vfOrdItemShipItems = delegator.findList("VvOrderItemShippingItemView", conditions, null, null, null, false);
 
 			if (quantityToShip.equals(BigDecimal.ZERO)) {
 				return "success";
@@ -176,11 +173,8 @@ public class VvorderEvents {
 				if (qtyRemainToShip.compareTo(itemQty) >= 0) {
 
 					try {
-						Map<String, Object> tmpResult = dispatcher.runSync("createShipmentItem", UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId", shipmentId, "productId",
+						Map<String, Object> tmpResult = dispatcher.runSync("createVvShipmentItem", UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId", shipmentId, "productId",
 								productId, "orderId", orderId, "orderItemSeqId", orderItemSeqId, "quantity", itemQty));
-
-						Map<String, Object> tmpResult2 = dispatcher.runSync("createVfShipmentItem", UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId", shipmentId,
-								"shipmentItemSeqId", (String) tmpResult.get("shipmentItemSeqId"), "orderId", orderId, "orderItemSeqId", orderItemSeqId));
 
 					} catch (GenericServiceException e) {
 						Debug.logError(e, module);
@@ -190,11 +184,8 @@ public class VvorderEvents {
 				} else {
 
 					try {
-						Map<String, Object> tmpResult = dispatcher.runSync("createShipmentItem", UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId", shipmentId, "productId",
+						Map<String, Object> tmpResult = dispatcher.runSync("createVvShipmentItem", UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId", shipmentId, "productId",
 								productId, "orderId", orderId, "orderItemSeqId", orderItemSeqId, "quantity", qtyRemainToShip));
-
-						Map<String, Object> tmpResult2 = dispatcher.runSync("createVfShipmentItem", UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId", shipmentId,
-								"shipmentItemSeqId", (String) tmpResult.get("shipmentItemSeqId"), "orderId", orderId, "orderItemSeqId", orderItemSeqId));
 
 					} catch (GenericServiceException e) {
 						Debug.logError(e, module);
@@ -202,17 +193,14 @@ public class VvorderEvents {
 
 					qtyRemainToShip = BigDecimal.ZERO;
 				}
-				if (qtyRemainToShip.compareTo(BigDecimal.ZERO)==0)
+				if (qtyRemainToShip.compareTo(BigDecimal.ZERO) == 0)
 					break;
 
 			}
 			if (qtyRemainToShip.compareTo(BigDecimal.ZERO) > 0) {
 				try {
-					Map<String, Object> tmpResult = dispatcher.runSync("createShipmentItem",
+					Map<String, Object> tmpResult = dispatcher.runSync("createVvShipmentItem",
 							UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId", shipmentId, "productId", productId, "quantity", qtyRemainToShip));
-
-					Map<String, Object> tmpResult2 = dispatcher.runSync("createVfShipmentItem",
-							UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId", shipmentId, "shipmentItemSeqId", (String) tmpResult.get("shipmentItemSeqId")));
 
 				} catch (GenericServiceException e) {
 					Debug.logError(e, module);
@@ -222,7 +210,7 @@ public class VvorderEvents {
 		} catch (GenericEntityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 
 		return "success";
 

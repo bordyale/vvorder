@@ -119,13 +119,13 @@
 		<field name="partnerId" title="${uiLabelMap.VvWeight}">
 			<lookup target-form-name="LookupPartner" position="center" />
 		</field>
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
 		<field name="submitButton" use-when="VvProduct==null" title="${uiLabelMap.CommonCreate}">
 			<submit button-type="button" />
 		</field>
@@ -287,6 +287,45 @@
 		</field>
 	</grid>
 
+
+
+
+
+	<form name="ListVvOrderItems" type="list" list-name="orderItems" target="updateVvOrderItem">
+		<actions>
+			<entity-condition entity-name="VvOrderItem">
+				<condition-expr field-name="orderId" from-field="orderId" />
+				<order-by field-name="orderItemSeqId" />
+			</entity-condition>
+		</actions>
+		
+		<field name="orderId">
+			<hidden />
+		</field>
+		<field name="orderItemSeqId" title="${uiLabelMap.CommonItem}">
+			<display />
+		</field>
+		<field name="productId" title="${uiLabelMap.VvProductId}">
+			<display />
+		</field>
+		<field name="quantity" title="${uiLabelMap.VvQuantity}">
+			<display />
+		</field>
+<!-- 		<field name="submitButton" title="${uiLabelMap.CommonUpdate}"> -->
+<!-- 			<submit button-type="button" /> -->
+<!-- 		</field> -->
+
+		<field name="deleteLink" title=" " widget-style="buttontext">
+			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvOrderItem" also-hidden="false"
+				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
+				<parameter param-name="orderId" />
+				<parameter param-name="orderItemSeqId" />
+			</hyperlink>
+		</field>
+		
+	</form>
+
+
 	<form name="AddVvOrderItem" type="single" target="createVvOrderItem" title="">
 		<auto-fields-service service-name="createVvOrderItem" />
 		<field name="orderId">
@@ -297,6 +336,9 @@
 		</field>
 		<field name="productId" title="${uiLabelMap.VvProductId}">
 			<lookup target-form-name="LookupProduct" position="center" />
+		</field>
+		<field name="quantity" title="${uiLabelMap.VvQuantity}">
+			<text size="10" maxlength="10" />
 		</field>
 
 		<field name="submitButton" title="${uiLabelMap.CommonAdd}">
@@ -377,8 +419,8 @@
 			</hyperlink>
 		</field>
 	</form>
-	
-	
+
+
 
 
 
@@ -417,14 +459,59 @@
 		<field name="deleteLink" title=" " widget-style="buttontext">
 			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvShipmentItem" also-hidden="false"
 				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
-				<parameter param-name="orderId" />
-				<parameter param-name="orderItemSeqId" />
+				<parameter param-name="shipmentId" />
+				<parameter param-name="shipmentItemSeqId" />
 			</hyperlink>
 		</field>
 		<field name="submitButton" title="${uiLabelMap.CommonUpdate}">
 			<submit button-type="button" />
 		</field>
 	</grid>
+
+	<form name="ListVvShipmentItems" list-name="shipmentItems" target="" title="" type="list" paginate-target="updateVvShipmentItem"
+		odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2" override-list-size="true">
+
+		<actions>
+			<entity-condition entity-name="VvShipmentItem">
+				<condition-expr field-name="shipmentId" from-field="shipmentId" />
+				<order-by field-name="shipmentItemSeqId" />
+			</entity-condition>
+		</actions>
+		<auto-fields-service service-name="updateVvShipmentItem" />
+		<field name="shipmentId">
+			<hidden />
+		</field>
+		<field name="shipmentItemSeqId" title="${uiLabelMap.CommonItem}">
+			<display />
+		</field>
+		<field name="orderId">
+			<text size="30" />
+		</field>
+		<field name="orderItemSeqId">
+			<text size="30" />
+		</field>
+
+		<field name="productId">
+			<text size="30" />
+		</field>
+		<field name="quantity">
+			<text size="30" />
+		</field>
+
+		<field name="deleteLink" title=" " widget-style="buttontext">
+			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvShipmentItem" also-hidden="false"
+				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
+				<parameter param-name="shipmentId" />
+				<parameter param-name="shipmentItemSeqId" />
+			</hyperlink>
+		</field>
+		<field name="submitButton" title="${uiLabelMap.CommonUpdate}">
+			<submit button-type="button" />
+		</field>
+	</form>
+
+
+
 
 	<form name="AddVvShipmentItem" type="single" target="createVvShipmentItem" title="">
 		<auto-fields-service service-name="createVvShipmentItem" />
@@ -442,7 +529,7 @@
 			<submit button-type="button" request-confirmation="true" />
 		</field>
 	</form>
-	
+
 	<form name="AddProductToShippingWithOpenOrders" type="single" use-row-submit="true" list-name="productLine" title=""
 		target="AddProductToShippingWithOpenOrders" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
 		paginate-target="EditShippingItems">
@@ -453,7 +540,7 @@
 
 		<!-- <field name="orderId" title="${uiLabelMap.OrderOrderId}" widget-style="buttontext"> <hyperlink description="${orderId}" target="/catalog/control/EditProductInventoryItems" 
 			target-type="inter-app"> <parameter param-name="orderId"/> </hyperlink> </field> -->
-		<field name="productId">
+		<field name="productId" title="${uiLabelMap.VvProductId}">
 			<lookup target-form-name="LookupProduct" />
 		</field>
 

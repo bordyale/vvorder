@@ -194,6 +194,7 @@
 			<actions>
 				<set field="titleProperty" value="FindVvOrder" />
 				<set field="headerItem" value="findVvOrders" />
+				<set field="tabButtonItem" value="EditVvOrder" />
 				<set field="orderId" from-field="parameters.orderId" />
 				<!-- <set field="workpapersId" from-field="parameters.workpapersId" /> -->
 				<entity-one entity-name="VvOrder" value-field="VvOrder" />
@@ -223,11 +224,24 @@
 			</actions>
 			<widgets>
 				<decorator-screen name="VvorderDetailCommonDecorator" location="${parameters.mainDecoratorLocation}">
+
 					<decorator-section name="body">
-						<include-grid name="ListVvOrderItems" location="component://vvorder/widget/VvorderForms.xml" />
-						<include-form name="AddVvOrderItem" location="component://vvorder/widget/VvorderForms.xml" />
+
+						<section>
+							<widgets>
+								<screenlet title="${uiLabelMap.PriceList}">
+									<include-form name="ListVvOrderItems" location="component://vvorder/widget/VvorderForms.xml" />
+									<!-- <include-grid name="ListVvOrderItems" location="component://vvorder/widget/VvorderForms.xml" /> -->
+									<include-form name="AddVvOrderItem" location="component://vvorder/widget/VvorderForms.xml" />
+								</screenlet>
+							</widgets>
+						</section>
+
 					</decorator-section>
 				</decorator-screen>
+
+
+
 			</widgets>
 		</section>
 	</screen>
@@ -317,7 +331,7 @@
 			</widgets>
 		</section>
 	</screen>
-	
+
 
 
 </screens>

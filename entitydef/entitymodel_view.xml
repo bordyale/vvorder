@@ -17,7 +17,7 @@
 
 	
 	
-	<view-entity entity-name="VvOrderItemShippingItemView" package-name="org.apache.ofbiz.order.order" never-cache="true"
+	<view-entity entity-name="VvOrderItemShippingItemView" package-name="org.apache.ofbiz.vvshipment.vvshipment" never-cache="true"
 		title="Order Items and ShippingItem View Entity">
 		<member-entity entity-alias="SI" entity-name="VvShippingItemQtySumView" />
 		<member-entity entity-alias="OI" entity-name="VvOrderItem" />
@@ -70,7 +70,7 @@
 		<member-entity entity-alias="VSI" entity-name="VvShipmentItem" />
 		<alias entity-alias="VSI" name="orderId" group-by="true" />
 		<alias entity-alias="VSI" name="orderItemSeqId" group-by="true" />
-		<alias entity-alias="SI" name="quantityShipped" field="quantity" function="sum" />
+		<alias entity-alias="VSI" name="quantityShipped" field="quantity" function="sum" />
 
 	</view-entity>
 

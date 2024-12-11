@@ -62,7 +62,7 @@
 		<field name="orderItemSeqId" type="id">
 			<description>secondary sequenced ID</description>
 		</field>
-		<field name="quantity" type="floating-point"></field>
+		<field name="quantity" type="fixed-point"></field>
 		<field name="productId" type="id"></field>
 		<prim-key field="orderId" />
 		<prim-key field="orderItemSeqId" />
@@ -93,7 +93,7 @@
 		</field>
 		<field name="orderId" type="id"></field>
 		<field name="orderItemSeqId" type="id"></field>
-		<field name="quantity" type="floating-point"></field>
+		<field name="quantity" type="fixed-point"></field>
 		<field name="productId" type="id"></field>
 		<prim-key field="shipmentId" />
 		<prim-key field="shipmentItemSeqId" />
