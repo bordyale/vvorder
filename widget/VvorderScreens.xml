@@ -229,7 +229,7 @@
 
 						<section>
 							<widgets>
-								<screenlet title="${uiLabelMap.PriceList}">
+								<screenlet title="${uiLabelMap.ListVvOrderItems}">
 									<include-form name="ListVvOrderItems" location="component://vvorder/widget/VvorderForms.xml" />
 									<!-- <include-grid name="ListVvOrderItems" location="component://vvorder/widget/VvorderForms.xml" /> -->
 									<include-form name="AddVvOrderItem" location="component://vvorder/widget/VvorderForms.xml" />
@@ -324,8 +324,21 @@
 						<screenlet title="${uiLabelMap.AddProductToShippingWithOpenOrders}">
 							<include-form name="AddProductToShippingWithOpenOrders" location="component://vvorder/widget/VvorderForms.xml" />
 						</screenlet>
-						<include-grid name="ListVvShipmentItems" location="component://vvorder/widget/VvorderForms.xml" />
-						<include-form name="AddVvShipmentItem" location="component://vvorder/widget/VvorderForms.xml" />
+
+						<section>
+							<widgets>
+								<screenlet title="${uiLabelMap.ListVvOrderItems}">
+									<include-grid name="ListVvShipmentItems" location="component://vvorder/widget/VvorderForms.xml" />
+									<include-form name="AddVvShipmentItem" location="component://vvorder/widget/VvorderForms.xml" />
+								</screenlet>
+							</widgets>
+						</section>
+
+
+
+
+
+
 					</decorator-section>
 				</decorator-screen>
 			</widgets>

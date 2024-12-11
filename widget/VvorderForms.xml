@@ -443,17 +443,17 @@
 			<display />
 		</field>
 		<field name="orderId">
-			<text size="30" />
+			<display />
 		</field>
 		<field name="orderItemSeqId">
-			<text size="30" />
+			<display />
 		</field>
 
 		<field name="productId">
-			<text size="30" />
+			<display />
 		</field>
 		<field name="quantity">
-			<text size="30" />
+			<display />
 		</field>
 
 		<field name="deleteLink" title=" " widget-style="buttontext">
@@ -463,9 +463,9 @@
 				<parameter param-name="shipmentItemSeqId" />
 			</hyperlink>
 		</field>
-		<field name="submitButton" title="${uiLabelMap.CommonUpdate}">
-			<submit button-type="button" />
-		</field>
+<!-- 		<field name="submitButton" title="${uiLabelMap.CommonUpdate}"> -->
+<!-- 			<submit button-type="button" /> -->
+<!-- 		</field> -->
 	</grid>
 
 	<form name="ListVvShipmentItems" list-name="shipmentItems" target="" title="" type="list" paginate-target="updateVvShipmentItem"
