@@ -123,4 +123,16 @@
 		<value xml:lang="en">Edit Shipment</value>
 		<value xml:lang="hu">Szállítás Módósítása</value>
 	</property>
+	<property key="ListVvOrderItems">
+		<value xml:lang="en">List Order Items</value>
+		<value xml:lang="hu">Szállítási lista</value>
+	</property>
+	<property key="vvorderDate">
+		<value xml:lang="en">Order Date</value>
+		<value xml:lang="hu">Rendelés Dátum</value>
+	</property>
+	<property key="dueDate">
+		<value xml:lang="en">Ship Before</value>
+		<value xml:lang="hu">Határ Idő</value>
+	</property>
 </resource>

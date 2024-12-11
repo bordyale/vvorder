@@ -237,16 +237,16 @@
 			</hyperlink>
 		</field>
 		<field name="orderName" title="${uiLabelMap.VvName}">
-			<text size="50" maxlength="50" />
+			<display />
 		</field>
-		<field name="partnerId" title="${uiLabelMap.GeneralId}" widget-style="buttontext" sort-field="true">
-			<text size="50" maxlength="50" />
+		<field name="partnerId" title="${uiLabelMap.VvPartnerId}" widget-style="buttontext" sort-field="true">
+			<display />
 		</field>
 		<field name="orderDate" title="${uiLabelMap.vvorderDate}">
-			<date-time />
+			<display />
 		</field>
 		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}">
-			<date-time />
+			<display />
 		</field>
 		<field name="deleteLink" title=" " widget-style="buttontext">
 			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvOrder" also-hidden="false"
