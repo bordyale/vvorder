@@ -211,6 +211,16 @@ under the License.
 			<redirect-parameter name="orderId" />
 		</response>
 	</request-map>
+	
+	
+	<request-map uri="updateInventoryShipment">
+		<security https="true" auth="true" />
+		<event type="java" path="org.apache.ofbiz.vvorder.VvorderEvents" invoke="updateInventoryShipment" />
+		<response name="success" type="request-redirect" value="EditVvShipment">
+			<redirect-parameter name="shipmentId" />
+		</response>
+		<response name="error" type="view" value="EditVvShipment" />
+	</request-map>
     
     
     

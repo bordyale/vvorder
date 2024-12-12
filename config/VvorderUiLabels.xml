@@ -135,4 +135,16 @@
 		<value xml:lang="en">Ship Before</value>
 		<value xml:lang="hu">Határ Idő</value>
 	</property>
+	<property key="VvShipmentRestore">
+		<value xml:lang="en">Ship Warehouse Restore</value>
+		<value xml:lang="hu">Szállítás készlet visszaallítása</value>
+	</property>
+	<property key="VvShipmentComplete">
+		<value xml:lang="en">Ship Warehouse Complete</value>
+		<value xml:lang="hu">Szállítás készlet teljesítése</value>
+	</property>
+	<property key="FindVvShipments">
+		<value xml:lang="en">Find Shipments</value>
+		<value xml:lang="hu">Szállítás Keresés</value>
+	</property>
 </resource>

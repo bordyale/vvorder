@@ -216,4 +216,82 @@ public class VvorderEvents {
 
 	}
 
+	public static String updateInventoryShipment(HttpServletRequest request, HttpServletResponse response) {
+
+		Delegator delegator = (Delegator) request.getAttribute("delegator");
+		LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+		GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
+		String shipmentId = null;
+		String facilityId = null;
+		String isReturnShipment = null;
+
+		// Get the parameters as a MAP, remove the productId and quantity
+		// params.
+		Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
+
+		if (paramMap.containsKey("shipmentId")) {
+			shipmentId = (String) paramMap.remove("shipmentId");
+		}
+		// if isReturnShipment == Y we restore the items in the facility.
+		if (paramMap.containsKey("isReturnShipment")) {
+			isReturnShipment = (String) paramMap.remove("isReturnShipment");
+		}
+
+		GenericValue shipment = null;
+		try {
+			shipment = delegator.findOne("VvShipment", UtilMisc.toMap("shipmentId", shipmentId), false);
+
+			if ("Y".equals(isReturnShipment)) {
+				List<GenericValue> invDetails = delegator.findByAnd("VvWarehouse", UtilMisc.toMap("shipmentId", shipmentId), null, false);
+				if (invDetails != null) {
+					List<EntityCondition> exprs = new LinkedList<EntityCondition>();
+					for (GenericValue det : invDetails) {
+						exprs.add(EntityCondition.makeCondition("whId", EntityOperator.EQUALS, det.get("whId")));
+					}
+					//delegator.removeByAnd("VvWarehouse", UtilMisc.toMap("shipmentId", shipmentId));
+					EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(exprs, EntityOperator.OR);
+					List<GenericValue> inv = EntityQuery.use(delegator).from("VvWarehouse").where(ecl).queryList();
+					delegator.removeAll(inv);
+				}
+
+				shipment.put("statusId", "VV_SHIP_STATUS_1");
+			} else {
+				List<GenericValue> shipmentItems = null;
+				try {
+					shipmentItems = delegator.findByAnd("VvShipmentItem", UtilMisc.toMap("shipmentId", shipmentId), null, false);
+
+				} catch (GenericEntityException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if (shipmentItems != null) {
+					for (GenericValue si : shipmentItems) {
+
+						try {
+							BigDecimal qty = (BigDecimal) si.get("quantity");
+							Map serviceCtx = UtilMisc.toMap("productId", si.get("productId"), "shipmentId", shipmentId, "userLogin", userLogin, "quantity",
+									qty.negate(),"statusId","VV_WH_CHANGE_2","date", shipment.get("shipmentDate"));
+
+							dispatcher.runSync("createVvWh", serviceCtx);
+
+						} catch (GenericServiceException e) {
+							Debug.logError(e, module);
+							return "error";
+						}
+
+					}
+
+				}
+				shipment.put("statusId", "VV_SHIP_STATUS_2");
+
+			}
+			delegator.store(shipment);
+		} catch (GenericEntityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "success";
+
+	}
+
 }

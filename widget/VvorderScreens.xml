@@ -303,6 +303,23 @@
 						<screenlet title="${uiLabelMap.EditVvShipment}">
 							<include-form name="EditVvShipment" location="component://vvorder/widget/VvorderForms.xml" />
 						</screenlet>
+						<section>
+							<condition>
+								<if-compare field="VvShipment.statusId" operator="equals" value="VV_SHIP_STATUS_2" />
+							</condition>
+							<widgets>
+								<link target="updateInventoryShipment" text="${uiLabelMap.VvShipmentRestore}" style="buttontext create">
+									<parameter param-name="shipmentId" />
+									<parameter param-name="isReturnShipment" value="Y" />
+								</link>
+							</widgets>
+							<fail-widgets>
+								<link target="updateInventoryShipment" text="${uiLabelMap.VvShipmentComplete}" style="buttontext create">
+									<parameter param-name="shipmentId" />
+									<parameter param-name="isReturnShipment" value="N" />
+								</link>
+							</fail-widgets>
+						</section>
 
 					</decorator-section>
 				</decorator-screen>

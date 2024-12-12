@@ -93,7 +93,7 @@
 			<text size="20" maxlength="20" />
 		</field>
 		<field name="needWork" title="${uiLabelMap.VvName}">
-			<drop-down allow-empty="true">
+			<drop-down allow-empty="true" >
 				<option key="Y" description="${uiLabelMap.CommonY}" />
 				<option key="N" description="${uiLabelMap.CommonN}" />
 			</drop-down>
@@ -298,7 +298,7 @@
 				<order-by field-name="orderItemSeqId" />
 			</entity-condition>
 		</actions>
-		
+
 		<field name="orderId">
 			<hidden />
 		</field>
@@ -311,9 +311,9 @@
 		<field name="quantity" title="${uiLabelMap.VvQuantity}">
 			<display />
 		</field>
-<!-- 		<field name="submitButton" title="${uiLabelMap.CommonUpdate}"> -->
-<!-- 			<submit button-type="button" /> -->
-<!-- 		</field> -->
+		<!-- <field name="submitButton" title="${uiLabelMap.CommonUpdate}"> -->
+		<!-- <submit button-type="button" /> -->
+		<!-- </field> -->
 
 		<field name="deleteLink" title=" " widget-style="buttontext">
 			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvOrderItem" also-hidden="false"
@@ -322,7 +322,7 @@
 				<parameter param-name="orderItemSeqId" />
 			</hyperlink>
 		</field>
-		
+
 	</form>
 
 
@@ -356,8 +356,8 @@
 		<field use-when="VvShipment==null @and shipmentId==null" name="shipmentId" title="${uiLabelMap.GeneralId}">
 			<ignored />
 		</field>
-		<field name="statusId" title="${uiLabelMap.VvStatusId}">
-			<text size="50" maxlength="50" />
+		<field name="statusId" use-when="VvShipment!=null" title="${uiLabelMap.VvStatusId}" disabled="true">
+			<display-entity entity-name="Enumeration" key-field-name="enumId"/>
 		</field>
 		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
 			<lookup target-form-name="LookupPartner" position="center" />
@@ -405,7 +405,7 @@
 				<parameter param-name="shipmentId" />
 			</hyperlink>
 		</field>
-		<field name="partnerId" title="${uiLabelMap.GeneralId}" widget-style="buttontext" sort-field="true">
+		<field name="partnerId" title="${uiLabelMap.VvPartnerId}" widget-style="buttontext" sort-field="true">
 			<display />
 		</field>
 		<field name="shipmentDate" title="${uiLabelMap.VvShipmentDate}" sort-field="true">
@@ -463,9 +463,9 @@
 				<parameter param-name="shipmentItemSeqId" />
 			</hyperlink>
 		</field>
-<!-- 		<field name="submitButton" title="${uiLabelMap.CommonUpdate}"> -->
-<!-- 			<submit button-type="button" /> -->
-<!-- 		</field> -->
+		<!-- <field name="submitButton" title="${uiLabelMap.CommonUpdate}"> -->
+		<!-- <submit button-type="button" /> -->
+		<!-- </field> -->
 	</grid>
 
 	<form name="ListVvShipmentItems" list-name="shipmentItems" target="" title="" type="list" paginate-target="updateVvShipmentItem"
