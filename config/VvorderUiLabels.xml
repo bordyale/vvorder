@@ -120,12 +120,16 @@
 		<value xml:lang="hu">Tételek</value>
 	</property>
 	<property key="VvOrderVvOrder">
-		<value xml:lang="en">Edit Shipment</value>
-		<value xml:lang="hu">Szállítás Módósítása</value>
+		<value xml:lang="en">Edit Order</value>
+		<value xml:lang="hu">Rendelés Módósítása</value>
 	</property>
 	<property key="ListVvOrderItems">
 		<value xml:lang="en">List Order Items</value>
-		<value xml:lang="hu">Szállítási lista</value>
+		<value xml:lang="hu">Rendelés Lista</value>
+	</property>
+	<property key="ListVvShipmentItems">
+		<value xml:lang="en">List Shipment Items</value>
+		<value xml:lang="hu">Szállítási Lista</value>
 	</property>
 	<property key="vvorderDate">
 		<value xml:lang="en">Order Date</value>
@@ -147,4 +151,33 @@
 		<value xml:lang="en">Find Shipments</value>
 		<value xml:lang="hu">Szállítás Keresés</value>
 	</property>
+	<property key="VvAddress">
+		<value xml:lang="en">Address</value>
+		<value xml:lang="hu">Cím</value>
+	</property>
+	<property key="VvMaterial">
+		<value xml:lang="en">Material</value>
+		<value xml:lang="hu">Anyag</value>
+	</property>
+	<property key="VvNeedWork">
+		<value xml:lang="en">Need to be worked</value>
+		<value xml:lang="hu">Megmunkálás</value>
+	</property>
+	<property key="VvNeedPaint">
+		<value xml:lang="en">Need to be painted</value>
+		<value xml:lang="hu">Festés</value>
+	</property>
+	<property key="VvCastTem">
+		<value xml:lang="en">Cast Temp</value>
+		<value xml:lang="hu">Öntés hómerséklet</value>
+	</property>
+	<property key="VvWeight">
+		<value xml:lang="en">Weight</value>
+		<value xml:lang="hu">Súly(Kg)</value>
+	</property>
+	<property key="VvWageCode">
+		<value xml:lang="en">Wage Code</value>
+		<value xml:lang="hu">Bér Kód</value>
+	</property>
+	
 </resource>

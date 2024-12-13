@@ -89,34 +89,34 @@
 		<field name="name" title="${uiLabelMap.VvName}">
 			<text size="20" maxlength="20" />
 		</field>
-		<field name="material" title="${uiLabelMap.VvName}">
+		<field name="material" title="${uiLabelMap.VvMaterial}">
 			<text size="20" maxlength="20" />
 		</field>
-		<field name="needWork" title="${uiLabelMap.VvName}">
+		<field name="needWork" title="${uiLabelMap.VvNeedWork}">
 			<drop-down allow-empty="true" >
 				<option key="Y" description="${uiLabelMap.CommonY}" />
 				<option key="N" description="${uiLabelMap.CommonN}" />
 			</drop-down>
 		</field>
-		<field name="needPaint" title="${uiLabelMap.VvName}">
+		<field name="needPaint" title="${uiLabelMap.VvNeedPaint}">
 			<drop-down allow-empty="true">
 				<option key="Y" description="${uiLabelMap.CommonY}" />
 				<option key="N" description="${uiLabelMap.CommonN}" />
 			</drop-down>
 		</field>
-		<field name="castTemp" title="${uiLabelMap.VvWeight}">
+		<field name="castTemp" title="${uiLabelMap.VvCastTem}">
 			<text size="10" maxlength="10" />
 		</field>
 		<field name="weight" title="${uiLabelMap.VvWeight}">
 			<text size="10" maxlength="10" />
 		</field>
-		<field name="comment" title="${uiLabelMap.VvWeight}">
+		<field name="comment" title="${uiLabelMap.VvComment}">
 			<text size="10" maxlength="10" />
 		</field>
-		<field name="wageCode" title="${uiLabelMap.VvWeight}">
+		<field name="wageCode" title="${uiLabelMap.VvWageCode}">
 			<text size="10" maxlength="10" />
 		</field>
-		<field name="partnerId" title="${uiLabelMap.VvWeight}">
+		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
 			<lookup target-form-name="LookupPartner" position="center" />
 		</field>
 
@@ -161,12 +161,36 @@
 			</service>
 		</actions>
 		<field name="productId" title="${uiLabelMap.GeneralId}" widget-style="buttontext" sort-field="true">
-			<hyperlink description="${productId}" target="EditFaseA" also-hidden="false">
+			<hyperlink description="${productId}" target="EditVvProduct" also-hidden="false">
 				<parameter param-name="productId" />
 			</hyperlink>
 		</field>
-		<field name="name" title="${uiLabelMap.VvName}" widget-style="buttontext" sort-field="true">
+		<field name="name" title="${uiLabelMap.VvName}">
 			<display />
+		</field>
+		<field name="material" title="${uiLabelMap.VvMaterial}">
+			<display />
+		</field>
+		<field name="needWork" title="${uiLabelMap.VvNeedWork}">
+			<display />
+		</field>
+		<field name="needPaint" title="${uiLabelMap.VvNeedPaint}">
+			<display />
+		</field>
+		<field name="castTemp" title="${uiLabelMap.VvCastTem}">
+			<display />
+		</field>
+		<field name="weight" title="${uiLabelMap.VvWeight}">
+			<display />
+		</field>
+		<field name="comment" title="${uiLabelMap.VvComment}">
+			<display />
+		</field>
+		<field name="wageCode" title="${uiLabelMap.VvWageCode}">
+			<display />
+		</field>
+		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
+			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}"/>
 		</field>
 		<field name="deleteLink" title=" " widget-style="buttontext">
 			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteFaseA" also-hidden="false"
@@ -240,7 +264,7 @@
 			<display />
 		</field>
 		<field name="partnerId" title="${uiLabelMap.VvPartnerId}" widget-style="buttontext" sort-field="true">
-			<display />
+			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}"/>
 		</field>
 		<field name="orderDate" title="${uiLabelMap.vvorderDate}">
 			<display />
@@ -257,7 +281,7 @@
 	</form>
 
 	<!-- VvOrderItem -->
-	<grid name="ListVvOrderItems" list-name="orderItems" target="updateVvOrderItem">
+	<!-- <grid name="ListVvOrderItems" list-name="orderItems" target="updateVvOrderItem">
 		<actions>
 			<entity-condition entity-name="VvOrderItem">
 				<condition-expr field-name="orderId" from-field="orderId" />
@@ -285,7 +309,7 @@
 		<field name="submitButton" title="${uiLabelMap.CommonUpdate}">
 			<submit button-type="button" />
 		</field>
-	</grid>
+	</grid> -->
 
 
 
@@ -305,8 +329,8 @@
 		<field name="orderItemSeqId" title="${uiLabelMap.CommonItem}">
 			<display />
 		</field>
-		<field name="productId" title="${uiLabelMap.VvProductId}">
-			<display />
+		<field name="productId" title="${uiLabelMap.VvName}">
+			<display-entity entity-name="VvProduct" key-field-name="productId" description="${name}"/>
 		</field>
 		<field name="quantity" title="${uiLabelMap.VvQuantity}">
 			<display />
@@ -406,7 +430,7 @@
 			</hyperlink>
 		</field>
 		<field name="partnerId" title="${uiLabelMap.VvPartnerId}" widget-style="buttontext" sort-field="true">
-			<display />
+			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}"/>
 		</field>
 		<field name="shipmentDate" title="${uiLabelMap.VvShipmentDate}" sort-field="true">
 			<display />
@@ -450,7 +474,7 @@
 		</field>
 
 		<field name="productId">
-			<display />
+			<display-entity entity-name="VvProduct" key-field-name="productId" description="${name}"/>
 		</field>
 		<field name="quantity">
 			<display />
