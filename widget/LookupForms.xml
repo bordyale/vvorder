@@ -11,8 +11,8 @@
 
 	<form name="LookupProduct" target="LookupProduct" type="single" header-row-style="header-row" default-table-style="basic-table">
 		<!--<auto-fields-entity entity-name="PartyNameView" default-field-type="find"/> -->
-		<field name="productId" title="${uiLabelMap.GeneralId}">
-			<text-find />
+		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
+			<lookup target-form-name="LookupPartner" />
 		</field>
 		<field name="name" title="${uiLabelMap.Name}">
 			<text-find />
