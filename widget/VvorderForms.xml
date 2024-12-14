@@ -216,10 +216,10 @@
 			<lookup target-form-name="LookupPartner" position="center" />
 		</field>
 		<field name="orderDate" title="${uiLabelMap.vvorderDate}">
-			<date-time />
+			<date-time type="date" />
 		</field>
 		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}">
-			<date-time />
+			<date-time type="date"/>
 		</field>
 		<field name="submitButton" use-when="VvOrder==null" title="${uiLabelMap.CommonCreate}">
 			<submit button-type="button" />
@@ -267,7 +267,7 @@
 			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}"/>
 		</field>
 		<field name="orderDate" title="${uiLabelMap.vvorderDate}">
-			<display />
+			<display type="date"/>
 		</field>
 		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}">
 			<display />
@@ -387,7 +387,7 @@
 			<lookup target-form-name="LookupPartner" position="center" />
 		</field>
 		<field name="shipmentDate" title="${uiLabelMap.VvShipmentDate}">
-			<date-time />
+			<date-time type="date"/>
 		</field>
 
 		<field name="submitButton" use-when="VvShipment==null" title="${uiLabelMap.CommonCreate}">
@@ -433,7 +433,7 @@
 			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}"/>
 		</field>
 		<field name="shipmentDate" title="${uiLabelMap.VvShipmentDate}" sort-field="true">
-			<display />
+			<display type="date"/>
 		</field>
 
 		<field name="deleteLink" title=" " widget-style="buttontext">

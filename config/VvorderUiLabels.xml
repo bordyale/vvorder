@@ -81,7 +81,7 @@
 	</property>
 	<property key="VvShipmentId">
 		<value xml:lang="en">Shipment Id</value>
-		<value xml:lang="hu">Shipment Id</value>
+		<value xml:lang="hu">Szállítás azonosító</value>
 	</property>
 	<property key="VvStatusId">
 		<value xml:lang="en">Status Id</value>
