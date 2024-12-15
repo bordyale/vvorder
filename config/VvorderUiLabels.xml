@@ -179,5 +179,9 @@
 		<value xml:lang="en">Wage Code</value>
 		<value xml:lang="hu">Bér Kód</value>
 	</property>
+	<property key="VvOpenOrders">
+		<value xml:lang="en">Open Orders</value>
+		<value xml:lang="hu">Nyított Rendelések</value>
+	</property>
 	
 </resource>

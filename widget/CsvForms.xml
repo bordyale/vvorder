@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form"
+	xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+
+
+
+	<form name="OpenOrdersExport" type="list" list-name="listConditions" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+		<field name="orderId1" title="${uiLabelMap.GeneralId}">
+			<display />
+		</field>
+		<field name="contractorName" title="${uiLabelMap.ContractorName}">
+			<display />
+		</field>
+		<field name="clientName" title="${uiLabelMap.ClientName}">
+			<display />
+		</field>
+		<field name="pricelistName" title="${uiLabelMap.PriceListName}">
+			<display />
+		</field>
+		<field name="prodCode" title="${uiLabelMap.ProdCode}">
+			<display />
+		</field>
+		<field name="productName" title="${uiLabelMap.ProductName}">
+			<display />
+		</field>
+		<field name="price" title="${uiLabelMap.PriceListPrice}">
+			<display />
+		</field>
+		<!-- <field name="startingPrice" title="${uiLabelMap.PriceNet}"> <display /> </field> -->
+		<field name="sc1">
+			<display />
+		</field>
+		<field name="sc2">
+			<display />
+		</field>
+		<field name="sc3">
+			<display />
+		</field>
+		<field name="sc4" title="${uiLabelMap.CVS}">
+			<display />
+		</field>
+		<field name="sc5">
+			<display />
+		</field>
+		<field name="contractValue" title="${uiLabelMap.ContractValue}">
+			<display />
+		</field>
+		<field name="invoicePrice" title="${uiLabelMap.InvoicePrice}">
+			<display />
+		</field>
+		<field name="resultPrice" title="${uiLabelMap.ResultPrice}">
+			<display />
+		</field>
+		<field name="resultPriceKg" title="${uiLabelMap.ResultPriceKg}">
+			<display />
+		</field>
+		<field name="priceCheckPrice" title="${uiLabelMap.PriceCheck}">
+			<display />
+		</field>
+		
+		<field name="perc" title="${uiLabelMap.PercRic}">
+			<display />
+		</field>
+		
+		<field name="validFrom" title="${uiLabelMap.ValidFrom}">
+			<display type="date" />
+		</field>
+
+		<field name="cvsValidTo" title="${uiLabelMap.CvsValidTo}">
+			<display type="date" />
+		</field>
+
+		<field name="validTo" title="${uiLabelMap.ValidTo}">
+			<display type="date" />
+		</field>
+		<field name="isProductBought" title="${uiLabelMap.IsProductBought}">
+			<display />
+		</field>
+		<field name="note" title="${uiLabelMap.Note}">
+			<display />
+		</field>
+		<field name="weight" title="${uiLabelMap.ProductWeightKg}">
+			<display />
+		</field>
+		<field name="contractName" title="${uiLabelMap.ContractName}">
+			<display />
+		</field>
+		<field name="contractName2" title="${uiLabelMap.ContractName}">
+			<display />
+		</field>
+		<field name="lastPromoDiscount" title="${uiLabelMap.LastPromoDiscount}">
+			<display />
+		</field>
+		<field name="lastSellInTo" title="${uiLabelMap.LastSellInTo}">
+			<display type="date" />
+		</field>
+		<field name="priceCheckDate" title="${uiLabelMap.PriceCheckDate}">
+			<display type="date" />
+		</field>
+	</form>
+
+
+
+
+
+
+
+
+
+</forms>

@@ -577,6 +577,38 @@
 		</field>
 
 	</form>
+	
+	<form name="FilterGeneral" type="single" target="findConditions">
+		<alt-target use-when="stockPage=='Y'" target="findVvWhs" />
+		<field name="filproductId" title="${uiLabelMap.VvProductId}">
+			<lookup target-form-name="LookupProduct" position="center" />
+		</field>
+		
+		<field use-when="stockPage=='Y'" name="filstatus" title="${uiLabelMap.VvStatusId}">
+			<drop-down allow-empty="true">
+				<entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+					<entity-constraint name="enumTypeId" value="VV_WH_CHANGE_TYPE" />
+					<entity-order-by field-name="sequenceId" />
+				</entity-options>
+			</drop-down>
+		</field>
+
+
+		<field use-when="stockPage=='Y'" name="fildate1From" title="${groovy: fildate1FromTitle}">
+			<date-time type="date" />
+		</field>
+		<field use-when="stockPage=='Y'" name="fildate2From" title="${fildate2FromTitle}">
+			<date-time type="date" />
+		</field>
+
+
+
+		<field name="searchButton" title="${uiLabelMap.Filter}" widget-style="smallSubmit">
+			<submit button-type="button" />
+		</field>
+
+
+	</form>
 
 
 </forms>
