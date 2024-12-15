@@ -5,99 +5,44 @@
 
 
 
-	<form name="OpenOrdersExport" type="list" list-name="listConditions" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-		<field name="orderId1" title="${uiLabelMap.GeneralId}">
+	<form name="OpenOrdersExport" type="list" list-name="orderItems2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+		<field name="shipmentId">
+			<hidden value="${shipmentId}" />
+		</field>
+		<field name="shipBeforeDate">
 			<display />
 		</field>
-		<field name="contractorName" title="${uiLabelMap.ContractorName}">
+		<field name="orderId">
 			<display />
 		</field>
-		<field name="clientName" title="${uiLabelMap.ClientName}">
+		<field name="orderItemSeqId">
 			<display />
 		</field>
-		<field name="pricelistName" title="${uiLabelMap.PriceListName}">
+		<!-- <field name="orderId" title="${uiLabelMap.OrderOrderId}" widget-style="buttontext"> <hyperlink description="${orderId}" target="/catalog/control/EditProductInventoryItems" 
+			target-type="inter-app"> <parameter param-name="orderId"/> </hyperlink> </field> -->
+		<field name="productId">
 			<display />
 		</field>
-		<field name="prodCode" title="${uiLabelMap.ProdCode}">
+		<field name="productName">
 			<display />
 		</field>
-		<field name="productName" title="${uiLabelMap.ProductName}">
+		<field name="quantity">
 			<display />
 		</field>
-		<field name="price" title="${uiLabelMap.PriceListPrice}">
+		<field name="quantityShipped">
 			<display />
 		</field>
-		<!-- <field name="startingPrice" title="${uiLabelMap.PriceNet}"> <display /> </field> -->
-		<field name="sc1">
+		<field name="quantityShippable">
 			<display />
 		</field>
-		<field name="sc2">
+		<!-- <field name="productWeight"> <display /> </field> -->
+		<field name="netWeight">
 			<display />
 		</field>
-		<field name="sc3">
-			<display />
-		</field>
-		<field name="sc4" title="${uiLabelMap.CVS}">
-			<display />
-		</field>
-		<field name="sc5">
-			<display />
-		</field>
-		<field name="contractValue" title="${uiLabelMap.ContractValue}">
-			<display />
-		</field>
-		<field name="invoicePrice" title="${uiLabelMap.InvoicePrice}">
-			<display />
-		</field>
-		<field name="resultPrice" title="${uiLabelMap.ResultPrice}">
-			<display />
-		</field>
-		<field name="resultPriceKg" title="${uiLabelMap.ResultPriceKg}">
-			<display />
-		</field>
-		<field name="priceCheckPrice" title="${uiLabelMap.PriceCheck}">
+		<field name="progresNetWeight">
 			<display />
 		</field>
 		
-		<field name="perc" title="${uiLabelMap.PercRic}">
-			<display />
-		</field>
-		
-		<field name="validFrom" title="${uiLabelMap.ValidFrom}">
-			<display type="date" />
-		</field>
-
-		<field name="cvsValidTo" title="${uiLabelMap.CvsValidTo}">
-			<display type="date" />
-		</field>
-
-		<field name="validTo" title="${uiLabelMap.ValidTo}">
-			<display type="date" />
-		</field>
-		<field name="isProductBought" title="${uiLabelMap.IsProductBought}">
-			<display />
-		</field>
-		<field name="note" title="${uiLabelMap.Note}">
-			<display />
-		</field>
-		<field name="weight" title="${uiLabelMap.ProductWeightKg}">
-			<display />
-		</field>
-		<field name="contractName" title="${uiLabelMap.ContractName}">
-			<display />
-		</field>
-		<field name="contractName2" title="${uiLabelMap.ContractName}">
-			<display />
-		</field>
-		<field name="lastPromoDiscount" title="${uiLabelMap.LastPromoDiscount}">
-			<display />
-		</field>
-		<field name="lastSellInTo" title="${uiLabelMap.LastSellInTo}">
-			<display type="date" />
-		</field>
-		<field name="priceCheckDate" title="${uiLabelMap.PriceCheckDate}">
-			<display type="date" />
-		</field>
 	</form>
 
 

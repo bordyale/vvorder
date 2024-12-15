@@ -64,6 +64,7 @@
 		</field>
 		<field name="quantity" type="fixed-point"></field>
 		<field name="productId" type="id"></field>
+		<field name="comment" type="value"></field>
 		<prim-key field="orderId" />
 		<prim-key field="orderItemSeqId" />
 		<relation type="one" fk-name="PRODUCT_ID" title="productId" rel-entity-name="VvProduct">

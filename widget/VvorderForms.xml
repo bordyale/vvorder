@@ -93,7 +93,7 @@
 			<text size="20" maxlength="20" />
 		</field>
 		<field name="needWork" title="${uiLabelMap.VvNeedWork}">
-			<drop-down allow-empty="true" >
+			<drop-down allow-empty="true">
 				<option key="Y" description="${uiLabelMap.CommonY}" />
 				<option key="N" description="${uiLabelMap.CommonN}" />
 			</drop-down>
@@ -190,7 +190,7 @@
 			<display />
 		</field>
 		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
-			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}"/>
+			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}" />
 		</field>
 		<field name="deleteLink" title=" " widget-style="buttontext">
 			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteFaseA" also-hidden="false"
@@ -219,7 +219,7 @@
 			<date-time type="date" />
 		</field>
 		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}">
-			<date-time type="date"/>
+			<date-time type="date" />
 		</field>
 		<field name="submitButton" use-when="VvOrder==null" title="${uiLabelMap.CommonCreate}">
 			<submit button-type="button" />
@@ -264,10 +264,10 @@
 			<display />
 		</field>
 		<field name="partnerId" title="${uiLabelMap.VvPartnerId}" widget-style="buttontext" sort-field="true">
-			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}"/>
+			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}" />
 		</field>
 		<field name="orderDate" title="${uiLabelMap.vvorderDate}">
-			<display type="date"/>
+			<display type="date" />
 		</field>
 		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}">
 			<display />
@@ -281,35 +281,13 @@
 	</form>
 
 	<!-- VvOrderItem -->
-	<!-- <grid name="ListVvOrderItems" list-name="orderItems" target="updateVvOrderItem">
-		<actions>
-			<entity-condition entity-name="VvOrderItem">
-				<condition-expr field-name="orderId" from-field="orderId" />
-				<order-by field-name="orderItemSeqId" />
-			</entity-condition>
-		</actions>
-		<auto-fields-service service-name="updateVvOrderItem" />
-		<field name="orderId">
-			<hidden />
-		</field>
-		<field name="orderItemSeqId" title="${uiLabelMap.CommonItem}">
-			<display />
-		</field>
-		<field name="description">
-			<text size="30" />
-		</field>
-
-		<field name="deleteLink" title=" " widget-style="buttontext">
-			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvOrderItem" also-hidden="false"
-				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
-				<parameter param-name="orderId" />
-				<parameter param-name="orderItemSeqId" />
-			</hyperlink>
-		</field>
-		<field name="submitButton" title="${uiLabelMap.CommonUpdate}">
-			<submit button-type="button" />
-		</field>
-	</grid> -->
+	<!-- <grid name="ListVvOrderItems" list-name="orderItems" target="updateVvOrderItem"> <actions> <entity-condition entity-name="VvOrderItem"> 
+		<condition-expr field-name="orderId" from-field="orderId" /> <order-by field-name="orderItemSeqId" /> </entity-condition> </actions> 
+		<auto-fields-service service-name="updateVvOrderItem" /> <field name="orderId"> <hidden /> </field> <field name="orderItemSeqId" title="${uiLabelMap.CommonItem}"> 
+		<display /> </field> <field name="description"> <text size="30" /> </field> <field name="deleteLink" title=" " widget-style="buttontext"> 
+		<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvOrderItem" also-hidden="false" confirmation-message="${uiLabelMap.CommonConfirmDelete}" 
+		image-location="${iconsLocation}/delete.png"> <parameter param-name="orderId" /> <parameter param-name="orderItemSeqId" /> </hyperlink> 
+		</field> <field name="submitButton" title="${uiLabelMap.CommonUpdate}"> <submit button-type="button" /> </field> </grid> -->
 
 
 
@@ -330,7 +308,7 @@
 			<display />
 		</field>
 		<field name="productId" title="${uiLabelMap.VvName}">
-			<display-entity entity-name="VvProduct" key-field-name="productId" description="${name}"/>
+			<display-entity entity-name="VvProduct" key-field-name="productId" description="${name}" />
 		</field>
 		<field name="quantity" title="${uiLabelMap.VvQuantity}">
 			<display />
@@ -381,13 +359,13 @@
 			<ignored />
 		</field>
 		<field name="statusId" use-when="VvShipment!=null" title="${uiLabelMap.VvStatusId}" disabled="true">
-			<display-entity entity-name="Enumeration" key-field-name="enumId"/>
+			<display-entity entity-name="Enumeration" key-field-name="enumId" />
 		</field>
 		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
 			<lookup target-form-name="LookupPartner" position="center" />
 		</field>
 		<field name="shipmentDate" title="${uiLabelMap.VvShipmentDate}">
-			<date-time type="date"/>
+			<date-time type="date" />
 		</field>
 
 		<field name="submitButton" use-when="VvShipment==null" title="${uiLabelMap.CommonCreate}">
@@ -430,10 +408,10 @@
 			</hyperlink>
 		</field>
 		<field name="partnerId" title="${uiLabelMap.VvPartnerId}" widget-style="buttontext" sort-field="true">
-			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}"/>
+			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}" />
 		</field>
 		<field name="shipmentDate" title="${uiLabelMap.VvShipmentDate}" sort-field="true">
-			<display type="date"/>
+			<display type="date" />
 		</field>
 
 		<field name="deleteLink" title=" " widget-style="buttontext">
@@ -474,7 +452,7 @@
 		</field>
 
 		<field name="productId">
-			<display-entity entity-name="VvProduct" key-field-name="productId" description="${name}"/>
+			<display-entity entity-name="VvProduct" key-field-name="productId" description="${name}" />
 		</field>
 		<field name="quantity">
 			<display />
@@ -577,27 +555,23 @@
 		</field>
 
 	</form>
-	
+
 	<form name="FilterGeneral" type="single" target="findConditions">
-		<alt-target use-when="stockPage=='Y'" target="findVvWhs" />
+		<alt-target use-when="reportPage=='Y'" target="findVvReports" />
+
+
 		<field name="filproductId" title="${uiLabelMap.VvProductId}">
 			<lookup target-form-name="LookupProduct" position="center" />
 		</field>
-		
-		<field use-when="stockPage=='Y'" name="filstatus" title="${uiLabelMap.VvStatusId}">
-			<drop-down allow-empty="true">
-				<entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
-					<entity-constraint name="enumTypeId" value="VV_WH_CHANGE_TYPE" />
-					<entity-order-by field-name="sequenceId" />
-				</entity-options>
-			</drop-down>
+
+		<field name="filpartnerId" title="${uiLabelMap.VvPartnerId}">
+			<lookup target-form-name="LookupPartner" />
 		</field>
 
-
-		<field use-when="stockPage=='Y'" name="fildate1From" title="${groovy: fildate1FromTitle}">
+		<field use-when="reportPage=='Y'" name="fildate1From" title="${groovy: fildate1FromTitle}">
 			<date-time type="date" />
 		</field>
-		<field use-when="stockPage=='Y'" name="fildate2From" title="${fildate2FromTitle}">
+		<field use-when="reportPage=='Y'" name="fildate2From" title="${fildate2FromTitle}">
 			<date-time type="date" />
 		</field>
 
