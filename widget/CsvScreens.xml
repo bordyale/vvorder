@@ -3,220 +3,52 @@
 	xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
 
-	<screen name="ConditionExportCsv">
-		<section>
-			<actions>
-				<property-map resource="BorAgencyUiLabels" map-name="uiLabelMap" global="true" />
-				<property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
 
-
-
-				<set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0" />
-				<property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue" />
-				<set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}" />
-
-				<!-- <entity-one entity-name="Facility" value-field="facility" use-cache="true"/> -->
-				<script location="component://borAgency/groovyScripts/ListConditions.groovy" />
-			</actions>
-			<widgets>
-				<container>
-					<label style="h2" text="${uiLabelMap.Conditions}" />
-				</container>
-				<include-form name="ConditionExport" location="component://borAgency/widget/CsvForms.xml" />
-
-			</widgets>
-		</section>
-	</screen>
-
-
-	<screen name="ContractExportCsv">
-		<section>
-			<actions>
-				<property-map resource="BorAgencyUiLabels" map-name="uiLabelMap" global="true" />
-				<property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
-
-
-				<set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0" />
-				<property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue" />
-				<set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}" />
-
-				<!-- <entity-one entity-name="Facility" value-field="facility" use-cache="true"/> -->
-				<script location="component://borAgency/groovyScripts/ListContracts.groovy" />
-			</actions>
-			<widgets>
-				<container>
-					<label style="h2" text="${uiLabelMap.Contracts}" />
-				</container>
-				<include-form name="ContractExport" location="component://borAgency/widget/CsvForms.xml" />
-
-			</widgets>
-		</section>
-	</screen>
-
-	<screen name="PromotionExportCsv">
-		<section>
-			<actions>
-				<property-map resource="BorAgencyUiLabels" map-name="uiLabelMap" global="true" />
-				<property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
-
-
-				<set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0" />
-				<property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue" />
-				<set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}" />
-
-				<!-- <entity-one entity-name="Facility" value-field="facility" use-cache="true"/> -->
-				<script location="component://borAgency/groovyScripts/ListPromotions.groovy" />
-			</actions>
-			<widgets>
-				<container>
-					<label style="h2" text="${uiLabelMap.Promotions}" />
-				</container>
-				<include-form name="PromotionExport" location="component://borAgency/widget/CsvForms.xml" />
-
-			</widgets>
-		</section>
-	</screen>
-	<screen name="ClientNoteExportCsv">
-		<section>
-			<actions>
-				<property-map resource="BorAgencyUiLabels" map-name="uiLabelMap" global="true" />
-				<property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
-
-
-				<set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0" />
-				<property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue" />
-				<set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}" />
-
-				<!-- <entity-one entity-name="Facility" value-field="facility" use-cache="true"/> -->
-				<script location="component://borAgency/groovyScripts/ListClientNotes.groovy" />
-			</actions>
-			<widgets>
-				<container>
-					<label style="h2" text="${uiLabelMap.ClientNotes}" />
-				</container>
-				<include-form name="ClientNoteExport" location="component://borAgency/widget/CsvForms.xml" />
-
-			</widgets>
-		</section>
-	</screen>
-
-	<screen name="ContractDetailExportCvs">
-		<section>
-			<actions>
-				<property-map resource="BorAgencyUiLabels" map-name="uiLabelMap" global="true" />
-				<property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
-
-
-				<set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0" />
-				<property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue" />
-				<set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}" />
-
-				<!-- <entity-one entity-name="Facility" value-field="facility" use-cache="true"/> -->
-				<script location="component://borAgency/groovyScripts/ListContractDetail.groovy" />
-			</actions>
-			<widgets>
-				<container>
-					<label style="h2" text="${uiLabelMap.ContractDetails}" />
-				</container>
-				<include-form name="ContractDetailExport" location="component://borAgency/widget/CsvForms.xml" />
-
-			</widgets>
-		</section>
-	</screen>
-
-	<screen name="PriceCheckExportCvs">
-		<section>
-			<actions>
-				<property-map resource="BorAgencyUiLabels" map-name="uiLabelMap" global="true" />
-				<property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
-
-
-
-				<set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0" />
-				<property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue" />
-				<set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10000" />
-
-
-				<!-- <entity-one entity-name="Facility" value-field="facility" use-cache="true"/> -->
-				<script location="component://borAgency/groovyScripts/ListPriceChecks.groovy" />
-			</actions>
-			<widgets>
-				<container>
-					<label style="h2" text="${uiLabelMap.Conditions}" />
-				</container>
-				<include-form name="PriceCheckExport" location="component://borAgency/widget/CsvForms.xml" />
-
-			</widgets>
-		</section>
-	</screen>
 
 	<screen name="ReportExportCsv">
 		<section>
 			<actions>
-				<property-map resource="BorAgencyUiLabels" map-name="uiLabelMap" global="true" />
+				<property-map resource="VvorderUiLabels" map-name="uiLabelMap" global="true" />
+				<property-map resource="VvproductionUiLabels" map-name="uiLabelMap" global="true" />
+				<property-map resource="VvwarehouseUiLabels" map-name="uiLabelMap" global="true" />
 				<property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
-				<set field="filcontractorId" from-field="parameters.filcontractorId" />
 				<set field="filproductId" from-field="parameters.filproductId" />
-				<set field="filpromotionId" from-field="parameters.filpromotionId" />
-				<set field="filclientId" from-field="parameters.filclientId" />
-				<set field="filactiv" from-field="parameters.filactiv" />
-				<set field="filcvsactiv" from-field="parameters.filcvsactiv" />
-				<set field="filisProductBought" from-field="parameters.filisProductBought" />
+				<set field="filpartnerId" from-field="parameters.filpartnertId" />
 				<set field="fildate1From" from-field="parameters.fildate1From" />
+				<set field="fildate1FromTitle" value="${groovy: uiLabelMap.From}" />
 				<set field="fildate2From" from-field="parameters.fildate2From" />
-				<set field="fildate3From" from-field="parameters.fildate3From" />
-				<set field="fildate4From" from-field="parameters.fildate4From" />
-				<set field="fildate5From" from-field="parameters.fildate5From" />
-				<set field="fildate6From" from-field="parameters.fildate6From" />
-				<set field="fildate7From" from-field="parameters.fildate7From" />
-				<set field="fildate8From" from-field="parameters.fildate8From" />
-				<set field="filcontractId" from-field="parameters.filcontractId" />
-				<set field="filcontractId2" from-field="parameters.filcontractId2" />
-
+				<set field="fildate2FromTitle" value="${groovy: uiLabelMap.To}" />
 				<set field="filshowConditions" from-field="parameters.filshowConditions" />
 				<set field="filshowPromotions" from-field="parameters.filshowPromotions" />
 				<set field="filshowClientNotes" from-field="parameters.filshowClientNotes" />
 				<set field="filshowClientInfos" from-field="parameters.filshowClientInfos" />
+				<set field="headerItem" value="findVvReports" />
+				<set field="reportPage" value="Y" />
 
 				<set field="viewSize" from-field="parameters.VIEW_SIZE_1" type="Integer" default-value="10000" />
 				<set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0" />
 				<property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue" />
-				<set field="reportPage" value="Y" />
-				<script location="component://borAgency/groovyScripts/ListConditions.groovy" />
-				<script location="component://borAgency/groovyScripts/ListPromotionsDetails.groovy" />
-				<script location="component://borAgency/groovyScripts/ListClientNotes.groovy" />
-				<script location="component://borAgency/groovyScripts/ListClientInfos.groovy" />
+				<script location="component://vvorder/groovyScripts/Reports.groovy" />
 
 			</actions>
 			<widgets>
 				<container>
-					<label style="h2" text="${uiLabelMap.Conditions}" />
+					<label style="h2" text="${uiLabelMap.VvShipments}" />
 				</container>
-				<include-form name="ConditionExport" location="component://borAgency/widget/CsvForms.xml" />
+				<include-form name="ShipmentsReport" location="component://vvorder/widget/CsvForms.xml" />
+
+				<include-form name="ShipmentsWeights" location="component://vvorder/widget/CsvForms.xml" />
 				<container>
-					<label style="h2" text="${uiLabelMap.Promotions}" />
+					<label style="h2" text="${uiLabelMap.VvOpenOrders}" />
 				</container>
-				<include-form name="PromotionExport" location="component://borAgency/widget/CsvForms.xml" />
+
+				<include-form name="OpenOrdersExport" location="component://vvorder/widget/CsvForms.xml" />
 				<container>
-					<label style="h2" text="${uiLabelMap.ClientRevenues}" />
+					<label style="h2" text="${uiLabelMap.VvProductShippedQuality}" />
 				</container>
-				<include-form name="ClientRevenueExport" location="component://borAgency/widget/CsvForms.xml" />
-				<container>
-					<label style="h2" text="${uiLabelMap.ClientBuyGroup}" />
-				</container>
-				<include-form name="ClientBuyGroupExport" location="component://borAgency/widget/CsvForms.xml" />
-				<container>
-					<label style="h2" text="${uiLabelMap.ClientPayCond}" />
-				</container>
-				<include-form name="ClientPayCondExport" location="component://borAgency/widget/CsvForms.xml" />
-				<container>
-					<label style="h2" text="${uiLabelMap.Contacts}" />
-				</container>
-				<include-form name="ClientContactsExport" location="component://borAgency/widget/CsvForms.xml" />
-				<container>
-					<label style="h2" text="${uiLabelMap.ClientNotes}" />
-				</container>
-				<include-form name="ClientNoteExport" location="component://borAgency/widget/CsvForms.xml" />
+
+				<include-form name="ProdShippedQuantity" location="component://vvorder/widget/CsvForms.xml" />
+
 
 			</widgets>
 		</section>

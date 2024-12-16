@@ -270,7 +270,7 @@
 			<display type="date" />
 		</field>
 		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}">
-			<display />
+			<display type="date" />
 		</field>
 		<field name="deleteLink" title=" " widget-style="buttontext">
 			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvOrder" also-hidden="false"
@@ -359,7 +359,7 @@
 			<ignored />
 		</field>
 		<field name="statusId" use-when="VvShipment!=null" title="${uiLabelMap.VvStatusId}" disabled="true">
-			<display-entity entity-name="Enumeration" key-field-name="enumId" />
+			<display-entity entity-name="VvEnumeration" key-field-name="enumId" />
 		</field>
 		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
 			<lookup target-form-name="LookupPartner" position="center" />

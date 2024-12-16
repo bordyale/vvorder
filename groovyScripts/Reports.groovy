@@ -38,10 +38,10 @@ import org.apache.ofbiz.entity.model.DynamicViewEntity
 DynamicViewEntity dynamicViewEntity = new DynamicViewEntity()
 
 fromDate = parameters.fildate1From
-thruDate = parameters.fildate1From
+thruDate = parameters.fildate2From
 orderShipBeforeFrom = parameters.orderShipBeforeFrom
 orderShipBeforeTo = parameters.orderShipBeforeTo
-partyIdTo = parameters.partnerId
+partyIdTo = parameters.filpartnerId
 showNoOrderShipItems = parameters.showNoOrderShipItems
 
 List searchCond = []
@@ -58,45 +58,26 @@ if (partyIdTo) {
 }
 
 List<HashMap<String,Object>> hashMaps = new ArrayList<HashMap<String,Object>>()
-if ("Y".equals(showNoOrderShipItems)){
-
-	orderItemShippingItem = select("shipmentDate","orderId","productId","name","quantity").from("VvShippingItemView").where(searchCond).cache(false).queryList()
-
-	orderItemShippingItem = EntityUtil.orderBy(orderItemShippingItem,  ["shipmentDate"])
-
-	for (GenericValue entry: orderItemShippingItem){
-		Map<String,Object> e = new HashMap<String,Object>()
-		e.put("shipmentDate",entry.get("shipmentDate"))
-		e.put("orderId",entry.get("orderId"))
-		e.put("productId",entry.get("productId"))
-		e.put("name",entry.get("name"))
-		BigDecimal quantity = entry.get("quantity")
-		e.put("quantity",entry.get("quantity"))
 
 
-		hashMaps.add(e)
-	}
-}else{
+orderItemShippingItem = select("shipmentDate","orderId","productId","name","quantity","partnerId").from("VvShippingItemView").where(searchCond).cache(false).queryList()
 
-	orderItemShippingItem = select("shipmentDate","orderId","productId","name","quantity","quantityShipped","quantityShippable").from("VvShipmentsReport").where(searchCond).cache(false).queryList()
+orderItemShippingItem = EntityUtil.orderBy(orderItemShippingItem,  ["shipmentDate"])
 
-	orderItemShippingItem = EntityUtil.orderBy(orderItemShippingItem,  ["shipmentDate"])
-	orderItemShippingItem = EntityUtil.orderBy(orderItemShippingItem,  ["productId"])
+for (GenericValue entry: orderItemShippingItem){
+	Map<String,Object> e = new HashMap<String,Object>()
+	e.put("shipmentDate",entry.get("shipmentDate"))
+	e.put("orderId",entry.get("orderId"))
+	e.put("productId",entry.get("productId"))
+	e.put("partnerId",entry.get("partnerId"))
+	e.put("name",entry.get("name"))
+	BigDecimal quantity = entry.get("quantity")
+	e.put("quantity",entry.get("quantity"))
 
 
-	for (GenericValue entry: orderItemShippingItem){
-		Map<String,Object> e = new HashMap<String,Object>()
-		e.put("shipmentDate",entry.get("shipmentDate"))
-		e.put("orderId",entry.get("orderId"))
-		e.put("productId",entry.get("productId"))
-		e.put("name",entry.get("name"))
-		BigDecimal quantity = entry.get("quantity")
-		e.put("quantity",entry.get("quantity"))
-		e.put("quantityShipped",entry.get("quantityShipped"))
-		e.put("quantityShippable",entry.get("quantityShippable"))
-		hashMaps.add(e)
-	}
+	hashMaps.add(e)
 }
+
 List searchCond2 = []
 if (orderShipBeforeFrom) {
 	searchCond2.add(EntityCondition.makeCondition("shipBeforeDate", EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(orderShipBeforeFrom)))
@@ -178,7 +159,7 @@ dynamicViewEntity.addMemberEntity("SIV", "VvShippingItemView");
 dynamicViewEntity.addAlias("SIV", "productId", null, null, null,true, null);
 dynamicViewEntity.addAlias("SIV", "name", null, null, null,true, null);
 dynamicViewEntity.addAlias("SIV", "orderId", null, null, null,null, null);
-dynamicViewEntity.addAlias("SIV", "partyIdTo", null, null, null,null, null);
+dynamicViewEntity.addAlias("SIV", "partnerId", null, null, null,null, null);
 dynamicViewEntity.addAlias("SIV", "quantity", "quantity", null, null, null, "sum");
 extraShippedProducts= null
 if (partyIdTo) {

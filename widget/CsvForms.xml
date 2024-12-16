@@ -4,13 +4,50 @@
 
 
 
+	<form name="ShipmentsReport" type="multi" use-row-submit="true" list-name="orderItems" title="" target="shipmentsreport"
+		odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="shipmentsreport">
+		<!-- <row-actions> <entity-one entity-name="OrderItem" value-field="product" auto-field-map="true"/> </row-actions> -->
+
+		<field name="orderId">
+			<display />
+		</field>
+		<field name="shipmentDate">
+			<display type="date" />
+		</field>
+
+		<field name="productId">
+			<display />
+		</field>
+		<field name="partnerId">
+			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}" />
+		</field>
+		<field name="name">
+			<display />
+		</field>
+		<field name="quantity">
+			<display />
+		</field>
+
+	</form>
+
+	<form name="ShipmentsWeights" type="multi" use-row-submit="true" list-name="shipWeights" title="" target="shipmentsreport"
+		odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ordersnotshipped">
+		<!-- <row-actions> <entity-one entity-name="OrderItem" value-field="product" auto-field-map="true"/> </row-actions> -->
+		<field name="shipmentDate">
+			<display type="date" />
+		</field>
+		<field name="netWeight">
+			<display />
+		</field>
+	</form>
+
 
 	<form name="OpenOrdersExport" type="list" list-name="orderItems2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
 		<field name="shipmentId">
 			<hidden value="${shipmentId}" />
 		</field>
 		<field name="shipBeforeDate">
-			<display />
+			<display type="date" />
 		</field>
 		<field name="orderId">
 			<display />
@@ -23,7 +60,7 @@
 		<field name="productId">
 			<display />
 		</field>
-		<field name="productName">
+		<field name="name">
 			<display />
 		</field>
 		<field name="quantity">
@@ -42,7 +79,22 @@
 		<field name="progresNetWeight">
 			<display />
 		</field>
-		
+
+	</form>
+
+	<form name="ProdShippedQuantity" type="multi" use-row-submit="true" list-name="prodQty" title="" target="shipmentsreport"
+		odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ordersnotshipped">
+		<!-- <row-actions> <entity-one entity-name="OrderItem" value-field="product" auto-field-map="true"/> </row-actions> -->
+
+		<field name="productId">
+			<display />
+		</field>
+		<field name="name">
+			<display />
+		</field>
+		<field name="quantity">
+			<display />
+		</field>
 	</form>
 
 

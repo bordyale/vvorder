@@ -183,5 +183,9 @@
 		<value xml:lang="en">Open Orders</value>
 		<value xml:lang="hu">Nyított Rendelések</value>
 	</property>
+	<property key="VvProductShippedQuality">
+		<value xml:lang="en">Products Shipped Quantity</value>
+		<value xml:lang="hu">Termékek szállított mennyísége</value>
+	</property>
 	
 </resource>

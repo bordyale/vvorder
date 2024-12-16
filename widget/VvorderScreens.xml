@@ -354,14 +354,15 @@
 			</widgets>
 		</section>
 	</screen>
-	
+
 	<screen name="FindVvReports">
 		<section>
 			<actions>
 				<!-- for uiLabelMap.filclientnoteFrom -->
-				<property-map resource="VvorderUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="VvproductionUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="VvwarehouseUiLabels" map-name="uiLabelMap" global="true"/>
+				<property-map resource="VvorderUiLabels" map-name="uiLabelMap" global="true" />
+				<property-map resource="VvproductionUiLabels" map-name="uiLabelMap" global="true" />
+				<property-map resource="VvwarehouseUiLabels" map-name="uiLabelMap" global="true" />
+				<property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
 				<set field="filproductId" from-field="parameters.filproductId" />
 				<set field="filpartnerId" from-field="parameters.filpartnertId" />
 				<set field="fildate1From" from-field="parameters.fildate1From" />
@@ -376,10 +377,9 @@
 				<set field="reportPage" value="Y" />
 				<set field="viewSize" from-field="parameters.VIEW_SIZE_1" type="Integer" default-value="200" />
 				<script location="component://vvorder/groovyScripts/Reports.groovy" />
-				<!-- <script location="component://borAgency/groovyScripts/ListConditions.groovy" />
-				<script location="component://borAgency/groovyScripts/ListPromotionsDetails.groovy" />
-				<script location="component://borAgency/groovyScripts/ListClientNotes.groovy" />
-				<script location="component://borAgency/groovyScripts/ListClientInfos.groovy" /> -->
+				<!-- <script location="component://borAgency/groovyScripts/ListConditions.groovy" /> <script location="component://borAgency/groovyScripts/ListPromotionsDetails.groovy" 
+					/> <script location="component://borAgency/groovyScripts/ListClientNotes.groovy" /> <script location="component://borAgency/groovyScripts/ListClientInfos.groovy" 
+					/> -->
 			</actions>
 			<widgets>
 				<decorator-screen name="VvorderCommonDecorator" location="${parameters.mainDecoratorLocation}">
@@ -397,10 +397,8 @@
 								<parameter param-name="fildate1From" />
 								<parameter param-name="fildate2From" />
 							</link>
-							<!-- <link target="ReportExportPdf" text="${uiLabelMap.CommonPdf}" style="buttontext create" target-window="_blank">
-								<parameter param-name="filshowClientNotes" />
-								<parameter param-name="filshowClientInfos" />
-							</link> -->
+							<!-- <link target="ReportExportPdf" text="${uiLabelMap.CommonPdf}" style="buttontext create" target-window="_blank"> <parameter 
+								param-name="filshowClientNotes" /> <parameter param-name="filshowClientInfos" /> </link> -->
 						</container>
 						<screenlet title="${uiLabelMap.Filter}">
 							<include-form name="FilterGeneral" location="component://vvorder/widget/VvorderForms.xml" />
@@ -408,34 +406,22 @@
 
 						<screenlet title="${uiLabelMap.VvReports}">
 							<container>
+								<label style="h2" text="${uiLabelMap.VvShipments}" />
+							</container>
+							<include-form name="ShipmentsReport" location="component://vvorder/widget/CsvForms.xml" />
+							<include-form name="ShipmentsWeights" location="component://vvorder/widget/CsvForms.xml" />
+							<container>
+								<label style="h2" text="${uiLabelMap.TotalNetWeight} : ${totalShippedWeight}" />
+							</container>
+							<container>
 								<label style="h2" text="${uiLabelMap.VvOpenOrders}" />
 							</container>
-							<include-form name="OpenOrdersExport" location="component://vvorder/widget/CsvForms.xml" />
-							<!-- <container>
-								<label style="h2" text="${uiLabelMap.Promotions}" />
-							</container>
-							<include-form name="PromotionExport" location="component://borAgency/widget/CsvForms.xml" />
 
-							<container>
-								<label style="h2" text="${uiLabelMap.ClientRevenues}" />
-							</container>
-							<include-form name="ClientRevenueExport" location="component://borAgency/widget/CsvForms.xml" />
-							<container>
-								<label style="h2" text="${uiLabelMap.ClientBuyGroup}" />
-							</container>
-							<include-form name="ClientBuyGroupExport" location="component://borAgency/widget/CsvForms.xml" />
-							<container>
-								<label style="h2" text="${uiLabelMap.ClientPayCond}" />
-							</container>
-							<include-form name="ClientPayCondExport" location="component://borAgency/widget/CsvForms.xml" />
-							<container>
-								<label style="h2" text="${uiLabelMap.Contacts}" />
-							</container>
-							<include-form name="ClientContactsExport" location="component://borAgency/widget/CsvForms.xml" />
-							<container>
-								<label style="h2" text="${uiLabelMap.ClientNotes}" />
-							</container>
-							<include-form name="ClientNoteExport" location="component://borAgency/widget/CsvForms.xml" /> -->
+							<include-form name="OpenOrdersExport" location="component://vvorder/widget/CsvForms.xml" />
+
+
+							<include-form name="ProdShippedQuantity" location="component://vvorder/widget/CsvForms.xml" />
+
 						</screenlet>
 					</decorator-section>
 				</decorator-screen>

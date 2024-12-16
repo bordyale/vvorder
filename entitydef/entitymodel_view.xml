@@ -83,7 +83,7 @@
 		<alias entity-alias="VSI" name="shipmentItemSeqId" />
 		<alias entity-alias="VSI" name="quantity" />
 		<alias entity-alias="VSI" name="productId" />
-		<alias entity-alias="OI" name="comments" />
+		<alias entity-alias="OI" name="comment" />
 		<alias name="netWeight">
 			<complex-alias operator="*">
 				<complex-alias-field entity-alias="PR" field="weight" />
@@ -97,6 +97,10 @@
 		<view-link entity-alias="VSI" rel-entity-alias="PR">
 			<key-map field-name="productId" />
 		</view-link>
+		<view-link entity-alias="VSI" rel-entity-alias="SH">
+			<key-map field-name="shipmentId" />
+		</view-link>
+		
 	</view-entity>
 	
 	<view-entity entity-name="VvListShippingItemsSummary" package-name="org.apache.ofbiz.vvshipment.vvshipment" never-cache="true"
@@ -158,7 +162,7 @@
 		<member-entity entity-alias="SIV" entity-name="VvShippingItemView" />
 		<alias entity-alias="SIV" name="productId" group-by="true" />
 		<alias entity-alias="SIV" name="name" group-by="true" />
-		<alias entity-alias="SIV" name="partnerTo" group-by="true" />
+		<alias entity-alias="SIV" name="partnerId" group-by="true" />
 		<alias entity-alias="SIV" name="shipmentDate" />
 		<alias entity-alias="SIV" name="weight" group-by="true" />
 		<alias entity-alias="SIV" name="quantity" field="quantity" function="sum" />
