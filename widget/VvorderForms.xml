@@ -563,18 +563,18 @@
 		<field name="filproductId" title="${uiLabelMap.VvProductId}">
 			<lookup target-form-name="LookupProduct" position="center" />
 		</field>
-
 		<field name="filpartnerId" title="${uiLabelMap.VvPartnerId}">
-			<lookup target-form-name="LookupPartner" />
+			<lookup target-form-name="LookupPartner" position="center" />
 		</field>
 
+
+
 		<field use-when="reportPage=='Y'" name="fildate1From" title="${groovy: fildate1FromTitle}">
-			<date-time type="date" />
+			<date-time default-value="${nowTimestamp}" type="date"/>
 		</field>
 		<field use-when="reportPage=='Y'" name="fildate2From" title="${fildate2FromTitle}">
 			<date-time type="date" />
 		</field>
-
 
 
 		<field name="searchButton" title="${uiLabelMap.Filter}" widget-style="smallSubmit">

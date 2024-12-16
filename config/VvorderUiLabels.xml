@@ -187,5 +187,9 @@
 		<value xml:lang="en">Products Shipped Quantity</value>
 		<value xml:lang="hu">Termékek szállított mennyísége</value>
 	</property>
+	<property key="TotalNetWeight">
+		<value xml:lang="en">Total Net Weight</value>
+		<value xml:lang="hu">Össz szállított Súly</value>
+	</property>
 	
 </resource>

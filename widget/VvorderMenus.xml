@@ -9,9 +9,7 @@
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Menu"
 	xsi:schemaLocation="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu.xsd">
 	<menu name="MainAppBar" title="${uiLabelMap.VvorderApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-		<!-- <menu-item name="main" title="${uiLabelMap.CommonMain}">
-			<link target="main" />
-		</menu-item> -->
+		<!-- <menu-item name="main" title="${uiLabelMap.CommonMain}"> <link target="main" /> </menu-item> -->
 		<menu-item name="findVvPartners" title="${uiLabelMap.VvPartners}">
 			<condition>
 				<if-has-permission permission="VVORDER" action="_VIEW" />
@@ -36,17 +34,15 @@
 			</condition>
 			<link target="findVvShipments" />
 		</menu-item>
-		<!-- <menu-item name="findVvWarehouses" title="${uiLabelMap.VvWarehouses}">
-			<condition>
-				<if-has-permission permission="VVORDER" action="_VIEW" />
-			</condition>
-			<link target="findVvWarehouses" />
-		</menu-item> -->
+		<!-- <menu-item name="findVvWarehouses" title="${uiLabelMap.VvWarehouses}"> <condition> <if-has-permission permission="VVORDER" action="_VIEW" 
+			/> </condition> <link target="findVvWarehouses" /> </menu-item> -->
 		<menu-item name="findVvReports" title="${uiLabelMap.VvReports}">
 			<condition>
 				<if-has-permission permission="VVORDER" action="_VIEW" />
 			</condition>
-			<link target="findVvReports" />
+			<link target="findVvReports">
+				<parameter param-name="fildate1From" value="${nowTimestamp}" />
+			</link>
 		</menu-item>
 
 	</menu>

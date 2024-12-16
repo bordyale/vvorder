@@ -119,6 +119,7 @@
 		<alias entity-alias="SIV" name="shipmentDate" group-by="true" />
 		<alias entity-alias="SIV" name="shipmentId" group-by="true" />
 		<alias entity-alias="SIV" name="partnerId" group-by="true" />
+		<alias entity-alias="SIV" name="productId" group-by="true" />
 		<alias entity-alias="SIV" name="netWeight" field="netWeight" function="sum" />
 	</view-entity>
 	

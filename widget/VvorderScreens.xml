@@ -307,18 +307,10 @@
 							<condition>
 								<if-compare field="VvShipment.statusId" operator="equals" value="VV_SHIP_STATUS_2" />
 							</condition>
-							<widgets>
-								<link target="updateInventoryShipment" text="${uiLabelMap.VvShipmentRestore}" style="buttontext create">
-									<parameter param-name="shipmentId" />
-									<parameter param-name="isReturnShipment" value="Y" />
-								</link>
-							</widgets>
-							<fail-widgets>
-								<link target="updateInventoryShipment" text="${uiLabelMap.VvShipmentComplete}" style="buttontext create">
-									<parameter param-name="shipmentId" />
-									<parameter param-name="isReturnShipment" value="N" />
-								</link>
-							</fail-widgets>
+							<!-- <widgets> <link target="updateInventoryShipment" text="${uiLabelMap.VvShipmentRestore}" style="buttontext create"> <parameter 
+								param-name="shipmentId" /> <parameter param-name="isReturnShipment" value="Y" /> </link> </widgets> <fail-widgets> <link target="updateInventoryShipment" 
+								text="${uiLabelMap.VvShipmentComplete}" style="buttontext create"> <parameter param-name="shipmentId" /> <parameter param-name="isReturnShipment" 
+								value="N" /> </link> </fail-widgets> -->
 						</section>
 
 					</decorator-section>
@@ -364,7 +356,7 @@
 				<property-map resource="VvwarehouseUiLabels" map-name="uiLabelMap" global="true" />
 				<property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
 				<set field="filproductId" from-field="parameters.filproductId" />
-				<set field="filpartnerId" from-field="parameters.filpartnertId" />
+				<set field="filpartnerId" from-field="parameters.filpartnerId" />		
 				<set field="fildate1From" from-field="parameters.fildate1From" />
 				<set field="fildate1FromTitle" value="${groovy: uiLabelMap.From}" />
 				<set field="fildate2From" from-field="parameters.fildate2From" />
@@ -376,10 +368,7 @@
 				<set field="headerItem" value="findVvReports" />
 				<set field="reportPage" value="Y" />
 				<set field="viewSize" from-field="parameters.VIEW_SIZE_1" type="Integer" default-value="200" />
-				<script location="component://vvorder/groovyScripts/Reports.groovy" />
-				<!-- <script location="component://borAgency/groovyScripts/ListConditions.groovy" /> <script location="component://borAgency/groovyScripts/ListPromotionsDetails.groovy" 
-					/> <script location="component://borAgency/groovyScripts/ListClientNotes.groovy" /> <script location="component://borAgency/groovyScripts/ListClientInfos.groovy" 
-					/> -->
+				<script location="component://vvorder/groovyScripts/Reports.groovy" />				
 			</actions>
 			<widgets>
 				<decorator-screen name="VvorderCommonDecorator" location="${parameters.mainDecoratorLocation}">
@@ -391,11 +380,11 @@
 							/> <parameter param-name="filshowConditions" /> <parameter param-name="filshowPromotions" /> <parameter param-name="filshowClientNotes" 
 							/> <parameter param-name="filpromotionId" /> </link> </container> -->
 						<container style="button-bar">
-							<link target="ReportExport.csv" text="${uiLabelMap.CommonExport}" style="buttontext create" target-window="_blank">
-								<parameter param-name="filproductId" />
-								<parameter param-name="filpartnerId" />
+							<link target="VvOrderReportExport.csv" text="${uiLabelMap.CommonExport}" style="buttontext create" target-window="_blank">
+								<parameter param-name="filproductId" />								
 								<parameter param-name="fildate1From" />
 								<parameter param-name="fildate2From" />
+								<parameter param-name="filpartnerId" />
 							</link>
 							<!-- <link target="ReportExportPdf" text="${uiLabelMap.CommonPdf}" style="buttontext create" target-window="_blank"> <parameter 
 								param-name="filshowClientNotes" /> <parameter param-name="filshowClientInfos" /> </link> -->
@@ -419,6 +408,9 @@
 
 							<include-form name="OpenOrdersExport" location="component://vvorder/widget/CsvForms.xml" />
 
+							<container>
+								<label style="h2" text="${uiLabelMap.VvProductShippedQuality}" />
+							</container>
 
 							<include-form name="ProdShippedQuantity" location="component://vvorder/widget/CsvForms.xml" />
 

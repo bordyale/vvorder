@@ -245,7 +245,7 @@
 
 
 
-	<request-map uri="ReportExport.csv">
+	<request-map uri="VvOrderReportExport.csv">
 		<security https="true" auth="true" />
 		<response name="success" type="view" value="ReportExport" />
 	</request-map>
@@ -282,8 +282,8 @@
 
 	<view-map name="LookupProduct" type="screen" page="component://vvorder/widget/LookupScreens.xml#LookupProduct" />
 	<view-map name="LookupPartner" type="screen" page="component://vvorder/widget/LookupScreens.xml#LookupPartner" />
-	
-	
+
+
 	<view-map name="ReportExport" type="screencsv" page="component://vvorder/widget/CsvScreens.xml#ReportExportCsv"
 		content-type="text/csv" encoding="none" />
 

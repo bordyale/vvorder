@@ -42,7 +42,7 @@ thruDate = parameters.fildate2From
 orderShipBeforeFrom = parameters.orderShipBeforeFrom
 orderShipBeforeTo = parameters.orderShipBeforeTo
 partyIdTo = parameters.filpartnerId
-showNoOrderShipItems = parameters.showNoOrderShipItems
+productId = parameters.filproductId
 
 List searchCond = []
 if (fromDate) {
@@ -55,6 +55,9 @@ if (thruDate) {
 }
 if (partyIdTo) {
 	searchCond.add(EntityCondition.makeCondition("partnerId", EntityOperator.EQUALS, partyIdTo))
+}
+if (productId) {
+	searchCond.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId))
 }
 
 List<HashMap<String,Object>> hashMaps = new ArrayList<HashMap<String,Object>>()
@@ -79,18 +82,23 @@ for (GenericValue entry: orderItemShippingItem){
 }
 
 List searchCond2 = []
-if (orderShipBeforeFrom) {
-	searchCond2.add(EntityCondition.makeCondition("shipBeforeDate", EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(orderShipBeforeFrom)))
+if (fromDate) {
+	def parseDate = sdf.parse(fromDate)
+	searchCond2.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, UtilDateTime.toTimestamp(parseDate)))
 }
-if (orderShipBeforeTo) {
-	searchCond2.add(EntityCondition.makeCondition("shipBeforeDate", EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(orderShipBeforeTo)))
+if (thruDate) {
+	def parseDate = sdf.parse(thruDate)
+	searchCond2.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.toTimestamp(parseDate)))
+}
+if (productId) {
+	searchCond2.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId))
 }
 /*if (partyIdTo) {
  searchCond2.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyIdTo))
  }*/
 //searchCond2.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_FROM_VENDOR"))
 
-notShippedItems = select("orderId","orderItemSeqId","quantity","quantityShipped","productId","name","shipBeforeDate","weight","orderName").from("VvOrderItemShippingItemView").where(searchCond2).cache(false).queryList()
+notShippedItems = select("orderId","orderItemSeqId","quantity","quantityShipped","productId","name","shipBeforeDate","weight","orderName","orderDate").from("VvOrderItemShippingItemView").where(searchCond2).cache(false).queryList()
 
 notShippedItems = EntityUtil.orderBy(notShippedItems,  ["shipBeforeDate"])
 
@@ -104,6 +112,7 @@ for (GenericValue entry: notShippedItems){
 	e.put("orderId",entry.get("orderId"))
 	e.put("orderName",entry.get("orderName"))
 	e.put("productId",entry.get("productId"))
+	e.put("orderDate",entry.get("orderDate"))
 	e.put("shipBeforeDate",entry.get("shipBeforeDate"))
 	e.put("name",entry.get("name"))
 	BigDecimal quantity = entry.get("quantity")
@@ -154,35 +163,6 @@ for (GenericValue entry: notShippedItems){
 }
 
 
-dynamicViewEntity.addMemberEntity("SIV", "VvShippingItemView");
-//dynamicViewEntity.addAliasAll("SIV", null, null)
-dynamicViewEntity.addAlias("SIV", "productId", null, null, null,true, null);
-dynamicViewEntity.addAlias("SIV", "name", null, null, null,true, null);
-dynamicViewEntity.addAlias("SIV", "orderId", null, null, null,null, null);
-dynamicViewEntity.addAlias("SIV", "partnerId", null, null, null,null, null);
-dynamicViewEntity.addAlias("SIV", "quantity", "quantity", null, null, null, "sum");
-extraShippedProducts= null
-if (partyIdTo) {
-	extraShippedProducts = select("productId","name","quantity").from(dynamicViewEntity).where("orderId", null,"partnerId", partyIdTo).cache(false).queryList()
-}else{
-	extraShippedProducts = select("productId","name","quantity").from(dynamicViewEntity).where("orderId", null).cache(false).queryList()
-}
-
-
-
-extraShippedProducts = EntityUtil.orderBy(extraShippedProducts,  ["productId"])
-
-List<HashMap<String,Object>> exShippedPr = new ArrayList<HashMap<String,Object>>()
-for (GenericValue entry: extraShippedProducts){
-	Map<String,Object> e = new HashMap<String,Object>()
-	e.put("productId",entry.get("productId"))
-	e.put("name",entry.get("name"))
-	BigDecimal qty = entry.get("quantity")
-	e.put("quantity",qty)
-	if (qty.compareTo(BigDecimal.ZERO)!=0){
-		exShippedPr.add(e)
-	}
-}
 
 
 shippingWeight = select("shipmentDate","shipmentId","netWeight").from("VvShippingWeight").where(searchCond).cache(false).queryList()
@@ -228,5 +208,4 @@ context.totalShippedWeight=totalShippedWeight
 context.orderItems2 = hashMaps2
 context.orderItems = hashMaps
 context.shipWeights = shipWeights
-context.exShippedPr = exShippedPr
 context.prodQty = prodQty

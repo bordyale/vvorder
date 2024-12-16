@@ -43,8 +43,9 @@
 
 
 	<form name="OpenOrdersExport" type="list" list-name="orderItems2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-		<field name="shipmentId">
-			<hidden value="${shipmentId}" />
+		
+		<field name="orderDate">
+			<display type="date" />
 		</field>
 		<field name="shipBeforeDate">
 			<display type="date" />
