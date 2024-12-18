@@ -140,6 +140,12 @@
 		invoke="vvorderGenericPermission">
 		<implements service="permissionInterface" />
 	</service>
+	
+	<service name="VvProductImportFromSpreadsheet" engine="java"
+            location="org.apache.ofbiz.vvorder.spreadsheetimport.ImportSpreadsheetServices" invoke="productImportFromSpreadsheet" auth="true">
+        <description>Create product and inventory item</description>
+        <attribute name="dirName" type="java.lang.String" mode="IN" optional="true"/>
+    </service>
 
 
 </services>

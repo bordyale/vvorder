@@ -245,6 +245,20 @@
 
 
 
+	<request-map uri="VvProductImportFromSpreadsheet">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="VvProductImportFromSpreadsheet" />
+		<response name="success" type="view" value="main">
+
+		</response>
+		<response name="error" type="view" value="main">
+
+		</response>
+	</request-map>
+
+
+
+
 	<request-map uri="VvOrderReportExport.csv">
 		<security https="true" auth="true" />
 		<response name="success" type="view" value="ReportExport" />

@@ -17,6 +17,16 @@
 			<widgets>
 				<decorator-screen name="VvorderCommonDecorator" location="${parameters.mainDecoratorLocation}">
 					<decorator-section name="body">
+						<section>
+							<widgets>
+
+								<container>
+									<include-form name="Main" location="component://vvorder/widget/VvorderForms.xml" />
+								</container>
+
+
+							</widgets>
+						</section>
 					</decorator-section>
 				</decorator-screen>
 			</widgets>
@@ -356,7 +366,7 @@
 				<property-map resource="VvwarehouseUiLabels" map-name="uiLabelMap" global="true" />
 				<property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
 				<set field="filproductId" from-field="parameters.filproductId" />
-				<set field="filpartnerId" from-field="parameters.filpartnerId" />		
+				<set field="filpartnerId" from-field="parameters.filpartnerId" />
 				<set field="fildate1From" from-field="parameters.fildate1From" />
 				<set field="fildate1FromTitle" value="${groovy: uiLabelMap.From}" />
 				<set field="fildate2From" from-field="parameters.fildate2From" />
@@ -368,7 +378,7 @@
 				<set field="headerItem" value="findVvReports" />
 				<set field="reportPage" value="Y" />
 				<set field="viewSize" from-field="parameters.VIEW_SIZE_1" type="Integer" default-value="200" />
-				<script location="component://vvorder/groovyScripts/Reports.groovy" />				
+				<script location="component://vvorder/groovyScripts/Reports.groovy" />
 			</actions>
 			<widgets>
 				<decorator-screen name="VvorderCommonDecorator" location="${parameters.mainDecoratorLocation}">
@@ -381,7 +391,7 @@
 							/> <parameter param-name="filpromotionId" /> </link> </container> -->
 						<container style="button-bar">
 							<link target="VvOrderReportExport.csv" text="${uiLabelMap.CommonExport}" style="buttontext create" target-window="_blank">
-								<parameter param-name="filproductId" />								
+								<parameter param-name="filproductId" />
 								<parameter param-name="fildate1From" />
 								<parameter param-name="fildate2From" />
 								<parameter param-name="filpartnerId" />
