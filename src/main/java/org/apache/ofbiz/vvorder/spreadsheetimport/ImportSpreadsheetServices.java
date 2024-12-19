@@ -32,6 +32,7 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -42,8 +43,13 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.CellType;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ImportSpreadsheetServices {
 
@@ -124,12 +130,19 @@ public class ImportSpreadsheetServices {
 					HSSFCell cell0 = row.getCell(0);
 					cell0.setCellType(CellType.STRING);
 					String productId = cell0.getRichStringCellValue().toString();
-					// read QOH from ninth column
+
+					// read quantity from second column
 					HSSFCell cell1 = row.getCell(1);
 					BigDecimal quantity = BigDecimal.ZERO;
 					if (cell1 != null && cell1.getCellType() == CellType.NUMERIC) {
 						quantity = new BigDecimal(cell1.getNumericCellValue());
 					}
+
+					HSSFCell cell2 = row.getCell(2);
+
+					String cellValue = String.valueOf(cell2.getNumericCellValue());
+					Date date;
+					
 
 					// check productId if null then skip creating inventory item
 					// too.
@@ -138,6 +151,13 @@ public class ImportSpreadsheetServices {
 					fields.put("faseId", delegator.getNextSeqId("VvFaseA"));
 					fields.put("productId", productId);
 					fields.put("quantity", quantity);
+					if (HSSFDateUtil.isCellDateFormatted(cell2)) {
+						DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+						date = cell2.getDateCellValue();
+						fields.put("date", UtilDateTime.toTimestamp(date));
+						cellValue = df.format(date);
+					}
+					
 
 					dbrows.add(fields);
 
