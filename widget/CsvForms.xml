@@ -8,23 +8,23 @@
 		odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="shipmentsreport">
 		<!-- <row-actions> <entity-one entity-name="OrderItem" value-field="product" auto-field-map="true"/> </row-actions> -->
 
-		<field name="orderId">
+		<field name="orderId" title="${uiLabelMap.VvOrderId}">
 			<display />
 		</field>
-		<field name="shipmentDate">
+		<field name="shipmentDate" title="${uiLabelMap.VvShipmentDate}">
 			<display type="date" />
 		</field>
 
-		<field name="productId">
+		<field name="productId"  title="${uiLabelMap.VvProductId}">
 			<display />
 		</field>
-		<field name="partnerId">
+		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
 			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}" />
 		</field>
-		<field name="name">
+		<field name="name" title="${uiLabelMap.VvName}">
 			<display />
 		</field>
-		<field name="quantity">
+		<field name="quantity" title="${uiLabelMap.VvQuantity}">
 			<display />
 		</field>
 
@@ -33,10 +33,10 @@
 	<form name="ShipmentsWeights" type="multi" use-row-submit="true" list-name="shipWeights" title="" target="shipmentsreport"
 		odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ordersnotshipped">
 		<!-- <row-actions> <entity-one entity-name="OrderItem" value-field="product" auto-field-map="true"/> </row-actions> -->
-		<field name="shipmentDate">
+		<field name="shipmentDate" title="${uiLabelMap.VvShipmentDate}">
 			<display type="date" />
 		</field>
-		<field name="netWeight">
+		<field name="netWeight" title="${uiLabelMap.VvWeight}">
 			<display />
 		</field>
 	</form>
@@ -44,13 +44,13 @@
 
 	<form name="OpenOrdersExport" type="list" list-name="orderItems2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
 		
-		<field name="orderDate">
+		<field name="orderDate" title="${uiLabelMap.vvorderDate}">
 			<display type="date" />
 		</field>
-		<field name="shipBeforeDate">
+		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}">
 			<display type="date" />
 		</field>
-		<field name="orderId">
+		<field name="orderId" title="${uiLabelMap.VvOrderId}">
 			<display />
 		</field>
 		<field name="orderItemSeqId">
@@ -58,23 +58,23 @@
 		</field>
 		<!-- <field name="orderId" title="${uiLabelMap.OrderOrderId}" widget-style="buttontext"> <hyperlink description="${orderId}" target="/catalog/control/EditProductInventoryItems" 
 			target-type="inter-app"> <parameter param-name="orderId"/> </hyperlink> </field> -->
-		<field name="productId">
+		<field name="productId" title="${uiLabelMap.VvProductId}">
 			<display />
 		</field>
-		<field name="name">
+		<field name="name" title="${uiLabelMap.VvName}">
 			<display />
 		</field>
-		<field name="quantity">
+		<field name="quantity" title="${uiLabelMap.VvQuantity}">
 			<display />
 		</field>
-		<field name="quantityShipped">
+		<field name="quantityShipped" title="${uiLabelMap.VvQuantityShipped}">
 			<display />
 		</field>
-		<field name="quantityShippable">
+		<field name="quantityShippable" title="${uiLabelMap.VvQuantityShippable}">
 			<display />
 		</field>
 		<!-- <field name="productWeight"> <display /> </field> -->
-		<field name="netWeight">
+		<field name="netWeight" title="${uiLabelMap.VvWeight}">
 			<display />
 		</field>
 		<field name="progresNetWeight">
@@ -87,13 +87,13 @@
 		odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ordersnotshipped">
 		<!-- <row-actions> <entity-one entity-name="OrderItem" value-field="product" auto-field-map="true"/> </row-actions> -->
 
-		<field name="productId">
+		<field name="productId" title="${uiLabelMap.VvProductId}">
 			<display />
 		</field>
-		<field name="name">
+		<field name="name" title="${uiLabelMap.VvName}">
 			<display />
 		</field>
-		<field name="quantity">
+		<field name="quantity" title="${uiLabelMap.VvQuantity}">
 			<display />
 		</field>
 	</form>

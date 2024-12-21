@@ -220,7 +220,7 @@
 		<field use-when="VvOrder!=null" name="orderId" title="${uiLabelMap.VvOrderId}">
 			<display />
 		</field>
-		<field use-when="VvOrder==null @and orderId==null" name="orderId" title="${uiLabelMap.GeneralId}">
+		<field use-when="VvOrder==null @and orderId==null" name="orderId" title="${uiLabelMap.VvOrderId}">
 			<ignored />
 		</field>
 		<field name="orderName" title="${uiLabelMap.VvName}">
@@ -500,14 +500,14 @@
 		<field name="shipmentItemSeqId" title="${uiLabelMap.CommonItem}">
 			<display />
 		</field>
-		<field name="orderId">
+		<field name="orderId" title="${uiLabelMap.VvOrderId}">
 			<text size="30" />
 		</field>
 		<field name="orderItemSeqId">
 			<text size="30" />
 		</field>
 
-		<field name="productId">
+		<field name="productId"  title="${uiLabelMap.VvProductId}">
 			<text size="30" />
 		</field>
 		<field name="quantity">

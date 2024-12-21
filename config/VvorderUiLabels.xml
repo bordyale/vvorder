@@ -89,7 +89,7 @@
 	</property>
 	<property key="VvPartnerId">
 		<value xml:lang="en">Partner Id</value>
-		<value xml:lang="hu">Partner Id</value>
+		<value xml:lang="hu">Partner Azonosító</value>
 	</property>
 	<property key="VvShipmentDateId">
 		<value xml:lang="en">Shipment Date</value>
@@ -190,6 +190,22 @@
 	<property key="TotalNetWeight">
 		<value xml:lang="en">Total Net Weight</value>
 		<value xml:lang="hu">Össz szállított Súly</value>
+	</property>
+	<property key="LookupPartner">
+		<value xml:lang="en">Lookup Partner</value>
+		<value xml:lang="hu">Partner Kereső</value>
+	</property>
+	<property key="VvQuantityShipped">
+		<value xml:lang="en">Quantity shipped</value>
+		<value xml:lang="hu">Szállított db</value>
+	</property>
+	<property key="VvQuantityShippable">
+		<value xml:lang="en">Quantity shippable</value>
+		<value xml:lang="hu">Szállítando db</value>
+	</property>
+	<property key="VvOrderId">
+		<value xml:lang="en">Order Id</value>
+		<value xml:lang="hu">Rendelés Azonosító</value>
 	</property>
 	
 </resource>
