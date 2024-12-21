@@ -53,7 +53,8 @@ import java.util.Date;
 
 public class ImportSpreadsheetServices {
 
-	public static final String module = ImportSpreadsheetServices.class.getName();
+	public static final String module = ImportSpreadsheetServices.class
+			.getName();
 	public static final String resource = "VvorderUiLabels";
 
 	/**
@@ -72,9 +73,12 @@ public class ImportSpreadsheetServices {
 	 * @return the result of the service execution
 	 * @throws IOException
 	 */
-	public static Map<String, Object> productImportFromSpreadsheet(DispatchContext dctx, Map<String, ? extends Object> context) throws IOException {
+	public static Map<String, Object> productImportFromSpreadsheet(
+			DispatchContext dctx, Map<String, ? extends Object> context)
+			throws IOException {
 		Delegator delegator = dctx.getDelegator();
 		Locale locale = (Locale) context.get("locale");
+		String tableName = "VvPartner";
 		// System.getProperty("user.dir") returns the path upto ofbiz home
 		// directory
 		String path = System.getProperty("user.dir") + "/spreadsheet";
@@ -87,22 +91,29 @@ public class ImportSpreadsheetServices {
 				// loop for all the containing xls file in the spreadsheet
 				// directory
 				if (files == null) {
-					return ServiceUtil.returnError(UtilProperties.getMessage(resource, "FileFilesIsNull", locale));
+					return ServiceUtil.returnError(UtilProperties.getMessage(
+							resource, "FileFilesIsNull", locale));
 				}
 				for (File file : files) {
-					if (file.getName().toUpperCase(Locale.getDefault()).endsWith("XLS")) {
+					if (file.getName().toUpperCase(Locale.getDefault())
+							.endsWith("XLS")) {
 						fileItems.add(file);
 					}
 				}
 			} else {
-				return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductProductImportDirectoryNotFound", locale));
+				return ServiceUtil.returnError(UtilProperties.getMessage(
+						resource, "ProductProductImportDirectoryNotFound",
+						locale));
 			}
 		} else {
-			return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductProductImportPathNotSpecified", locale));
+			return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+					"ProductProductImportPathNotSpecified", locale));
 		}
 
 		if (fileItems.size() < 1) {
-			return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductProductImportPathNoSpreadsheetExists", locale) + path);
+			return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+					"ProductProductImportPathNoSpreadsheetExists", locale)
+					+ path);
 		}
 
 		for (File item : fileItems) {
@@ -114,8 +125,12 @@ public class ImportSpreadsheetServices {
 				fs = new POIFSFileSystem(new FileInputStream(item));
 				wb = new HSSFWorkbook(fs);
 			} catch (IOException e) {
-				Debug.logError("Unable to read or create workbook from file", module);
-				return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductProductImportCannotCreateWorkbookFromFile", locale));
+				Debug.logError("Unable to read or create workbook from file",
+						module);
+				return ServiceUtil.returnError(UtilProperties.getMessage(
+						resource,
+						"ProductProductImportCannotCreateWorkbookFromFile",
+						locale));
 			}
 
 			// get first sheet
@@ -129,35 +144,36 @@ public class ImportSpreadsheetServices {
 					// starts from 0"
 					HSSFCell cell0 = row.getCell(0);
 					cell0.setCellType(CellType.STRING);
-					String productId = cell0.getRichStringCellValue().toString();
+					String field0 = cell0.getRichStringCellValue()
+							.toString();
 
-					// read quantity from second column
+					/*// read quantity from second column
 					HSSFCell cell1 = row.getCell(1);
-					BigDecimal quantity = BigDecimal.ZERO;
-					if (cell1 != null && cell1.getCellType() == CellType.NUMERIC) {
-						quantity = new BigDecimal(cell1.getNumericCellValue());
-					}
+					BigDecimal field1 = BigDecimal.ZERO;
+					if (cell1 != null
+							&& cell1.getCellType() == CellType.NUMERIC) {
+						field1 = new BigDecimal(cell1.getNumericCellValue());
+					}*/
 
-					HSSFCell cell2 = row.getCell(2);
+					/*HSSFCell cell2 = row.getCell(2);
 
-					String cellValue = String.valueOf(cell2.getNumericCellValue());
-					Date date;
+					String cellValue = String.valueOf(cell2
+							.getNumericCellValue());
+					Date date;*/
+
 					
 
-					// check productId if null then skip creating inventory item
-					// too.
-
 					Map<String, Object> fields = new HashMap<>();
-					fields.put("faseId", delegator.getNextSeqId("VvFaseA"));
-					fields.put("productId", productId);
-					fields.put("quantity", quantity);
-					if (HSSFDateUtil.isCellDateFormatted(cell2)) {
+					fields.put("partnerId", delegator.getNextSeqId(tableName));
+					fields.put("name", field0);
+					//fields.put("quantity", field1);
+					
+					/*if (HSSFDateUtil.isCellDateFormatted(cell2)) {
 						DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 						date = cell2.getDateCellValue();
 						fields.put("date", UtilDateTime.toTimestamp(date));
 						cellValue = df.format(date);
-					}
-					
+					}*/
 
 					dbrows.add(fields);
 
@@ -167,20 +183,24 @@ public class ImportSpreadsheetServices {
 			// create and store values in "Product" and "InventoryItem" entity
 			// in database
 			for (int j = 0; j < dbrows.size(); j++) {
-				GenericValue productGV = delegator.makeValue("VvFaseA", dbrows.get(j));
+				GenericValue productGV = delegator.makeValue(tableName,
+						dbrows.get(j));
 
 				try {
 					delegator.create(productGV);
 
 				} catch (GenericEntityException e) {
 					Debug.logError("Cannot store product", module);
-					return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductProductImportCannotStoreProduct", locale));
+					return ServiceUtil.returnError(UtilProperties.getMessage(
+							resource, "ProductProductImportCannotStoreProduct",
+							locale));
 				}
 
 			}
 			int uploadedProducts = dbrows.size() + 1;
 			if (dbrows.size() > 0) {
-				Debug.logInfo("Uploaded " + uploadedProducts + " products from file " + item.getName(), module);
+				Debug.logInfo("Uploaded " + uploadedProducts
+						+ " products from file " + item.getName(), module);
 			}
 		}
 		return ServiceUtil.returnSuccess();
