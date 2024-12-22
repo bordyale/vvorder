@@ -46,7 +46,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.CellType;
-
+import org.apache.ofbiz.vvorder.spreadsheetimport.ImportSpreadsheetHelper;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -78,7 +78,7 @@ public class ImportSpreadsheetServices {
 			throws IOException {
 		Delegator delegator = dctx.getDelegator();
 		Locale locale = (Locale) context.get("locale");
-		String tableName = "VvPartner";
+		String tableName = "VvFaseA";
 		// System.getProperty("user.dir") returns the path upto ofbiz home
 		// directory
 		String path = System.getProperty("user.dir") + "/spreadsheet";
@@ -142,38 +142,81 @@ public class ImportSpreadsheetServices {
 				if (row != null) {
 					// read productId from first column "sheet column index
 					// starts from 0"
-					HSSFCell cell0 = row.getCell(0);
-					cell0.setCellType(CellType.STRING);
-					String field0 = cell0.getRichStringCellValue()
-							.toString();
+					/*
+					 * HSSFCell cell0 = row.getCell(0);
+					 * cell0.setCellType(CellType.STRING); String field0 =
+					 * cell0.getRichStringCellValue().toString();
+					 * 
+					 * HSSFCell cell2 = row.getCell(2);
+					 * cell2.setCellType(CellType.STRING); String field2 =
+					 * cell2.getRichStringCellValue().toString();
+					 * 
+					 * HSSFCell cell3 = row.getCell(3);
+					 * cell3.setCellType(CellType.STRING); String field3 =
+					 * cell3.getRichStringCellValue().toString();
+					 * 
+					 * HSSFCell cell6 = row.getCell(6);
+					 * cell6.setCellType(CellType.STRING); String field6 =
+					 * cell6.getRichStringCellValue().toString();
+					 * 
+					 * HSSFCell cell7 = row.getCell(7); BigDecimal field7 =
+					 * BigDecimal.ZERO; if (cell7 != null && cell7.getCellType()
+					 * == CellType.NUMERIC) { field7 = new
+					 * BigDecimal(cell7.getNumericCellValue()); }
+					 * 
+					 * HSSFCell cell8 = row.getCell(8);
+					 * cell8.setCellType(CellType.STRING); String field8 =
+					 * cell8.getRichStringCellValue().toString();
+					 */
 
-					/*// read quantity from second column
-					HSSFCell cell1 = row.getCell(1);
-					BigDecimal field1 = BigDecimal.ZERO;
-					if (cell1 != null
-							&& cell1.getCellType() == CellType.NUMERIC) {
-						field1 = new BigDecimal(cell1.getNumericCellValue());
-					}*/
-
-					/*HSSFCell cell2 = row.getCell(2);
-
-					String cellValue = String.valueOf(cell2
-							.getNumericCellValue());
-					Date date;*/
-
-					
+					/*
+					 * HSSFCell cell2 = row.getCell(2);
+					 * 
+					 * String cellValue = String.valueOf(cell2
+					 * .getNumericCellValue()); Date date;
+					 */
 
 					Map<String, Object> fields = new HashMap<>();
-					fields.put("partnerId", delegator.getNextSeqId(tableName));
-					fields.put("name", field0);
-					//fields.put("quantity", field1);
-					
-					/*if (HSSFDateUtil.isCellDateFormatted(cell2)) {
-						DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-						date = cell2.getDateCellValue();
-						fields.put("date", UtilDateTime.toTimestamp(date));
-						cellValue = df.format(date);
-					}*/
+					// fields.put("productId",
+					// delegator.getNextSeqId(tableName));
+
+					/*
+					 * fields.put("partnerId",
+					 * ImportSpreadsheetHelper.importString(0,row));
+					 * fields.put("productId",
+					 * ImportSpreadsheetHelper.importString(2,row));
+					 * fields.put("name",
+					 * ImportSpreadsheetHelper.importString(3,row));
+					 * fields.put("comment",
+					 * ImportSpreadsheetHelper.importString(6,row));
+					 * fields.put("weight",
+					 * ImportSpreadsheetHelper.importBigDecimal(7,row));
+					 * fields.put("wageCode",
+					 * ImportSpreadsheetHelper.importString(8,row));
+					 */
+
+					fields.put("faseId", delegator.getNextSeqId(tableName));
+					fields.put("productId",
+							ImportSpreadsheetHelper.importString(0, row));
+					fields.put("quantity",
+							ImportSpreadsheetHelper.importBigDecimal(1, row));
+					fields.put("date",
+							ImportSpreadsheetHelper.importDate(2, row));
+
+					/*
+					 * fields.put("partnerId", field0); fields.put("productId",
+					 * field2); fields.put("name", field3);
+					 * fields.put("comment", field6); fields.put("weight",
+					 * field7); fields.put("wageCode", field8);
+					 */
+
+					/*
+					 * if (HSSFDateUtil.isCellDateFormatted(cell2)) { DateFormat
+					 * df = new SimpleDateFormat("yyyy-MM-dd"); date =
+					 * cell2.getDateCellValue(); fields.put("date",
+					 * UtilDateTime.toTimestamp(date)); cellValue =
+					 * df.format(date); }
+					 */
 
 					dbrows.add(fields);
 

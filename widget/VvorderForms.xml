@@ -155,6 +155,9 @@
 		<field name="name" title="${uiLabelMap.VvName}">
 			<text-find />
 		</field>
+		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
+			<lookup target-form-name="LookupPartner" position="center" />
+		</field>
 		<field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
 			<submit button-type="button" />
 		</field>
@@ -164,7 +167,7 @@
 		default-table-style="basic-table hover-bar" header-row-style="header-row-2" override-list-size="true">
 
 		<actions>
-			<set field="requestParameters.noConditionFind" value="Y" />
+			<!-- <set field="requestParameters.noConditionFind" value="Y" /> -->
 			<set field="entityName" value="VvProduct" />
 			<service service-name="performFindList" result-map="result" result-map-list="list">
 				<field-map field-name="inputFields" from-field="requestParameters" />
@@ -207,7 +210,7 @@
 			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}" />
 		</field>
 		<field name="deleteLink" title=" " widget-style="buttontext">
-			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteFaseA" also-hidden="false"
+			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvProduct" also-hidden="false"
 				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
 				<parameter param-name="productId" />
 			</hyperlink>
@@ -397,6 +400,9 @@
 		<field name="shipmentId" title="${uiLabelMap.VvShipmentId}">
 			<text-find />
 		</field>
+		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
+			<lookup target-form-name="LookupPartner" position="center" />
+		</field>
 		<field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
 			<submit button-type="button" />
 		</field>
@@ -507,7 +513,7 @@
 			<text size="30" />
 		</field>
 
-		<field name="productId"  title="${uiLabelMap.VvProductId}">
+		<field name="productId" title="${uiLabelMap.VvProductId}">
 			<text size="30" />
 		</field>
 		<field name="quantity">

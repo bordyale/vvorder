@@ -22,12 +22,20 @@ package org.apache.ofbiz.vvorder.spreadsheetimport;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.ofbiz.base.util.UtilDateTime;
 
 public final class ImportSpreadsheetHelper {
 
@@ -40,20 +48,24 @@ public final class ImportSpreadsheetHelper {
 	public static Map<String, Object> prepareProduct(String productId) {
 		Map<String, Object> fields = new HashMap<>();
 		fields.put("productId", productId);
-		/*fields.put("productTypeId", "FINISHED_GOOD");
-		fields.put("internalName", "Product_" + productId);
-		fields.put("isVirtual", "N");
-		fields.put("isVariant", "N");*/
+		/*
+		 * fields.put("productTypeId", "FINISHED_GOOD");
+		 * fields.put("internalName", "Product_" + productId);
+		 * fields.put("isVirtual", "N"); fields.put("isVariant", "N");
+		 */
 		return fields;
 	}
 
 	// check if product already exists in database
-	public static boolean checkProductExists(String productId, Delegator delegator) {
+	public static boolean checkProductExists(String productId,
+			Delegator delegator) {
 		GenericValue tmpProductGV;
 		boolean productExists = false;
 		try {
-			tmpProductGV = EntityQuery.use(delegator).from("VvProduct").where("productId", productId).queryOne();
-			if (tmpProductGV != null && productId.equals(tmpProductGV.getString("productId"))) {
+			tmpProductGV = EntityQuery.use(delegator).from("VvProduct")
+					.where("productId", productId).queryOne();
+			if (tmpProductGV != null
+					&& productId.equals(tmpProductGV.getString("productId"))) {
 				productExists = true;
 			}
 		} catch (GenericEntityException e) {
@@ -61,4 +73,36 @@ public final class ImportSpreadsheetHelper {
 		}
 		return productExists;
 	}
+
+	public static String importString(Integer columnIndex,HSSFRow row) {
+		HSSFCell cell = row.getCell(columnIndex);
+		cell.setCellType(CellType.STRING);
+		String field = cell.getRichStringCellValue().toString();
+		return field;
+	}
+
+	public static BigDecimal importBigDecimal(Integer columnIndex,HSSFRow row) {
+		HSSFCell cell = row.getCell(columnIndex);
+		BigDecimal field = BigDecimal.ZERO;
+		if (cell != null && cell.getCellType() == CellType.NUMERIC) {
+			field = new BigDecimal(cell.getNumericCellValue());
+		}
+		return field;
+	}
+
+	public static Timestamp importDate(Integer columnIndex,HSSFRow row) {
+		HSSFCell cell = row.getCell(columnIndex);
+
+		// String cellValue = String.valueOf(cell.getNumericCellValue());
+		Date date;
+		// if (HSSFDateUtil.isCellDateFormatted(cell2)) {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		date = cell.getDateCellValue();
+		// fields.put("date", UtilDateTime.toTimestamp(date));
+		// cellValue = df.format(date);
+		// }
+
+		return UtilDateTime.toTimestamp(date);
+	}
+
 }
