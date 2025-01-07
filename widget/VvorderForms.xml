@@ -250,9 +250,13 @@
 		<field name="noConditionFind">
 			<hidden value="Y" /><!-- if this isn't there then with all fields empty no query will be done -->
 		</field>
-		<field name="orderName" title="${uiLabelMap.VvName}">
+		<field name="orderName" title="${uiLabelMap.VvOrderName}">
 			<text-find />
 		</field>
+		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
+			<lookup target-form-name="LookupPartner" position="center" />
+		</field>
+
 		<field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
 			<submit button-type="button" />
 		</field>
@@ -330,6 +334,10 @@
 		<field name="quantity" title="${uiLabelMap.VvQuantity}">
 			<display />
 		</field>
+
+		<field name="comment" title="${uiLabelMap.VvComment}">
+			<display />
+		</field>
 		<!-- <field name="submitButton" title="${uiLabelMap.CommonUpdate}"> -->
 		<!-- <submit button-type="button" /> -->
 		<!-- </field> -->
@@ -359,6 +367,10 @@
 		<field name="quantity" title="${uiLabelMap.VvQuantity}">
 			<text size="10" maxlength="10" />
 		</field>
+		<field name="comment" title="${uiLabelMap.VvComment}">
+			<text size="10" maxlength="10" />
+		</field>
+
 
 		<field name="submitButton" title="${uiLabelMap.CommonAdd}">
 			<submit button-type="button" request-confirmation="true" />

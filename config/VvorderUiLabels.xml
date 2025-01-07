@@ -131,6 +131,15 @@
 		<value xml:lang="en">List Order Items</value>
 		<value xml:lang="hu">Rendelés Lista</value>
 	</property>
+	<property key="EditVvOrder">
+		<value xml:lang="en">Edit Order</value>
+		<value xml:lang="hu">Rendelés módósítása </value>
+	</property>
+	<property key="VvComment">
+		<value xml:lang="en">Comment</value>
+		<value xml:lang="hu">Megegyzés</value>
+	</property>
+
 	<property key="ListVvShipmentItems">
 		<value xml:lang="en">List Shipment Items</value>
 		<value xml:lang="hu">Szállítási Lista</value>
@@ -155,8 +164,12 @@
 		<value xml:lang="en">Find Shipments</value>
 		<value xml:lang="hu">Szállítás Keresés</value>
 	</property>
-	<property key="VvAddress">
-		<value xml:lang="en">Address</value>
+		<property key="FindVvOrders">
+		<value xml:lang="en">Find Orders</value>
+		<value xml:lang="hu">Rendelések Keresése</value>
+	</property>
+	<property key="vvaddress">
+		<value xml:lang="en">address</value>
 		<value xml:lang="hu">Cím</value>
 	</property>
 	<property key="VvMaterial">
