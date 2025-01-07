@@ -226,7 +226,7 @@
 		<field use-when="VvOrder==null @and orderId==null" name="orderId" title="${uiLabelMap.VvOrderId}">
 			<ignored />
 		</field>
-		<field name="orderName" title="${uiLabelMap.VvName}">
+		<field name="orderName" title="${uiLabelMap.VvOrderName}">
 			<text size="50" maxlength="50" />
 		</field>
 		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">

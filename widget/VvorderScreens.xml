@@ -20,9 +20,9 @@
 						<section>
 							<widgets>
 
-								<container>
+								<!--								<container>
 									<include-form name="Main" location="component://vvorder/widget/VvorderForms.xml" />
-								</container>
+								</container>-->
 
 
 							</widgets>

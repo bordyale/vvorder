@@ -87,8 +87,7 @@
 	<request-map uri="createVvOrder">
 		<security https="true" auth="true" />
 		<event type="service" path="" invoke="createVvOrder" />
-		<response name="success" type="request-redirect" value="findVvOrders">
-			<!-- <response name="success" type="request-redirect" value="EditVvOrder"> <redirect-parameter name="productId" /> -->
+		<response name="success" type="request-redirect" value="EditVvOrder"> <redirect-parameter name="orderId" /> 
 		</response>
 		<response name="error" type="view" value="EditVvOrder" />
 	</request-map>
@@ -145,8 +144,7 @@
 	<request-map uri="createVvShipment">
 		<security https="true" auth="true" />
 		<event type="service" path="" invoke="createVvShipment" />
-		<response name="success" type="request-redirect" value="findVvShipments">
-			<!-- <response name="success" type="request-redirect" value="EditVvShipment"> <redirect-parameter name="productId" /> -->
+			<response name="success" type="request-redirect" value="EditVvShipment"> <redirect-parameter name="shipmentId" />
 		</response>
 		<response name="error" type="view" value="EditVvShipment" />
 	</request-map>

@@ -63,6 +63,10 @@
 		<value xml:lang="en">Name</value>
 		<value xml:lang="hu">Név</value>
 	</property>
+		<property key="VvOrderName">
+		<value xml:lang="en">Order Name</value>
+		<value xml:lang="hu">Partner rendelés azonosító</value>
+	</property>
 	<property key="VvOrders">
 		<value xml:lang="en">Orders</value>
 		<value xml:lang="hu">Rendelések</value>
