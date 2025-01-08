@@ -78,7 +78,7 @@ public class ImportSpreadsheetServices {
 			throws IOException {
 		Delegator delegator = dctx.getDelegator();
 		Locale locale = (Locale) context.get("locale");
-		String tableName = "VvFaseA";
+		String tableName = "VvProduct";
 		// System.getProperty("user.dir") returns the path upto ofbiz home
 		// directory
 		String path = System.getProperty("user.dir") + "/spreadsheet";
@@ -195,13 +195,18 @@ public class ImportSpreadsheetServices {
 					 * ImportSpreadsheetHelper.importString(8,row));
 					 */
 
-					fields.put("faseId", delegator.getNextSeqId(tableName));
+					fields.put("partnerId",ImportSpreadsheetHelper.importString(0, row));
 					fields.put("productId",
-							ImportSpreadsheetHelper.importString(0, row));
-					fields.put("quantity",
-							ImportSpreadsheetHelper.importBigDecimal(1, row));
-					fields.put("date",
-							ImportSpreadsheetHelper.importDate(2, row));
+							ImportSpreadsheetHelper.importString(2, row));
+					fields.put("name",
+							ImportSpreadsheetHelper.importString(3, row));
+
+					fields.put("comment",
+							ImportSpreadsheetHelper.importString(6, row));
+
+					fields.put("weight",ImportSpreadsheetHelper.importBigDecimal(7,row));
+					fields.put("wageCode",ImportSpreadsheetHelper.importString(9, row));
+						
 
 					/*
 					 * fields.put("partnerId", field0); fields.put("productId",
@@ -217,6 +222,7 @@ public class ImportSpreadsheetServices {
 					 * UtilDateTime.toTimestamp(date)); cellValue =
 					 * df.format(date); }
 					 */
+					Debug.logInfo("Processed row:" + j + " " + row.toString(), module);
 
 					dbrows.add(fields);
 
@@ -231,7 +237,7 @@ public class ImportSpreadsheetServices {
 
 				try {
 					delegator.create(productGV);
-
+					Debug.logInfo("Inserted row: " + j, module); 
 				} catch (GenericEntityException e) {
 					Debug.logError("Cannot store product", module);
 					return ServiceUtil.returnError(UtilProperties.getMessage(
