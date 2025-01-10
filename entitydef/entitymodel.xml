@@ -70,6 +70,9 @@
 		<relation type="one" fk-name="PRODUCT_ID" title="productId" rel-entity-name="VvProduct">
 			<key-map field-name="productId" rel-field-name="productId" />
 		</relation>
+		<relation type="one" fk-name="ORDER_ID" title="orderId" rel-entity-name="VvOrder">
+			<key-map field-name="orderId" rel-field-name="orderId" />
+		</relation>
 	</entity>
 	<entity entity-name="VvShipment" package-name="org.apache.ofbiz.vvshipment.vvshipment" title="VvShipment Entity">
 		<field name="shipmentId" type="id">

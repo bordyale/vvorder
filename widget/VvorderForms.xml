@@ -332,15 +332,15 @@
 			<display-entity entity-name="VvProduct" key-field-name="productId" description="${name}" />
 		</field>
 		<field name="quantity" title="${uiLabelMap.VvQuantity}">
-			<display />
+			<text size="10" maxlength="10" />
 		</field>
 
 		<field name="comment" title="${uiLabelMap.VvComment}">
-			<display />
+			<text size="10" maxlength="10" />
 		</field>
-		<!-- <field name="submitButton" title="${uiLabelMap.CommonUpdate}"> -->
-		<!-- <submit button-type="button" /> -->
-		<!-- </field> -->
+		<field name="submitButton" title="${uiLabelMap.CommonUpdate}">
+		    <submit button-type="button" />
+		</field>
 
 		<field name="deleteLink" title=" " widget-style="buttontext">
 			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvOrderItem" also-hidden="false"
@@ -361,11 +361,11 @@
 		<field name="orderItemSeqId">
 			<ignored /><!-- this will be auto-sequenced -->
 		</field>
-		<field name="productId" title="${uiLabelMap.VvProductId}">
-			<lookup target-form-name="LookupProduct" position="center" />
-		</field>
 		<field name="quantity" title="${uiLabelMap.VvQuantity}">
 			<text size="10" maxlength="10" />
+		</field>
+		<field name="productId" title="${uiLabelMap.VvProductId}">
+			<lookup target-form-name="LookupProduct" position="center" />
 		</field>
 		<field name="comment" title="${uiLabelMap.VvComment}">
 			<text size="10" maxlength="10" />
@@ -373,7 +373,7 @@
 
 
 		<field name="submitButton" title="${uiLabelMap.CommonAdd}">
-			<submit button-type="button" request-confirmation="true" />
+			<submit button-type="button" />
 		</field>
 	</form>
 

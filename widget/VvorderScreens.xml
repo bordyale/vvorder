@@ -231,6 +231,7 @@
 				<set field="headerItem" value="findVvOrders" />
 				<set field="tabButtonItem" value="EditVvOrderItems" />
 				<set field="orderId" from-field="parameters.orderId" />
+				<entity-one entity-name="VvOrder" value-field="order" />
 			</actions>
 			<widgets>
 				<decorator-screen name="VvorderDetailCommonDecorator" location="${parameters.mainDecoratorLocation}">
@@ -239,7 +240,7 @@
 
 						<section>
 							<widgets>
-								<screenlet title="${uiLabelMap.ListVvOrderItems}">
+				 <screenlet title="${uiLabelMap.ListVvOrderItems} - ${order.orderId} - ${order.orderName}">
 									<include-form name="ListVvOrderItems" location="component://vvorder/widget/VvorderForms.xml" />
 									<!-- <include-grid name="ListVvOrderItems" location="component://vvorder/widget/VvorderForms.xml" /> -->
 									<include-form name="AddVvOrderItem" location="component://vvorder/widget/VvorderForms.xml" />
