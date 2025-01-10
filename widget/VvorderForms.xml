@@ -267,11 +267,11 @@
 
 		<actions>
 			<set field="requestParameters.noConditionFind" value="Y" />
-			<set field="entityName" value="VvOrder" />
+			<set field="sortField" from-field="parameters.sortField" default-value="-orderId" />
 			<service service-name="performFindList" result-map="result" result-map-list="list">
 				<field-map field-name="inputFields" from-field="requestParameters" />
-				<field-map field-name="entityName" from-field="entityName" />
-				<field-map field-name="orderBy" from-field="parameters.sortField" />
+				<field-map field-name="entityName" value="VvOrder" />
+				<field-map field-name="orderBy" from-field="sortField" />
 				<field-map field-name="viewIndex" from-field="viewIndex" />
 				<field-map field-name="viewSize" from-field="viewSize" />
 			</service>
@@ -311,10 +311,50 @@
 		</field> <field name="submitButton" title="${uiLabelMap.CommonUpdate}"> <submit button-type="button" /> </field> </grid> -->
 
 
+<form name="ListVvOrderItems" type="list" list-name="listIt" target="updateVvOrderItem" paginate-target="EditVvOrderItems" default-entity-name="VvOrderItem" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2"
+		default-table-style="basic-table hover-bar">
+		<actions>
+			<set field="requestParameters.noConditionFind" value="Y" />
+			<set field="sortField" from-field="parameters.sortField" default-value="-orderItemSeqId" />
+			<service service-name="performFind" result-map="result" result-map-list="listIt">
+				<field-map field-name="inputFields" from-field="requestParameters" />
+				<field-map field-name="entityName" value="VvOrderItem" />
+				<field-map field-name="orderBy" from-field="sortField" />
+				<field-map field-name="viewIndex" from-field="viewIndex" />
+				<field-map field-name="viewSize" from-field="viewSize" />
+			</service>
+		</actions>
+		<field name="orderId">
+			<hidden />
+		</field>
+		<field name="orderItemSeqId" title="${uiLabelMap.CommonItem}" sort-field="true">
+			<display />
+		</field>
+		<field name="productId" title="${uiLabelMap.VvName}">
+			<display-entity entity-name="VvProduct" key-field-name="productId" description="${name}" />
+		</field>
+		<field name="quantity" title="${uiLabelMap.VvQuantity}">
+			<text />
+		</field>
+
+		<field name="comment" title="${uiLabelMap.VvComment}">
+			<text/>
+		</field>
+		<field name="submitButton" title="${uiLabelMap.CommonUpdate}">
+			<submit button-type="button" />
+		</field>
+		<field name="deleteLink" title=" " widget-style="buttontext">
+			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvOrderItem" also-hidden="false"
+				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
+				<parameter param-name="orderId" />
+				<parameter param-name="orderItemSeqId" />
+			</hyperlink>
+		</field>
+
+	</form>
 
 
-
-	<form name="ListVvOrderItems" type="list" list-name="orderItems" target="updateVvOrderItem">
+	<form name="ListVvOrderItemsOld" type="list" list-name="orderItems" target="updateVvOrderItem">
 		<actions>
 			<entity-condition entity-name="VvOrderItem">
 				<condition-expr field-name="orderId" from-field="orderId" />
@@ -332,14 +372,11 @@
 			<display-entity entity-name="VvProduct" key-field-name="productId" description="${name}" />
 		</field>
 		<field name="quantity" title="${uiLabelMap.VvQuantity}">
-			<text size="10" maxlength="10" />
+			<text />
 		</field>
 
 		<field name="comment" title="${uiLabelMap.VvComment}">
-			<text size="10" maxlength="10" />
-		</field>
-		<field name="submitButton" title="${uiLabelMap.CommonUpdate}">
-		    <submit button-type="button" />
+			<text/>
 		</field>
 
 		<field name="deleteLink" title=" " widget-style="buttontext">
@@ -422,14 +459,13 @@
 
 	<form name="ListVvShipments" list-name="list" target="" title="" type="list" paginate-target="findVvShipments"
 		odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2" override-list-size="true">
-
 		<actions>
 			<set field="requestParameters.noConditionFind" value="Y" />
-			<set field="entityName" value="VvShipment" />
+			<set field="sortField" from-field="parameters.sortField" default-value="-shipmentId" />
 			<service service-name="performFindList" result-map="result" result-map-list="list">
 				<field-map field-name="inputFields" from-field="requestParameters" />
-				<field-map field-name="entityName" from-field="entityName" />
-				<field-map field-name="orderBy" from-field="parameters.sortField" />
+				<field-map field-name="entityName" value="VvShipment" />
+				<field-map field-name="orderBy" from-field="sortField" />
 				<field-map field-name="viewIndex" from-field="viewIndex" />
 				<field-map field-name="viewSize" from-field="viewSize" />
 			</service>
@@ -454,7 +490,48 @@
 		</field>
 	</form>
 
+	<form name="ListVvShipmentItems" type="list" list-name="listIt" target="updateVvShipmentItem" paginate-target="EditVvShipmentItems" default-entity-name="VvShipmentItem" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2"
+		default-table-style="basic-table hover-bar">
+		<actions>
+			<set field="requestParameters.noConditionFind" value="Y" />
+			<service service-name="performFind" result-map="result" result-map-list="listIt">
+				<field-map field-name="inputFields" from-field="requestParameters" />
+				<field-map field-name="entityName" value="VvShipmentItem" />
+				<field-map field-name="orderBy" from-field="sortField" />
+				<field-map field-name="viewIndex" from-field="viewIndex" />
+				<field-map field-name="viewSize" from-field="viewSize" />
+			</service>
+		</actions>
+		<field name="shipmentId">
+			<hidden />
+		</field>
+		<field name="shipmentItemSeqId" title="${uiLabelMap.CommonItem}">
+			<display />
+		</field>
+		<field name="orderId">
+			<display/>
+		</field>
+		<field name="orderItemSeqId" title="${uiLabelMap.CommonItem}" sort-field="true">
+			<display />
+		</field>
+		<field name="productId" title="${uiLabelMap.VvName}">
+			<display-entity entity-name="VvProduct" key-field-name="productId" description="${name}" />
+		</field>
+		<field name="quantity" title="${uiLabelMap.VvQuantity}">
+			<text/>
+		</field>
 
+		<field name="submitButton" title="${uiLabelMap.CommonUpdate}">
+			<submit button-type="button" />
+		</field>
+		<field name="deleteLink" title=" " widget-style="buttontext">
+			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvShipmentItem" also-hidden="false"
+				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
+				<parameter param-name="shipmentId" />
+				<parameter param-name="shipmentItemSeqId" />
+			</hyperlink>
+		</field>
+	</form>
 
 
 
@@ -502,7 +579,7 @@
 		<!-- </field> -->
 	</grid>
 
-	<form name="ListVvShipmentItems" list-name="shipmentItems" target="" title="" type="list" paginate-target="updateVvShipmentItem"
+	<form name="ListVvShipmentItemsOld" list-name="shipmentItems" target="" title="" type="list" paginate-target="updateVvShipmentItem"
 		odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2" override-list-size="true">
 
 		<actions>

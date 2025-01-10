@@ -101,15 +101,19 @@
 		<field name="productId" type="id"></field>
 		<prim-key field="shipmentId" />
 		<prim-key field="shipmentItemSeqId" />
+		<relation type="one" fk-name="SHIPMENT_ID" title="shipmentId" rel-entity-name="VvShipment">
+			<key-map field-name="shipmentId" rel-field-name="shipmentId" />
+		</relation>
 		<relation type="one" fk-name="PRODUCT_ID" title="productId" rel-entity-name="VvProduct">
 			<key-map field-name="productId" rel-field-name="productId" />
 		</relation>
-		<relation type="one" fk-name="vvorderId" rel-entity-name="VvOrderItem">
-			<key-map field-name="orderId" />
+		<relation type="one" fk-name="VVORDER_ID" title="vvorderId" rel-entity-name="VvOrderItem">
+			<key-map field-name="orderId" rel-field-name="orderId"/>
 		</relation>
-		<relation type="one" fk-name="vvorderItemSeqId" rel-entity-name="VvOrderItem">
-			<key-map field-name="vvorderItemSeqId" />
+		<relation type="one" fk-name="VVORDERSEQ_ID" title="vvorderitemId" rel-entity-name="VvOrderItem">
+			<key-map field-name="vvorderItemSeqId" rel-field-name="vvorderItemSeqId"/>
 		</relation>
+		
 	</entity>
 	
 	
