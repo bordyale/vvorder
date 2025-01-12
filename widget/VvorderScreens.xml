@@ -351,7 +351,7 @@
 							<widgets>
 								<screenlet title="${uiLabelMap.ListVvOrderItems}">
 									<include-form name="ListVvShipmentItems" location="component://vvorder/widget/VvorderForms.xml" />
-									<include-form name="AddVvShipmentItem" location="component://vvorder/widget/VvorderForms.xml" />
+									<!--									<include-form name="AddVvShipmentItem" location="component://vvorder/widget/VvorderForms.xml" />-->
 								</screenlet>
 							</widgets>
 						</section>

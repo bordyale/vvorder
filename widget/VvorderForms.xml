@@ -520,12 +520,9 @@
 			<display-entity entity-name="VvProduct" key-field-name="productId" description="${name}" />
 		</field>
 		<field name="quantity" title="${uiLabelMap.VvQuantity}">
-			<text/>
+			<display/>
 		</field>
 
-		<field name="submitButton" title="${uiLabelMap.CommonUpdate}">
-			<submit button-type="button" />
-		</field>
 		<field name="deleteLink" title=" " widget-style="buttontext">
 			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvShipmentItem" also-hidden="false"
 				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">

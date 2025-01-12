@@ -105,8 +105,12 @@
 		<relation type="one" fk-name="SHIPMENT_ID" title="shipmentId" rel-entity-name="VvShipment">
 			<key-map field-name="shipmentId" rel-field-name="shipmentId" />
 		</relation>
-		<relation type="one" fk-name="PRODUCT_ID" title="productId" rel-entity-name="VvProduct">
+		<relation type="one" fk-name="PRODUCT_SHIP_SHIP_ID" title="productId" rel-entity-name="VvProduct">
 			<key-map field-name="productId" rel-field-name="productId" />
+		</relation>
+		<relation type="one" fk-name="ORDER_ITEM_ID" title="orderItemId" rel-entity-name="VvOrderItem">
+			<key-map field-name="orderId" rel-field-name="orderId" />
+			<key-map field-name="orderItemSeqId" rel-field-name="orderItemSeqId" />
 		</relation>
 		
 	</entity>
