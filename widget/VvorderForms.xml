@@ -121,7 +121,7 @@
 		<field name="castTemp" title="${uiLabelMap.VvCastTem}">
 			<text size="10" maxlength="10" />
 		</field>
-		<field name="weight" title="${uiLabelMap.VvWeight}">
+		<field name="weight" title="${uiLabelMap.VvWeight}" required-field="true">
 			<text size="10" maxlength="10" />
 		</field>
 		<field name="comment" title="${uiLabelMap.VvComment}">
@@ -238,6 +238,9 @@
 		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}">
 			<date-time type="date" />
 		</field>
+		<field name="orderWeight" title="${uiLabelMap.orderWeight}">
+			<display />
+		</field>
 		<field name="submitButton" use-when="VvOrder==null" title="${uiLabelMap.CommonCreate}">
 			<submit button-type="button" />
 		</field>
@@ -311,7 +314,7 @@
 		</field> <field name="submitButton" title="${uiLabelMap.CommonUpdate}"> <submit button-type="button" /> </field> </grid> -->
 
 
-<form name="ListVvOrderItems" type="list" list-name="listIt" target="updateVvOrderItem" paginate-target="EditVvOrderItems" default-entity-name="VvOrderItem" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2"
+<form name="ListVvOrderItems" type="list" list-name="listIt" target="updateVvOrderItemJava" paginate-target="EditVvOrderItems" default-entity-name="VvOrderItem" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2"
 		default-table-style="basic-table hover-bar">
 		<actions>
 			<set field="requestParameters.noConditionFind" value="Y" />
@@ -344,7 +347,7 @@
 			<submit button-type="button" />
 		</field>
 		<field name="deleteLink" title=" " widget-style="buttontext">
-			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvOrderItem" also-hidden="false"
+			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvOrderItemJava" also-hidden="false"
 				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
 				<parameter param-name="orderId" />
 				<parameter param-name="orderItemSeqId" />
@@ -380,7 +383,7 @@
 		</field>
 
 		<field name="deleteLink" title=" " widget-style="buttontext">
-			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvOrderItem" also-hidden="false"
+			<hyperlink description="${uiLabelMap.CommonDelete}" target="deleteVvOrderItemJava" also-hidden="false"
 				confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png">
 				<parameter param-name="orderId" />
 				<parameter param-name="orderItemSeqId" />
@@ -390,18 +393,17 @@
 	</form>
 
 
-	<form name="AddVvOrderItem" type="single" target="createVvOrderItem" title="">
-		<auto-fields-service service-name="createVvOrderItem" />
+	<form name="AddVvOrderItem" type="single" target="createVvOrderItemJava" title="">
 		<field name="orderId">
 			<hidden />
 		</field>
 		<field name="orderItemSeqId">
 			<ignored /><!-- this will be auto-sequenced -->
 		</field>
-		<field name="quantity" title="${uiLabelMap.VvQuantity}">
+		<field name="quantity" title="${uiLabelMap.VvQuantity}" required-field="true"> 
 			<text size="10" maxlength="10" />
 		</field>
-		<field name="productId" title="${uiLabelMap.VvProductId}">
+		<field name="productId" title="${uiLabelMap.VvProductId}" required-field="true">
 			<lookup target-form-name="LookupProduct" position="center" />
 		</field>
 		<field name="comment" title="${uiLabelMap.VvComment}">

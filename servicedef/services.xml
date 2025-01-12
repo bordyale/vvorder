@@ -84,6 +84,30 @@
 		<auto-attributes include="pk" mode="IN" optional="false" />
 		<auto-attributes include="nonpk" mode="IN" optional="true" />
 		<override name="orderItemSeqId" mode="OUT" />		
+		</service>
+	<service name="createVvOrderItemJava" engine="java"
+			location="org.apache.ofbiz.vvorder.VvOrderServices" invoke="createOrderItemJava" auth="true">
+		<description>Create Work Papers entry</description>
+		<attribute name="orderId" type="String" mode="INOUT" optional="false" />
+		<attribute name="quantity" type="BigDecimal" mode="IN" optional="false" />
+		<attribute name="productId" type="String" mode="IN" optional="false" />
+		<attribute name="comment" type="String" mode="IN" optional="true" />
+		<attribute name="orderItemSeqId" type="String" mode="OUT" optional="false" />
+	</service>
+	<service name="updateVvOrderItemJava" engine="java"
+			location="org.apache.ofbiz.vvorder.VvOrderServices" invoke="updateOrderItemJava" auth="true">
+		<description>update Work Papers entry</description>
+		<attribute name="orderId" type="String" mode="INOUT" optional="false" />
+		<attribute name="quantity" type="BigDecimal" mode="IN" optional="true" />
+		<attribute name="productId" type="String" mode="IN" optional="true" />
+		<attribute name="comment" type="String" mode="IN" optional="true" />
+		<attribute name="orderItemSeqId" type="String" mode="INOUT" optional="false" />
+	</service>
+	<service name="deleteVvOrderItemJava" engine="java"
+			location="org.apache.ofbiz.vvorder.VvOrderServices" invoke="deleteOrderItemJava" auth="true">
+		<description>delete Work Papers entry</description>
+		<attribute name="orderId" type="String" mode="INOUT" optional="false" />
+		<attribute name="orderItemSeqId" type="String" mode="IN" optional="false" />
 	</service>
 	<service name="updateVvOrderItem" default-entity-name="VvOrderItem" engine="entity-auto" invoke="update" auth="true">
 		<description>Update a VvOrderItem</description>

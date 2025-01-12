@@ -116,6 +116,31 @@
 		</response>
 		<response name="error" type="view" value="EditVvOrderItems" />
 	</request-map>
+	<request-map uri="createVvOrderItemJava">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="createVvOrderItemJava" />
+		<response name="success" type="request-redirect" value="EditVvOrderItems">
+			<redirect-parameter name="orderId" />
+		</response>
+		<response name="error" type="view" value="EditVvOrderItems" />
+	</request-map>
+	<request-map uri="updateVvOrderItemJava">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="updateVvOrderItemJava" />
+		<response name="success" type="request-redirect" value="EditVvOrderItems">
+			<redirect-parameter name="orderId" />
+		</response>
+		<response name="error" type="view" value="EditVvOrderItems" />
+	</request-map>
+	<request-map uri="deleteVvOrderItemJava">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="deleteVvOrderItemJava" />
+		<response name="success" type="request-redirect" value="EditVvOrderItems">
+			<redirect-parameter name="orderId" />
+		</response>
+		<response name="error" type="view" value="EditVvOrderItems" />
+	</request-map>
+
 	<request-map uri="updateVvOrderItem">
 		<security https="true" auth="true" />
 		<event type="service" invoke="updateVvOrderItem" />

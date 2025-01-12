@@ -244,6 +244,7 @@
 									<include-form name="ListVvOrderItems" location="component://vvorder/widget/VvorderForms.xml" />
 									<!-- <include-grid name="ListVvOrderItems" location="component://vvorder/widget/VvorderForms.xml" /> -->
 									<include-form name="AddVvOrderItem" location="component://vvorder/widget/VvorderForms.xml" />
+									<label style="h1">${uiLabelMap.orderWeight} - ${order.orderWeight} Kg</label>
 								</screenlet>
 							</widgets>
 						</section>
@@ -337,12 +338,14 @@
 				<set field="headerItem" value="findVvShipments" />
 				<set field="tabButtonItem" value="EditVvShipmentItems" />
 				<set field="shipmentId" from-field="parameters.shipmentId" />
+				<script location="component://vvorder/groovyScripts/ShippingWeight.groovy" />
 			</actions>
 			<widgets>
 				<decorator-screen name="VvshipmentDetailCommonDecorator" location="${parameters.mainDecoratorLocation}">
 					<decorator-section name="body">
 						<screenlet title="${uiLabelMap.AddProductToShippingWithOpenOrders}">
 							<include-form name="AddProductToShippingWithOpenOrders" location="component://vvorder/widget/VvorderForms.xml" />
+							<label style="h1">${uiLabelMap.TotalNetWeight} - ${totalShippedWeight} Kg</label>
 						</screenlet>
 						<section>
 							<widgets>

@@ -51,6 +51,7 @@
 		<field name="description" type="description"></field>
 		<field name="comments" type="comment"></field>
 		<field name="orderDate" type="date-time"></field>
+		<field name="orderWeight" type="fixed-point"></field>
 		<field name="shipBeforeDate" type="date-time"></field>
 		<prim-key field="orderId" />
 		<relation type="one" fk-name="partnerId" rel-entity-name="VvPartner">
@@ -106,9 +107,6 @@
 		</relation>
 		<relation type="one" fk-name="PRODUCT_ID" title="productId" rel-entity-name="VvProduct">
 			<key-map field-name="productId" rel-field-name="productId" />
-		</relation>
-		<relation type="one" fk-name="VVORDER_ID" title="vvorderId" rel-entity-name="VvOrderItem">
-			<key-map field-name="orderId" rel-field-name="orderId"/>
 		</relation>
 		
 	</entity>

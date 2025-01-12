@@ -224,5 +224,9 @@
 		<value xml:lang="en">Order Id</value>
 		<value xml:lang="hu">Rendelés Azonosító</value>
 	</property>
+	<property key="orderWeight">
+		<value xml:lang="en">Order Weight</value>
+		<value xml:lang="hu">Rendelés Súlya</value>
+	</property>
 	
 </resource>
