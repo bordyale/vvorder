@@ -20,7 +20,7 @@ under the License.
         <input type="hidden" name="dataCategoryId" value="PERSONAL"/>
         <input type="hidden" name="contentTypeId" value="DOCUMENT"/>
         <input type="hidden" name="statusId" value="CTNT_PUBLISHED"/>
-        <input type="file" name="uploadedFile" class="required error" size="25"/>
+        <input type="file" name="uploadFile" class="required error" size="25"/>
         <div>
         </select>
         </div>

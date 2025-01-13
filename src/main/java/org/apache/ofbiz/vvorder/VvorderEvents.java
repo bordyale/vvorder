@@ -316,6 +316,7 @@ public class VvorderEvents {
 	public static String uploadVvOrderItem(HttpServletRequest request, HttpServletResponse response) {
 		Locale locale = UtilHttp.getLocale(request);
 
+		String prefix = System.getProperty("user.dir");
         Map<String, Object> results = new HashMap<String, Object>();
         ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File(new File("runtime"), "tmp")));
         List<FileItem> lst = null;
@@ -356,19 +357,20 @@ public class VvorderEvents {
 		String imageName = results.get("imageFileName").toString();
         String mimType = results.get("uploadMimeType").toString();
         ByteBuffer imageData = (ByteBuffer) results.get("imageData");
-
-		String dirPath = "vvorder/orderitemupload/";
-		String prefix = System.getProperty("user.dir");
-		File dir = System.getProperty("user.dir") + dirPath;
+		try{
+		String dirPath = "/plugins/vvorder/orderitemupload/";
+		String completeDirPath = prefix + dirPath;
+		System.out.println("dirPath: " + completeDirPath);
+		File dir = new File(completeDirPath);
 		if (!dir.exists()) {
 			boolean createDir = dir.mkdir();
 			if (!createDir) {
-				request.setAttribute("_ERROR_MESSAGE_", "Cannot create directory.");
+				request.setAttribute("_ERROR_MESSAGE_",completeDirPath); 
 				return "error";
 			}
 		}
-		String imagePath = "vvorder/orderitemupload/" + imageName;
-		String prefix = System.getProperty("user.dir");
+		String imagePath = "/plugins/vvorder/orderitemupload/" + imageName;
+		System.out.println("imagePath: " + prefix + imagePath);
 		File file = new File(prefix + "/" + imagePath);
 		if (file.exists()) {
 			request.setAttribute("_ERROR_MESSAGE_", "There is an existing frame, please select from the existing frame.");
@@ -381,7 +383,10 @@ public class VvorderEvents {
 		out.write(imageData.array());
 		out.close();
 
+		}catch (Exception e){
+			System.out.println(e);
 
+		}
 
 
 

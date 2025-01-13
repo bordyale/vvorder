@@ -181,34 +181,4 @@ public class VvOrderServices {
 		return result;
 	}
 
-	public static Map<String, Object> createPromotionJava(DispatchContext ctx, Map<String, Object> context) {
-		Delegator delegator = ctx.getDelegator();
-		LocalDispatcher dispatcher = ctx.getDispatcher();
-		Locale locale = (Locale) context.get("locale");
-		String errMsg = null;
-		Map<String, Object> result = ServiceUtil.returnSuccess();
-
-		GenericValue userLogin = (GenericValue) context.get("userLogin");
-
-		try {
-			String sellInEquOut = (String) context.get("sellInEquOut");
-			if (sellInEquOut!=null && sellInEquOut.equals("Y")) {
-				context.put("selloutFrom", context.get("sellinFrom"));
-				context.put("selloutTo", context.get("sellinTo"));
-			}
-			String sellInAEquOutA = (String) context.get("sellInAEquOutA");
-			if (sellInAEquOutA!=null && sellInAEquOutA.equals("Y")) {
-				context.put("selloutTo", context.get("sellinTo"));
-			}
-			Map<String, Object> tmpResult = dispatcher.runSync("createPromotion", context);
-			result.put("promotionId", tmpResult.get("promotionId"));
-
-		} catch (GenericServiceException e) {
-			Debug.logWarning(e, module);
-			Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-			errMsg = UtilProperties.getMessage(resource, "RefRevenueZero", messageMap, locale);
-			return ServiceUtil.returnError(errMsg);
-		}
-		return result;
-	}
 }
