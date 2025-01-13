@@ -21,7 +21,7 @@
 							<widgets>
 
 																<container>
-									<include-form name="Main" location="component://vvorder/widget/VvorderForms.xml" />
+									<!--									<include-form name="Main" location="component://vvorder/widget/VvorderForms.xml" />-->
 								</container>
 
 
@@ -240,12 +240,17 @@
 
 						<section>
 							<widgets>
-				 <screenlet title="${uiLabelMap.ListVvOrderItems} - ${order.orderId} - ${order.orderName}">
+					 <screenlet title="${uiLabelMap.ListVvOrderItems} - ${order.orderId} - ${order.orderName}">
 									<include-form name="ListVvOrderItems" location="component://vvorder/widget/VvorderForms.xml" />
 									<!-- <include-grid name="ListVvOrderItems" location="component://vvorder/widget/VvorderForms.xml" /> -->
 									<include-form name="AddVvOrderItem" location="component://vvorder/widget/VvorderForms.xml" />
 									<label style="h1">${uiLabelMap.orderWeight} - ${order.orderWeight} Kg</label>
 								</screenlet>
+                        <screenlet title="${uiLabelMap.UploadOrderDetails}">
+                            <platform-specific>
+                                <html><html-template location="component://vvorder/templates/Contents.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
 							</widgets>
 						</section>
 
