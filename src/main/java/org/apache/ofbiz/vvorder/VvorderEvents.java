@@ -326,6 +326,9 @@ public class VvorderEvents {
 	public static String uploadVvOrderItem(HttpServletRequest request, HttpServletResponse response) {
 		Locale locale = UtilHttp.getLocale(request);
 		Delegator delegator = (Delegator) request.getAttribute("delegator");	
+		HttpSession session = request.getSession();
+		GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+		LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
 		String prefix = System.getProperty("user.dir");
 		Map<String, Object> results = new HashMap<String, Object>();
 		ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File(new File("runtime"), "tmp")));
@@ -336,7 +339,16 @@ public class VvorderEvents {
 		if (paramMap.containsKey("orderId")) {
 			orderId = (String) paramMap.get("orderId");
 		}
-		request.setAttribute("orderId", orderId);
+//		request.setAttribute("orderId", orderId);
+		String rowsNumberStr = null;
+		BigDecimal rowsNumber = null;
+		if (paramMap.containsKey("rows")) {
+			rowsNumberStr = (String) paramMap.remove("rows");
+		}
+		try {
+			rowsNumber = new BigDecimal(rowsNumberStr);
+		} catch (Exception e) {
+		}
 
 		try {
 			lst = UtilGenerics.checkList(fu.parseRequest(request));
@@ -351,6 +363,7 @@ public class VvorderEvents {
 		}
 
 		// This code finds the idField and the upload FileItems
+//		request.removeAttribute("fileItems");
 
 		FileItem fi = null;
 		FileItem imageFi = null;
@@ -416,7 +429,12 @@ public class VvorderEvents {
 			HSSFSheet sheet = wb.getSheetAt(0);
 			wb.close();
 			String tableName = "VvOrderItem";
-			int sheetLastRowNumber = sheet.getLastRowNum();
+			int sheetLastRowNumber = 0;
+			if (rowsNumber == null){
+				sheetLastRowNumber = sheet.getLastRowNum();
+			}else{
+				sheetLastRowNumber = rowsNumber.intValue();
+			}
 			for (int j = 1; j <= sheetLastRowNumber; j++) {
 				HSSFRow row = sheet.getRow(j);
 				if (row != null) {
@@ -440,16 +458,26 @@ public class VvorderEvents {
 			// entity
 			// // in database
 			for (int j = 0; j < dbrows.size(); j++) {
-				GenericValue productGV = delegator.makeValue(tableName, dbrows.get(j));
+			//	GenericValue productGV = delegator.makeValue(tableName, dbrows.get(j));
 
-				try {
-					delegator.create(productGV);
-					Debug.logInfo("Inserted row: " + j, module);
-				} catch (GenericEntityException e) {
-					Debug.logError("Cannot store product", module);
-				}
+			//	try {
+			//		delegator.create(productGV);
+			//		Debug.logInfo("Inserted row: " + j, module);
+			//	} catch (GenericEntityException e) {
+			//		Debug.logError("Cannot store product", module);
+			//	}
+				
+						try {
+							Map serviceCtx = UtilMisc.toMap("userLogin", userLogin, "productId", dbrows.get(j).get("productId"),"orderId", dbrows.get(j).get("orderId"),"orderItemSeqId", dbrows.get(j).get("orderItemSeqId"),"quantity", dbrows.get(j).get("quantity"));
 
+							dispatcher.runSync("createVvOrderItemJava", serviceCtx);
+
+						} catch (GenericServiceException e) {
+							Debug.logError(e, module);
+							return "error";
+						}
 			}
+			file.delete();
 
 		} catch (Exception e) {
 			System.out.println(e);
