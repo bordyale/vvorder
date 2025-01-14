@@ -19,6 +19,7 @@
 package org.apache.ofbiz.vvorder;
 
 import java.io.IOException;
+import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
@@ -37,7 +38,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.CellType;
 
+import org.apache.ofbiz.vvorder.spreadsheetimport.ImportSpreadsheetHelper;
 import java.io.RandomAccessFile;
 import java.io.File;
 import java.nio.ByteBuffer;
@@ -90,6 +99,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 /**
  * Vforder events.
  */
@@ -315,84 +325,136 @@ public class VvorderEvents {
 
 	public static String uploadVvOrderItem(HttpServletRequest request, HttpServletResponse response) {
 		Locale locale = UtilHttp.getLocale(request);
-
+		Delegator delegator = (Delegator) request.getAttribute("delegator");	
 		String prefix = System.getProperty("user.dir");
-        Map<String, Object> results = new HashMap<String, Object>();
-        ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File(new File("runtime"), "tmp")));
-        List<FileItem> lst = null;
-        try {
-           lst = UtilGenerics.checkList(fu.parseRequest(request));
-        } catch (FileUploadException e4) {
-        }
+		Map<String, Object> results = new HashMap<String, Object>();
+		ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File(new File("runtime"), "tmp")));
+		List<FileItem> lst = null;
 
-        if(lst.size() == 0 && UtilValidate.isNotEmpty(request.getAttribute("fileItems"))) {
-            lst = UtilGenerics.cast(request.getAttribute("fileItems"));
-        }
-        if (lst.size() == 0) {
-            return "error";
-        }
-
-
-        // This code finds the idField and the upload FileItems
-
-        FileItem fi = null;
-        FileItem imageFi = null;
-        for (int i=0; i < lst.size(); i++) {
-            fi = lst.get(i);
-            String fieldName = fi.getFieldName();
-            String fieldStr = fi.getString();
-            if (fieldName.equals("uploadFile")) {
-                imageFi = fi;
-                //MimeType of upload file
-                results.put("uploadMimeType", fi.getContentType());
-            }
-        }
-
-
-        byte[] imageBytes = imageFi.get();
-        ByteBuffer byteWrap = ByteBuffer.wrap(imageBytes);
-        results.put("imageData", byteWrap);
-        results.put("imageFileName", imageFi.getName());
-		
-		String imageName = results.get("imageFileName").toString();
-        String mimType = results.get("uploadMimeType").toString();
-        ByteBuffer imageData = (ByteBuffer) results.get("imageData");
-		try{
-		String dirPath = "/plugins/vvorder/orderitemupload/";
-		String completeDirPath = prefix + dirPath;
-		System.out.println("dirPath: " + completeDirPath);
-		File dir = new File(completeDirPath);
-		if (!dir.exists()) {
-			boolean createDir = dir.mkdir();
-			if (!createDir) {
-				request.setAttribute("_ERROR_MESSAGE_",completeDirPath); 
-				return "error";
-			}
+		Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
+		String orderId = null;
+		if (paramMap.containsKey("orderId")) {
+			orderId = (String) paramMap.get("orderId");
 		}
-		String imagePath = "/plugins/vvorder/orderitemupload/" + imageName;
-		System.out.println("imagePath: " + prefix + imagePath);
-		File file = new File(prefix + "/" + imagePath);
-		if (file.exists()) {
-			request.setAttribute("_ERROR_MESSAGE_", "There is an existing frame, please select from the existing frame.");
+		request.setAttribute("orderId", orderId);
+
+		try {
+			lst = UtilGenerics.checkList(fu.parseRequest(request));
+		} catch (FileUploadException e4) {
+		}
+
+		if (lst.size() == 0 && UtilValidate.isNotEmpty(request.getAttribute("fileItems"))) {
+			lst = UtilGenerics.cast(request.getAttribute("fileItems"));
+		}
+		if (lst.size() == 0) {
 			return "error";
 		}
-		Path tmpFile = Files.createTempFile(null, null);
-		Files.write(tmpFile, imageData.array(), StandardOpenOption.APPEND);
-		Files.delete(tmpFile);
-		RandomAccessFile out = new RandomAccessFile(file, "rw");
-		out.write(imageData.array());
-		out.close();
 
-		}catch (Exception e){
+		// This code finds the idField and the upload FileItems
+
+		FileItem fi = null;
+		FileItem imageFi = null;
+		for (int i = 0; i < lst.size(); i++) {
+			fi = lst.get(i);
+			String fieldName = fi.getFieldName();
+			String fieldStr = fi.getString();
+			if (fieldName.equals("uploadFile")) {
+				imageFi = fi;
+				// MimeType of upload file
+				results.put("uploadMimeType", fi.getContentType());
+			}
+		}
+
+		byte[] imageBytes = imageFi.get();
+		ByteBuffer byteWrap = ByteBuffer.wrap(imageBytes);
+		results.put("imageData", byteWrap);
+		results.put("imageFileName", imageFi.getName());
+
+		String imageName = results.get("imageFileName").toString();
+		String mimType = results.get("uploadMimeType").toString();
+		ByteBuffer imageData = (ByteBuffer) results.get("imageData");
+		try {
+			String dirPath = "/plugins/vvorder/orderitemupload/";
+			String completeDirPath = prefix + dirPath;
+			System.out.println("dirPath: " + completeDirPath);
+			File dir = new File(completeDirPath);
+			if (!dir.exists()) {
+				boolean createDir = dir.mkdir();
+				if (!createDir) {
+					request.setAttribute("_ERROR_MESSAGE_", completeDirPath);
+					return "error";
+				}
+			}
+			String imagePath = "/plugins/vvorder/orderitemupload/" + imageName;
+			System.out.println("imagePath: " + prefix + imagePath);
+			File file = new File(prefix + "/" + imagePath);
+			if (file.exists()) {
+				request.setAttribute("_ERROR_MESSAGE_", "There is an existing frame, please select from the existing frame.");
+				return "error";
+			}
+			Path tmpFile = Files.createTempFile(null, null);
+			Files.write(tmpFile, imageData.array(), StandardOpenOption.APPEND);
+			Files.delete(tmpFile);
+			RandomAccessFile out = new RandomAccessFile(file, "rw");
+			out.write(imageData.array());
+			out.close();
+
+			//
+			// // read all xls file and create workbook one by one.
+			List<Map<String, Object>> dbrows = new LinkedList<>();
+			POIFSFileSystem fs = null;
+			HSSFWorkbook wb = null;
+			try {
+				fs = new POIFSFileSystem(new FileInputStream(file));
+				wb = new HSSFWorkbook(fs);
+			} catch (IOException e) {
+				Debug.logError("Unable to read or create workbook from file", module);
+			}
+
+			
+			// get first sheet
+			HSSFSheet sheet = wb.getSheetAt(0);
+			wb.close();
+			String tableName = "VvOrderItem";
+			int sheetLastRowNumber = sheet.getLastRowNum();
+			for (int j = 1; j <= sheetLastRowNumber; j++) {
+				HSSFRow row = sheet.getRow(j);
+				if (row != null) {
+
+					Map<String, Object> fields = new HashMap<>();
+					fields.put("orderItemSeqId", delegator.getNextSeqId(tableName));
+					fields.put("orderId", orderId);
+
+					fields.put("productId", ImportSpreadsheetHelper.importString(0, row));
+
+					fields.put("quantity", ImportSpreadsheetHelper.importBigDecimal(1, row));
+
+					Debug.logInfo("Processed row:" + j + " " + row.toString(), module);
+
+					dbrows.add(fields);
+
+				}
+
+			}
+			// // create and store values in "Product" and "InventoryItem"
+			// entity
+			// // in database
+			for (int j = 0; j < dbrows.size(); j++) {
+				GenericValue productGV = delegator.makeValue(tableName, dbrows.get(j));
+
+				try {
+					delegator.create(productGV);
+					Debug.logInfo("Inserted row: " + j, module);
+				} catch (GenericEntityException e) {
+					Debug.logError("Cannot store product", module);
+				}
+
+			}
+
+		} catch (Exception e) {
 			System.out.println(e);
 
 		}
-
-
-
-
-
-
 
 		return "success";
 	}

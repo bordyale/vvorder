@@ -146,9 +146,7 @@
 	<request-map uri="uploadVvOrderItem">
 		<security https="true" auth="true" />
 		<event type="java" path="org.apache.ofbiz.vvorder.VvorderEvents" invoke="uploadVvOrderItem" />
-		<response name="success" type="request-redirect" value="EditVvOrderItems">
-			<redirect-parameter name="orderId" />
-		</response>
+		<response name="success" type="view" value="EditVvOrderItems"/>
 	</request-map>
 
 	<request-map uri="updateVvOrderItem">

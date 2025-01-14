@@ -18,6 +18,7 @@ under the License.
 -->
       <form id="uploadPartyContent" method="post" enctype="multipart/form-data" action="<@ofbizUrl>uploadVvOrderItem</@ofbizUrl>">
         <input type="hidden" name="dataCategoryId" value="PERSONAL"/>
+        <input type="hidden" name="orderId" value="${order.orderId}"/>
         <input type="hidden" name="contentTypeId" value="DOCUMENT"/>
         <input type="hidden" name="statusId" value="CTNT_PUBLISHED"/>
         <input type="file" name="uploadFile" class="required error" size="25"/>
