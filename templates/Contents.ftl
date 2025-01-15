@@ -21,7 +21,7 @@ under the License.
         <input type="hidden" name="orderId" value="${order.orderId}"/>
         <input type="file" name="uploadFile" class="required error" size="25"/>
         <div>
-      <div class="label">${uiLabelMap.PartyAttachContent}</div>
+      <div class="label">${uiLabelMap.orderItemRowsNumber}</div>
       </div>
         <div>
         <input type="text" name="rows" size="4" maxlength="4"/>

@@ -228,5 +228,9 @@
 		<value xml:lang="en">Order Weight</value>
 		<value xml:lang="hu">Rendelés Súlya</value>
 	</property>
+	<property key="orderItemRowsNumber">
+		<value xml:lang="en">Order Rows to import</value>
+		<value xml:lang="hu">Tételek száma</value>
+	</property>
 	
 </resource>

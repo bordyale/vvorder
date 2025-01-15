@@ -31,6 +31,7 @@
 		<alias entity-alias="OH" name="orderDate" />
 		<alias entity-alias="OI" name="orderItemSeqId" />
 		<alias entity-alias="OI" name="productId" />
+		<alias entity-alias="OH" name="partnerId" />
 		<alias entity-alias="OI" name="quantity" />
 		<alias entity-alias="OH" name="shipBeforeDate" />
 		<alias entity-alias="SI" name="quantityShipped" />

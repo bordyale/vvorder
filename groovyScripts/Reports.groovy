@@ -81,23 +81,20 @@ for (GenericValue entry: orderItemShippingItem){
 	hashMaps.add(e)
 }
 
-List searchCond2 = []
-if (fromDate) {
-	def parseDate = sdf.parse(fromDate)
-	searchCond2.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, UtilDateTime.toTimestamp(parseDate)))
-}
-if (thruDate) {
-	def parseDate = sdf.parse(thruDate)
-	searchCond2.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.toTimestamp(parseDate)))
+List filCond= []
+List activCond = []
+	activCond.add(EntityCondition.makeCondition("quantityShippable", EntityOperator.EQUALS, null))
+	activCond.add(EntityCondition.makeCondition("quantityShippable", EntityOperator.GREATER_THAN, BigDecimal.ZERO))
+if (partyIdTo) {
+	filCond.add(EntityCondition.makeCondition("partnerId", EntityOperator.EQUALS, partyIdTo))
 }
 if (productId) {
-	searchCond2.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId))
+	filCond.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId))
 }
-/*if (partyIdTo) {
- searchCond2.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyIdTo))
- }*/
-//searchCond2.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_FROM_VENDOR"))
 
+activCondOR = EntityCondition.makeCondition(activCond,EntityOperator.OR)
+filCondAND = EntityCondition.makeCondition(filCond, EntityOperator.AND)
+searchCond2 = EntityCondition.makeCondition([filCondAND, activCondOR], EntityOperator.AND)
 notShippedItems = select("orderId","orderItemSeqId","quantity","quantityShipped","productId","name","shipBeforeDate","weight","orderName","orderDate").from("VvOrderItemShippingItemView").where(searchCond2).cache(false).queryList()
 
 notShippedItems = EntityUtil.orderBy(notShippedItems,  ["shipBeforeDate"])
@@ -129,37 +126,16 @@ for (GenericValue entry: notShippedItems){
 	BigDecimal productWeight = entry.get("weight")
 	BigDecimal netWeight = quantityShippable.multiply(productWeight)
 	e.put("netWeight",netWeight)
-
-
-	status = entry.get("orderHStatusId")
-	if (!quantity.equals(quantityShipped)){
-		//extract order party
-		orderId = entry.get("orderId")
-		if (orderId) {
-			orderHeader = from("VvOrder").where("orderId", orderId).queryOne()
-
-			partyId = orderHeader.partnerId
-			if (partyIdTo){
-				if (partyIdTo.equals(partyId)){
-					progresNetWeigh = progresNetWeigh.add(netWeight)
-					e.put("progresNetWeight",progresNetWeigh)
-					hashMaps2.add(e)
-				}
-
-			}else{
-				progresNetWeigh = progresNetWeigh.add(netWeight)
-				e.put("progresNetWeight",progresNetWeigh)
-				hashMaps2.add(e)
-			}
-
-		}
+	progresNetWeigh = progresNetWeigh.add(netWeight)
+	e.put("progresNetWeight",progresNetWeigh)
+	hashMaps2.add(e)
 
 
 
 
 
 
-	}
+
 }
 
 
