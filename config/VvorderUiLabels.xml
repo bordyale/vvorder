@@ -232,5 +232,9 @@
 		<value xml:lang="en">Order Rows to import</value>
 		<value xml:lang="hu">Tételek száma</value>
 	</property>
+	<property key="UploadOrderDetails">
+		<value xml:lang="en">Import Order Details (.xml files)</value>
+		<value xml:lang="hu">Rendelés import (.xml sablon alapján)</value>
+	</property>
 	
 </resource>
