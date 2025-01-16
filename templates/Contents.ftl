@@ -17,8 +17,9 @@ specific language governing permissions and limitations
 under the License.
 -->
     <div class="screenlet-body">
-      <form id="uploadPartyContent" method="post" enctype="multipart/form-data" action="<@ofbizUrl>uploadVvOrderItem</@ofbizUrl>">
-        <input type="hidden" name="orderId" value="${order.orderId}"/>
+      <form id="uploadPartyContent" method="post" enctype="multipart/form-data" action="<@ofbizUrl>${target}</@ofbizUrl>">
+ <#if (order)?has_content><input type="hidden" name="orderId" value="${order.orderId}"/></#if>
+  <#if (shipment)?has_content><input type="hidden" name="shipmentId" value="${shipment.shipmentId}"/></#if>
         <input type="file" name="uploadFile" class="required error" size="25"/>
         <div>
       <div class="label">${uiLabelMap.orderItemRowsNumber}</div>

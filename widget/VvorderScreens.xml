@@ -229,7 +229,8 @@
 			<actions>
 				<set field="titleProperty" value="PageTitleEditVvOrderItems" />
 				<set field="headerItem" value="findVvOrders" />
-				<set field="tabButtonItem" value="EditVvOrderItems" />
+				<set field="tabButtonItem" value="EditVvOrderItems" />uploadVvOrderItem
+				<set field="target" value="uploadVvOrderItem" />
 				<set field="orderId" from-field="parameters.orderId" />
 				<entity-one entity-name="VvOrder" value-field="order" />
 			</actions>
@@ -343,6 +344,8 @@
 				<set field="headerItem" value="findVvShipments" />
 				<set field="tabButtonItem" value="EditVvShipmentItems" />
 				<set field="shipmentId" from-field="parameters.shipmentId" />
+				<entity-one entity-name="VvShipment" value-field="shipment" />
+				<set field="target" value="uploadVvShipmentItem" />
 				<script location="component://vvorder/groovyScripts/ShippingWeight.groovy" />
 			</actions>
 			<widgets>
@@ -354,9 +357,14 @@
 						</screenlet>
 						<section>
 							<widgets>
-								<screenlet title="${uiLabelMap.ListVvOrderItems}">
+								<screenlet title="${uiLabelMap.ListVvShipmentItems}">
 									<include-form name="ListVvShipmentItems" location="component://vvorder/widget/VvorderForms.xml" />
 									<!--									<include-form name="AddVvShipmentItem" location="component://vvorder/widget/VvorderForms.xml" />-->
+								</screenlet>
+								<screenlet title="${uiLabelMap.UploadShipmentDetails}">
+									<platform-specific>
+										<html><html-template location="component://vvorder/templates/Contents.ftl"/></html>
+									</platform-specific>
 								</screenlet>
 							</widgets>
 						</section>

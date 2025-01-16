@@ -148,6 +148,11 @@
 		<event type="java" path="org.apache.ofbiz.vvorder.VvorderEvents" invoke="uploadVvOrderItem" />
 		<response name="success" type="view" value="EditVvOrderItems" />
 	</request-map>
+	<request-map uri="uploadVvShipmentItem">
+		<security https="true" auth="true" />
+		<event type="java" path="org.apache.ofbiz.vvorder.VvorderEvents" invoke="uploadVvShipmentItem" />
+		<response name="success" type="view" value="EditVvShipmentItems" />
+	</request-map>
 
 	<request-map uri="updateVvOrderItem">
 		<security https="true" auth="true" />
@@ -225,7 +230,7 @@
 	</request-map>
 
 
-	<request-map uri="AddProductToShippingWithOpenOrders">
+	<!--		<request-map uri="AddProductToShippingWithOpenOrders">
 		<security https="true" auth="true" />
 		<event type="java" path="org.apache.ofbiz.vvorder.VvorderEvents" invoke="addShippingItemWithOpenOrder" />
 		<response name="success" type="request-redirect" value="EditVvShipmentItems">
@@ -234,6 +239,14 @@
 		<response name="error" type="request-redirect" value="EditVvShipmentItems">
 			<redirect-parameter name="shipmentId" />
 		</response>
+	</request-map>-->
+	<request-map uri="AddProductToShippingWithOpenOrdersServ">
+		<security https="true" auth="true" />
+		<event type="service" path="" invoke="addShippingItemWithOpenOrder" />
+		<response name="success" type="request-redirect" value="EditVvShipmentItems">
+			<redirect-parameter name="shipmentId" />
+		</response>
+		<response name="error" type="view" value="EditVvShipmentItems" />
 	</request-map>
 
 

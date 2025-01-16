@@ -39,6 +39,10 @@ import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityConditionList;
+import org.apache.ofbiz.entity.condition.EntityExpr;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 
 /**
  * Services for Agreement (Accounting)
@@ -180,5 +184,98 @@ public class VvOrderServices {
 
 		return result;
 	}
+	public static Map<String, Object> addShippingItemWithOpenOrder(DispatchContext ctx, Map<String, Object> context) {
+		Delegator delegator = ctx.getDelegator();
+		LocalDispatcher dispatcher = ctx.getDispatcher();
+		Locale locale = (Locale) context.get("locale");
+		String errMsg = null;
+		Map<String, Object> result = ServiceUtil.returnSuccess();
+		GenericValue userLogin = (GenericValue) context.get("userLogin");
+		String shipmentId = (String) context.get("shipmentId");
+		String productId = (String) context.get("productId");
+		BigDecimal quantityToShip = (BigDecimal) context.get("quantityToShip");
 
+		result.put("shipmentId", shipmentId);
+		BigDecimal quantity = BigDecimal.ZERO;
+		BigDecimal quantityShipped = BigDecimal.ZERO;
+		BigDecimal quantityShippable = BigDecimal.ZERO;
+
+		GenericValue vfOrdItemShipItem = null;
+		GenericValue shipment = null;
+		try {
+			shipment = delegator.findOne("VvShipment", UtilMisc.toMap("shipmentId", shipmentId), false);
+		} catch (GenericEntityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Integer shipItemId = 1;
+
+		try {
+
+			// lookup payment applications which took place before the
+			// asOfDateTime for this invoice
+			EntityConditionList<EntityExpr> dateCondition = EntityCondition.makeCondition(
+					UtilMisc.toList(EntityCondition.makeCondition("quantityShippable", EntityOperator.EQUALS, null),
+							EntityCondition.makeCondition("quantityShippable", EntityOperator.GREATER_THAN, BigDecimal.ZERO)), EntityOperator.OR);
+
+			EntityConditionList<EntityCondition> conditions = EntityCondition.makeCondition(
+					UtilMisc.toList(dateCondition, EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId)), EntityOperator.AND);
+
+			List<GenericValue> vfOrdItemShipItems = delegator.findList("VvOrderItemShippingItemView", conditions, null, null, null, false);
+
+			if (quantityToShip.equals(BigDecimal.ZERO)) {
+				return result; 
+			}
+			BigDecimal qtyRemainToShip = quantityToShip;
+			for (GenericValue item : vfOrdItemShipItems) {
+				BigDecimal itemQty = (BigDecimal) item.get("quantityShippable");
+				String orderId = (String) item.get("orderId");
+				String orderItemSeqId = (String) item.get("orderItemSeqId");
+				;
+				if (itemQty == null) {
+					itemQty = (BigDecimal) item.get("quantity");
+				}
+				if (qtyRemainToShip.compareTo(itemQty) >= 0) {
+
+					try {
+						Map<String, Object> tmpResult = dispatcher.runSync("createVvShipmentItem", UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId", shipmentId, "productId",
+								productId, "orderId", orderId, "orderItemSeqId", orderItemSeqId, "quantity", itemQty));
+
+					} catch (GenericServiceException e) {
+						Debug.logError(e, module);
+					}
+
+					qtyRemainToShip = qtyRemainToShip.subtract(itemQty);
+				} else {
+
+					try {
+						Map<String, Object> tmpResult = dispatcher.runSync("createVvShipmentItem", UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId", shipmentId, "productId",
+								productId, "orderId", orderId, "orderItemSeqId", orderItemSeqId, "quantity", qtyRemainToShip));
+
+					} catch (GenericServiceException e) {
+						Debug.logError(e, module);
+					}
+
+					qtyRemainToShip = BigDecimal.ZERO;
+				}
+				if (qtyRemainToShip.compareTo(BigDecimal.ZERO) == 0)
+					break;
+
+			}
+			if (qtyRemainToShip.compareTo(BigDecimal.ZERO) > 0) {
+				try {
+					Map<String, Object> tmpResult = dispatcher.runSync("createVvShipmentItem",
+							UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId", shipmentId, "productId", productId, "quantity", qtyRemainToShip));
+
+				} catch (GenericServiceException e) {
+					Debug.logError(e, module);
+				}
+			}
+
+		} catch (GenericEntityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

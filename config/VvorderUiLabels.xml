@@ -131,9 +131,17 @@
 		<value xml:lang="en">List Order Items</value>
 		<value xml:lang="hu">Rendelés Lista</value>
 	</property>
+	<property key="ListVvShipmentItems">
+		<value xml:lang="en">List Shipment Items</value>
+		<value xml:lang="hu">Szállítás tételek Lista</value>
+	</property>
 	<property key="EditVvOrder">
 		<value xml:lang="en">Edit Order</value>
 		<value xml:lang="hu">Rendelés módósítása </value>
+	</property>
+	<property key="EditVvShipment">
+		<value xml:lang="en">Edit Shipment</value>
+		<value xml:lang="hu">Szállítás módósítása </value>
 	</property>
 	<property key="VvComment">
 		<value xml:lang="en">Comment</value>
@@ -235,6 +243,10 @@
 	<property key="UploadOrderDetails">
 		<value xml:lang="en">Import Order Details (.xml files)</value>
 		<value xml:lang="hu">Rendelés import (.xml sablon alapján)</value>
+	</property>
+	<property key="UploadShipmentDetails">
+		<value xml:lang="en">Import Shipment Details (.xml files)</value>
+		<value xml:lang="hu">Szállítás import (.xml sablon alapján)</value>
 	</property>
 	
 </resource>
