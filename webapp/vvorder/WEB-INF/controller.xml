@@ -233,7 +233,6 @@
 		</response>
 		<response name="error" type="request-redirect" value="EditVvShipmentItems">
 			<redirect-parameter name="shipmentId" />
-			<redirect-parameter name="orderId" />
 		</response>
 	</request-map>
 
