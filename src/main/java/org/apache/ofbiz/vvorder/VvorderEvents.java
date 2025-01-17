@@ -349,7 +349,7 @@ public class VvorderEvents {
 			rowsNumber = new BigDecimal(rowsNumberStr);
 		} catch (Exception e) {
 		}
-
+/*
 		try {
 			lst = UtilGenerics.checkList(fu.parseRequest(request));
 		} catch (FileUploadException e4) {
@@ -410,8 +410,9 @@ public class VvorderEvents {
 			Files.delete(tmpFile);
 			RandomAccessFile out = new RandomAccessFile(file, "rw");
 			out.write(imageData.array());
-			out.close();
-
+			out.close();*/
+		try {
+			File file = ImportSpreadsheetHelper.uploadFile(request,"/plugins/vvorder/orderitemupload/");
 			//
 			// // read all xls file and create workbook one by one.
 			List<Map<String, Object>> dbrows = new LinkedList<>();
@@ -512,7 +513,7 @@ public class VvorderEvents {
 			rowsNumber = new BigDecimal(rowsNumberStr);
 		} catch (Exception e) {
 		}
-
+/*
 		try {
 			lst = UtilGenerics.checkList(fu.parseRequest(request));
 		} catch (FileUploadException e4) {
@@ -573,7 +574,9 @@ public class VvorderEvents {
 			Files.delete(tmpFile);
 			RandomAccessFile out = new RandomAccessFile(file, "rw");
 			out.write(imageData.array());
-			out.close();
+			out.close();*/
+		try {
+			File file = ImportSpreadsheetHelper.uploadFile(request,"/plugins/vvorder/orderitemupload/");
 
 			//
 			// // read all xls file and create workbook one by one.
