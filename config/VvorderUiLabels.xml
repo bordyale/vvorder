@@ -123,6 +123,10 @@
 		<value xml:lang="en">Items</value>
 		<value xml:lang="hu">Tételek</value>
 	</property>
+	<property key="VvCommonItemsTot">
+		<value xml:lang="en">Items Tot</value>
+		<value xml:lang="hu">Összesítve</value>
+	</property>
 	<property key="VvOrderVvOrder">
 		<value xml:lang="en">Edit Order</value>
 		<value xml:lang="hu">Rendelés Módósítása</value>
@@ -176,7 +180,7 @@
 		<value xml:lang="en">Find Orders</value>
 		<value xml:lang="hu">Rendelések Keresése</value>
 	</property>
-	<property key="vvaddress">
+	<property key="VvAddress">
 		<value xml:lang="en">address</value>
 		<value xml:lang="hu">Cím</value>
 	</property>
@@ -241,12 +245,12 @@
 		<value xml:lang="hu">Tételek száma</value>
 	</property>
 	<property key="UploadOrderDetails">
-		<value xml:lang="en">Import Order Details (.xml files)</value>
-		<value xml:lang="hu">Rendelés import (.xml sablon alapján)</value>
+		<value xml:lang="en">Import Order Details (.xls files)</value>
+		<value xml:lang="hu">Rendelés import (.xls sablon alapján)</value>
 	</property>
 	<property key="UploadShipmentDetails">
-		<value xml:lang="en">Import Shipment Details (.xml files)</value>
-		<value xml:lang="hu">Szállítás import (.xml sablon alapján)</value>
+		<value xml:lang="en">Import Shipment Details (.xls files)</value>
+		<value xml:lang="hu">Szállítás import (.xls sablon alapján)</value>
 	</property>
 	
 </resource>

@@ -351,15 +351,17 @@
 			<widgets>
 				<decorator-screen name="VvshipmentDetailCommonDecorator" location="${parameters.mainDecoratorLocation}">
 					<decorator-section name="body">
-						<screenlet title="${uiLabelMap.AddProductToShippingWithOpenOrders}">
+						<screenlet title="${uiLabelMap.AddProductToShippingWithOpenOrders} - ${shipment.shipmentId}">
 							<include-form name="AddProductToShippingWithOpenOrders" location="component://vvorder/widget/VvorderForms.xml" />
-							<label style="h1">${uiLabelMap.TotalNetWeight} - ${totalShippedWeight} Kg</label>
 						</screenlet>
 						<section>
 							<widgets>
 								<screenlet title="${uiLabelMap.ListVvShipmentItems}">
 									<include-form name="ListVvShipmentItems" location="component://vvorder/widget/VvorderForms.xml" />
 									<!--									<include-form name="AddVvShipmentItem" location="component://vvorder/widget/VvorderForms.xml" />-->
+								</screenlet>
+								<screenlet>
+									<label style="h1">${uiLabelMap.TotalNetWeight} - ${totalShippedWeight} Kg</label>
 								</screenlet>
 								<screenlet title="${uiLabelMap.UploadShipmentDetails}">
 									<platform-specific>
@@ -374,6 +376,35 @@
 		</section>
 	</screen>
 
+
+	<screen name="EditVvShipmentItemsTot">
+		<section>
+			<actions>
+				<set field="titleProperty" value="PageTitleEditVvShipmentItems" />
+				<set field="headerItem" value="findVvShipments" />
+				<set field="tabButtonItem" value="EditVvShipmentItemsTot" />
+				<set field="shipmentId" from-field="parameters.shipmentId" />
+				<entity-one entity-name="VvShipment" value-field="shipment" />
+				<set field="target" value="uploadVvShipmentItem" />
+				<script location="component://vvorder/groovyScripts/ShippingWeight.groovy" />
+			</actions>
+			<widgets>
+				<decorator-screen name="VvshipmentDetailCommonDecorator" location="${parameters.mainDecoratorLocation}">
+					<decorator-section name="body">
+						<section>
+							<widgets>
+								<screenlet title="${uiLabelMap.ListVvShipmentItems} - ${shipment.shipmentId}">
+									<label style="h1">${uiLabelMap.TotalNetWeight} - ${totalShippedWeight} Kg</label>
+									<include-form name="ListVvShipmentItemsTot" location="component://vvorder/widget/VvorderForms.xml" />
+									<!--									<include-form name="AddVvShipmentItem" location="component://vvorder/widget/VvorderForms.xml" />-->
+								</screenlet>
+							</widgets>
+						</section>
+					</decorator-section>
+				</decorator-screen>
+			</widgets>
+		</section>
+	</screen>
 	<screen name="FindVvReports">
 		<section>
 			<actions>

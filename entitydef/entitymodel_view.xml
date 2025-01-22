@@ -170,6 +170,14 @@
 		<alias entity-alias="SIV" name="quantity" field="quantity" function="sum" />
 	</view-entity>
 
+	<view-entity entity-name="VvShippingItemQtySumViewNoOrder" package-name="org.apache.ofbiz.vvshipment.vvshipment"
+		never-cache="true" title="Order Items and ShippingItem View Entity">
+		<member-entity entity-alias="VSI" entity-name="VvShipmentItem" />
+		<alias entity-alias="VSI" name="shipmentId" group-by="true" />
+		<alias entity-alias="VSI" name="productId" group-by="true" />
+		<alias entity-alias="VSI" name="quantityShipped" field="quantity" function="sum" />
+	</view-entity>
+
 
 
 

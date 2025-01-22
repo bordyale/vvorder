@@ -50,6 +50,9 @@
 		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}">
 			<display type="date" />
 		</field>
+		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
+			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}" />
+		</field>
 		<field name="orderId" title="${uiLabelMap.VvOrderId}">
 			<display />
 		</field>

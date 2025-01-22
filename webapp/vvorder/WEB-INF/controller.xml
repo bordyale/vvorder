@@ -204,6 +204,10 @@
 		<security https="true" auth="true" />
 		<response name="success" type="view" value="EditVvShipmentItems" />
 	</request-map>
+	<request-map uri="EditVvShipmentItemsTot">
+		<security https="true" auth="true" />
+		<response name="success" type="view" value="EditVvShipmentItemsTot" />
+	</request-map>
 	<request-map uri="createVvShipmentItem">
 		<security https="true" auth="true" />
 		<event type="service" invoke="createVvShipmentItem" />
@@ -334,6 +338,7 @@
 	<view-map name="findVvShipments" type="screen" page="component://vvorder/widget/VvorderScreens.xml#FindVvShipments" />
 	<view-map name="EditVvShipment" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvShipment" />
 	<view-map name="EditVvShipmentItems" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvShipmentItems" />
+	<view-map name="EditVvShipmentItemsTot" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvShipmentItemsTot" />
 
 	<view-map name="findVvReports" type="screen" page="component://vvorder/widget/VvorderScreens.xml#FindVvReports" />
 

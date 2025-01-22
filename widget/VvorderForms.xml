@@ -101,7 +101,7 @@
 			<ignored />
 		</field>
 		<field name="name" title="${uiLabelMap.VvName}">
-			<text size="20" maxlength="20" />
+			<text size="50" maxlength="50" />
 		</field>
 		<field name="material" title="${uiLabelMap.VvMaterial}">
 			<text size="20" maxlength="20" />
@@ -125,7 +125,7 @@
 			<text size="10" maxlength="10" />
 		</field>
 		<field name="comment" title="${uiLabelMap.VvComment}">
-			<text size="10" maxlength="10" />
+			<text size="50" maxlength="50" />
 		</field>
 		<field name="wageCode" title="${uiLabelMap.VvWageCode}">
 			<text size="10" maxlength="10" />
@@ -532,6 +532,28 @@
 	</form>
 
 
+	<form name="ListVvShipmentItemsTot" type="list" list-name="listIt" target="updateVvShipmentItem" paginate-target="EditVvShipmentItemsTot" default-entity-name="VvShippingItemQtySumViewNoOrder" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2"
+		default-table-style="basic-table hover-bar">
+		<actions>
+			<service service-name="performFind" result-map="result" result-map-list="listIt">
+				<field-map field-name="inputFields" from-field="requestParameters" />
+				<field-map field-name="entityName" value="VvShippingItemQtySumViewNoOrder" />
+				<field-map field-name="orderBy" from-field="sortField" />
+				<field-map field-name="viewIndex" from-field="viewIndex" />
+				<field-map field-name="viewSize" from-field="viewSize" />
+			</service>
+		</actions>
+		<field name="shipmentId">
+			<hidden />
+		</field>
+		<field name="productId" title="${uiLabelMap.VvName}">
+			<display-entity entity-name="VvProduct" key-field-name="productId" description="${name}" />
+		</field>
+		<field name="quantityShipped" title="${uiLabelMap.VvQuantity}">
+			<display/>
+		</field>
+
+	</form>
 
 
 

@@ -70,5 +70,10 @@
 				<parameter param-name="shipmentId" />
 			</link>
 		</menu-item>
+		<menu-item name="EditVvShipmentItemsTot" title="${uiLabelMap.VvCommonItemsTot}">
+			<link target="EditVvShipmentItemsTot">
+				<parameter param-name="shipmentId" />
+			</link>
+		</menu-item>
 	</menu>
 </menus>

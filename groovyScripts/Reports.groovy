@@ -95,7 +95,7 @@ if (productId) {
 activCondOR = EntityCondition.makeCondition(activCond,EntityOperator.OR)
 filCondAND = EntityCondition.makeCondition(filCond, EntityOperator.AND)
 searchCond2 = EntityCondition.makeCondition([filCondAND, activCondOR], EntityOperator.AND)
-notShippedItems = select("orderId","orderItemSeqId","quantity","quantityShipped","productId","name","shipBeforeDate","weight","orderName","orderDate").from("VvOrderItemShippingItemView").where(searchCond2).cache(false).queryList()
+notShippedItems = select("orderId","orderItemSeqId","quantity","quantityShipped","productId","name","shipBeforeDate","weight","orderName","orderDate","partnerId").from("VvOrderItemShippingItemView").where(searchCond2).cache(false).queryList()
 
 notShippedItems = EntityUtil.orderBy(notShippedItems,  ["shipBeforeDate"])
 
@@ -107,6 +107,7 @@ for (GenericValue entry: notShippedItems){
 	Map<String,Object> e = new HashMap<String,Object>()
 	e.put("orderItemSeqId",entry.get("orderItemSeqId"))
 	e.put("orderId",entry.get("orderId"))
+	e.put("partnerId",entry.get("partnerId"))
 	e.put("orderName",entry.get("orderName"))
 	e.put("productId",entry.get("productId"))
 	e.put("orderDate",entry.get("orderDate"))
