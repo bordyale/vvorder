@@ -104,7 +104,7 @@
 	<form name="ListVvOrderItems" type="list" list-name="listIt" target="updateVvOrderItemJava" paginate-target="EditVvOrderItems" default-entity-name="VvOrderItem" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2"
 		default-table-style="basic-table hover-bar">
 		<actions>
-			<set field="sortField" from-field="parameters.sortField" default-value="-orderItemSeqId" />
+			<set field="sortField" from-field="parameters.sortField" default-value="orderItemSeqId" />
 			<service service-name="performFind" result-map="result" result-map-list="listIt">
 				<field-map field-name="inputFields" from-field="requestParameters" />
 				<field-map field-name="entityName" value="VvOrderItem" />
@@ -116,7 +116,7 @@
 		<field name="orderId">
 			<hidden />
 		</field>
-		<field name="orderItemSeqId" title="${uiLabelMap.CommonItem}" sort-field="true">
+		<field name="orderItemSeqId" title="${uiLabelMap.CommonItem}">
 			<display />
 		</field>
 		<field name="productId" title="${uiLabelMap.VvName}">

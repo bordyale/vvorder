@@ -75,9 +75,15 @@
 			<widgets>
 				<container>
 					<label style="h2" text="${uiLabelMap.exportTime} : ${groovy:org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}" />
+					<label style="h2" text="---" />
 					<label style="h2" text="${uiLabelMap.VvOrderId} : ${order.orderId}" />
+					<label style="h2" text="---" />
 					<label style="h2" text="${uiLabelMap.VvOrderName} : ${order.orderName}" />
-					<label style="h2" text="${uiLabelMap.shipBeforeDate} : ${order.dueDate}" />
+					<label style="h2" text="---" />
+					<label style="h2" text="${uiLabelMap.vvorderDate} : ${order.orderDate}" />
+					<label style="h2" text="---" />
+					<label style="h2" text="${uiLabelMap.dueDate} : ${order.shipBeforeDate}" />
+					<label style="h2" text="---" />
 					<label style="h2" text="${uiLabelMap.orderWeight} : ${order.orderWeight}" />
 					<label style="h2" text="---" />
 				</container>
