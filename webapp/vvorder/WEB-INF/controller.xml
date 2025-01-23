@@ -311,6 +311,10 @@
 		<security https="true" auth="true" />
 		<response name="success" type="view" value="ReportExport" />
 	</request-map>
+	<request-map uri="VvOrderExport.csv">
+		<security https="true" auth="true" />
+		<response name="success" type="view" value="OrderExport" />
+	</request-map>
 	<!-- Events to run on every request before security (chains exempt) -->
 	<!-- <preprocessor> </preprocessor> -->
 	<!-- Events to run on every request after all other processing (chains exempt) -->
@@ -348,6 +352,8 @@
 
 
 	<view-map name="ReportExport" type="screencsv" page="component://vvorder/widget/CsvScreens.xml#ReportExportCsv"
+		content-type="text/csv" encoding="none" />
+	<view-map name="OrderExport" type="screencsv" page="component://vvorder/widget/CsvScreens.xml#OrderExportCsv"
 		content-type="text/csv" encoding="none" />
 
 </site-conf>

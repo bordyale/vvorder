@@ -101,12 +101,35 @@
 		</field>
 	</form>
 
-
-
-
-
-
-
-
+	<form name="ListVvOrderItems" type="list" list-name="listIt" target="updateVvOrderItemJava" paginate-target="EditVvOrderItems" default-entity-name="VvOrderItem" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2"
+		default-table-style="basic-table hover-bar">
+		<actions>
+			<set field="sortField" from-field="parameters.sortField" default-value="-orderItemSeqId" />
+			<service service-name="performFind" result-map="result" result-map-list="listIt">
+				<field-map field-name="inputFields" from-field="requestParameters" />
+				<field-map field-name="entityName" value="VvOrderItem" />
+				<field-map field-name="orderBy" from-field="sortField" />
+				<field-map field-name="viewIndex" from-field="viewIndex" />                                                                                                                                                                                
+				<field-map field-name="viewSize" from-field="viewSize" />
+			</service>
+		</actions>
+		<field name="orderId">
+			<hidden />
+		</field>
+		<field name="orderItemSeqId" title="${uiLabelMap.CommonItem}" sort-field="true">
+			<display />
+		</field>
+		<field name="productId" title="${uiLabelMap.VvName}">
+			<display-entity entity-name="VvProduct" key-field-name="productId" description="${name}" />
+		</field>
+		<field name="quantity" title="${uiLabelMap.VvQuantity}">
+			<display/>
+		</field>
+																																																														   
+		<field name="comment" title="${uiLabelMap.VvComment}">
+			<text/>
+		</field>
+																																																														   
+	</form>
 
 </forms>

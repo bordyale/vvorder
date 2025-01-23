@@ -54,6 +54,36 @@
 		</section>
 	</screen>
 
+	<screen name="OrderExportCsv">
+		<section>
+			<actions>                              
+				<property-map resource="VvorderUiLabels" map-name="uiLabelMap" global="true" />
+				<property-map resource="VvproductionUiLabels" map-name="uiLabelMap" global="true" />
+				<property-map resource="VvwarehouseUiLabels" map-name="uiLabelMap" global="true" />
+				<property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
+				<set field="orderId" from-field="parameters.orderId" />
+				<set field="headerItem" value="findVvOrders" />
+				<set field="reportPage" value="Y" />
 
+				<set field="viewSize" from-field="parameters.VIEW_SIZE_1" type="Integer" default-value="10000" />
+				<set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0" />
+				<property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue" />
+				<!-- <script location="component://vvorder/groovyScripts/Reports.groovy" /> -->
+				<entity-one entity-name="VvOrder" value-field="order" />
 
+			</actions>
+			<widgets>
+				<container>
+					<label style="h2" text="${uiLabelMap.exportTime} : ${groovy:org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}" />
+					<label style="h2" text="${uiLabelMap.VvOrderId} : ${order.orderId}" />
+					<label style="h2" text="${uiLabelMap.VvOrderName} : ${order.orderName}" />
+					<label style="h2" text="${uiLabelMap.shipBeforeDate} : ${order.dueDate}" />
+					<label style="h2" text="${uiLabelMap.orderWeight} : ${order.orderWeight}" />
+					<label style="h2" text="---" />
+				</container>
+				<include-form name="ListVvOrderItems" location="component://vvorder/widget/CsvForms.xml" />
+
+			</widgets>
+		</section>
+	</screen>
 </screens>

@@ -176,7 +176,7 @@
 		<value xml:lang="en">Find Shipments</value>
 		<value xml:lang="hu">Szállítás Keresés</value>
 	</property>
-		<property key="FindVvOrders">
+	<property key="FindVvOrders">
 		<value xml:lang="en">Find Orders</value>
 		<value xml:lang="hu">Rendelések Keresése</value>
 	</property>
@@ -251,6 +251,10 @@
 	<property key="UploadShipmentDetails">
 		<value xml:lang="en">Import Shipment Details (.xls files)</value>
 		<value xml:lang="hu">Szállítás import (.xls sablon alapján)</value>
+	</property>
+	<property key="exportTime">
+		<value xml:lang="en">Export Time</value>
+		<value xml:lang="hu">Export Dátum</value>
 	</property>
 	
 </resource>
