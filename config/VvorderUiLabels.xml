@@ -256,5 +256,13 @@
 		<value xml:lang="en">Export Time</value>
 		<value xml:lang="hu">Export Dátum</value>
 	</property>
+	<property key="ShowShipments">
+		<value xml:lang="en">Show Shipments</value>
+		<value xml:lang="hu">Szállítások</value>
+	</property>
+	<property key="TotalOpenWeight">
+		<value xml:lang="en">Total Open Weight</value>
+		<value xml:lang="hu">Nyított Rendelések Össz. Súly (Kg)</value>
+	</property>
 	
 </resource>

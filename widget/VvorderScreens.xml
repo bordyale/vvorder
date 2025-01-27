@@ -419,10 +419,11 @@
 				<set field="fildate1FromTitle" value="${groovy: uiLabelMap.From}" />
 				<set field="fildate2From" from-field="parameters.fildate2From" />
 				<set field="fildate2FromTitle" value="${groovy: uiLabelMap.To}" />
-				<set field="filshowConditions" from-field="parameters.filshowConditions" />
-				<set field="filshowPromotions" from-field="parameters.filshowPromotions" />
-				<set field="filshowClientNotes" from-field="parameters.filshowClientNotes" />
-				<set field="filshowClientInfos" from-field="parameters.filshowClientInfos" />
+				<set field="filshowFaseA" from-field="parameters.filshowFaseA" />
+				<!-- <set field="filshowConditions" from-field="parameters.filshowConditions" /> -->
+				<!-- <set field="filshowPromotions" from-field="parameters.filshowPromotions" /> -->
+				<!-- <set field="filshowClientNotes" from-field="parameters.filshowClientNotes" /> -->
+				<!-- <set field="filshowClientInfos" from-field="parameters.filshowClientInfos" /> -->
 				<set field="headerItem" value="findVvReports" />
 				<set field="reportPage" value="Y" />
 				<set field="viewSize" from-field="parameters.VIEW_SIZE_1" type="Integer" default-value="200" />
@@ -443,6 +444,7 @@
 								<parameter param-name="fildate1From" />
 								<parameter param-name="fildate2From" />
 								<parameter param-name="filpartnerId" />
+								<parameter param-name="filshowFaseA" />
 							</link>
 							<!-- <link target="ReportExportPdf" text="${uiLabelMap.CommonPdf}" style="buttontext create" target-window="_blank"> <parameter 
 								param-name="filshowClientNotes" /> <parameter param-name="filshowClientInfos" /> </link> -->
@@ -463,7 +465,13 @@
 							<container>
 								<label style="h2" text="${uiLabelMap.VvOpenOrders}" />
 							</container>
+							<container>
+								<label style="h2" text="${uiLabelMap.TotalOpenWeight} : ${progresNetWeigh}" />
+							</container>
 							<include-form name="OpenOrdersHeaderExport" location="component://vvorder/widget/CsvForms.xml" />
+							<container>
+								<label style="h2" text="---" />
+							</container>
 							<include-form name="OpenOrdersExport" location="component://vvorder/widget/CsvForms.xml" />
 
 							<container>

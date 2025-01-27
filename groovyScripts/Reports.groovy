@@ -43,6 +43,7 @@ orderShipBeforeFrom = parameters.orderShipBeforeFrom
 orderShipBeforeTo = parameters.orderShipBeforeTo
 partyIdTo = parameters.filpartnerId
 productId = parameters.filproductId
+filshowFaseA = parameters.filshowFaseA
 
 List searchCond = []
 if (fromDate) {
@@ -63,6 +64,7 @@ if (productId) {
 List<HashMap<String,Object>> hashMaps = new ArrayList<HashMap<String,Object>>()
 
 
+if(filshowFaseA.equals("Y")){
 orderItemShippingItem = select("shipmentDate","orderId","productId","name","quantity","partnerId").from("VvShippingItemView").where(searchCond).cache(false).queryList()
 
 orderItemShippingItem = EntityUtil.orderBy(orderItemShippingItem,  ["shipmentDate"])
@@ -80,7 +82,7 @@ for (GenericValue entry: orderItemShippingItem){
 
 	hashMaps.add(e)
 }
-
+}
 List filCond= []
 List activCond = []
 	activCond.add(EntityCondition.makeCondition("quantityShippable", EntityOperator.EQUALS, null))
@@ -200,3 +202,4 @@ context.orderItems = hashMaps
 context.notShippedOrders = notShippedOrdersMap
 context.shipWeights = shipWeights
 context.prodQty = prodQty
+context.progresNetWeigh = progresNetWeigh 

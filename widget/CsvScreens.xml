@@ -42,6 +42,9 @@
 					<label style="h2" text="${uiLabelMap.VvOpenOrders}" />
 				</container>
 				<include-form name="OpenOrdersHeaderExport" location="component://vvorder/widget/CsvForms.xml" />
+				<container>
+					<label style="h2" text="---" />
+				</container>
 				<include-form name="OpenOrdersExport" location="component://vvorder/widget/CsvForms.xml" />
 				<container>
 					<label style="h2" text="${uiLabelMap.VvProductShippedQuality}" />
