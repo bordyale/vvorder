@@ -298,7 +298,7 @@
 		<field name="orderDate" title="${uiLabelMap.vvorderDate}">
 			<display type="date" />
 		</field>
-		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}">
+		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}" sort-field="true">
 			<display type="date" />
 		</field>
 		<field name="deleteLink" title=" " widget-style="buttontext">
