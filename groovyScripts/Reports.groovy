@@ -130,13 +130,26 @@ for (GenericValue entry: notShippedItems){
 	progresNetWeigh = progresNetWeigh.add(netWeight)
 	e.put("progresNetWeight",progresNetWeigh)
 	hashMaps2.add(e)
+}
 
-
-
-
-
-
-
+List notShippedOrdersCond = []
+List<HashMap<String,Object>> notShippedOrdersMap = new ArrayList<HashMap<String,Object>>()
+if (notShippedItems) {
+	orderIds = EntityUtil.getFieldListFromEntityList(notShippedItems, "orderId", true)
+	notShippedOrdersCond.add(EntityCondition.makeCondition("orderId", EntityOperator.IN, orderIds))
+	notShippedOrders = from("VvOrder").where(notShippedOrdersCond).orderBy("-shipBeforeDate").queryList()
+	for (GenericValue entry: notShippedOrders){
+		
+		Map<String,Object> e = new HashMap<String,Object>()
+		e.put("orderId",entry.get("orderId"))
+		e.put("partnerId",entry.get("partnerId"))
+		e.put("orderName",entry.get("orderName"))
+		e.put("orderWeight",entry.get("orderWeight"))	
+		e.put("orderDate",entry.get("orderDate"))
+		e.put("shipBeforeDate",entry.get("shipBeforeDate"))
+		notShippedOrdersMap.add(e)
+	}
+	
 }
 
 
@@ -184,5 +197,6 @@ for (GenericValue entry: productQuantity){
 context.totalShippedWeight=totalShippedWeight
 context.orderItems2 = hashMaps2
 context.orderItems = hashMaps
+context.notShippedOrders = notShippedOrdersMap
 context.shipWeights = shipWeights
 context.prodQty = prodQty

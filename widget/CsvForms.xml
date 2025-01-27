@@ -40,6 +40,29 @@
 			<display />
 		</field>
 	</form>
+	
+	<form name="OpenOrdersHeaderExport" type="list" list-name="notShippedOrders" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}">
+			<display type="date" />
+		</field>
+		<field name="orderDate" title="${uiLabelMap.vvorderDate}">
+			<display type="date" />
+		</field>
+		<field name="orderId" title="${uiLabelMap.VvOrderId}">
+			<display />
+		</field>
+		<field name="orderName" title="${uiLabelMap.VvOrderName}">
+			<display />
+		</field>
+		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
+			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}" />
+		</field>
+		<field name="orderWeight" title="${uiLabelMap.VvWeight}">
+			<display />
+		</field>
+		
+
+	</form>
 
 
 	<form name="OpenOrdersExport" type="list" list-name="orderItems2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
