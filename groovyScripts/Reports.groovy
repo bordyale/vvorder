@@ -139,7 +139,7 @@ List<HashMap<String,Object>> notShippedOrdersMap = new ArrayList<HashMap<String,
 if (notShippedItems) {
 	orderIds = EntityUtil.getFieldListFromEntityList(notShippedItems, "orderId", true)
 	notShippedOrdersCond.add(EntityCondition.makeCondition("orderId", EntityOperator.IN, orderIds))
-	notShippedOrders = from("VvOrder").where(notShippedOrdersCond).orderBy("-shipBeforeDate").queryList()
+	notShippedOrders = from("VvOrder").where(notShippedOrdersCond).orderBy("shipBeforeDate").queryList()
 	for (GenericValue entry: notShippedOrders){
 		
 		Map<String,Object> e = new HashMap<String,Object>()
@@ -157,22 +157,24 @@ if (notShippedItems) {
 
 
 
-shippingWeight = select("shipmentDate","shipmentId","netWeight").from("VvShippingWeight").where(searchCond).cache(false).queryList()
-
-shippingWeight = EntityUtil.orderBy(shippingWeight,  ["shipmentDate"])
-
 List<HashMap<String,Object>> shipWeights = new ArrayList<HashMap<String,Object>>()
 BigDecimal totalShippedWeight = BigDecimal.ZERO
-for (GenericValue entry: shippingWeight){
-	Map<String,Object> e = new HashMap<String,Object>()
-	e.put("shipmentDate",entry.get("shipmentDate"))
-	e.put("shipmentId",entry.get("shipmentId"))
-	BigDecimal netWeight = entry.get("netWeight")
-	e.put("netWeight",netWeight)
+if(filshowFaseA.equals("Y")){
+	shippingWeight = select("shipmentDate","shipmentId","netWeight").from("VvShippingWeight").where(searchCond).cache(false).queryList()
 
-	totalShippedWeight= totalShippedWeight.add(netWeight)
-	shipWeights.add(e)
+	shippingWeight = EntityUtil.orderBy(shippingWeight,  ["shipmentDate"])
 
+	for (GenericValue entry: shippingWeight){
+		Map<String,Object> e = new HashMap<String,Object>()
+		e.put("shipmentDate",entry.get("shipmentDate"))
+		e.put("shipmentId",entry.get("shipmentId"))
+		BigDecimal netWeight = entry.get("netWeight")
+		e.put("netWeight",netWeight)
+
+		totalShippedWeight= totalShippedWeight.add(netWeight)
+		shipWeights.add(e)
+
+	}
 }
 
 
