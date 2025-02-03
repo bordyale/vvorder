@@ -4,8 +4,8 @@
 
 
 
-	<form name="ShipmentsReport" type="multi" use-row-submit="true" list-name="orderItems" title="" target="shipmentsreport"
-		odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="shipmentsreport">
+	<form name="ShipmentsReport" type="multi" use-row-submit="true" list-name="orderItems" title="" target="findVvReports"
+		odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="findVvReports">
 		<!-- <row-actions> <entity-one entity-name="OrderItem" value-field="product" auto-field-map="true"/> </row-actions> -->
 
 		<field name="orderId" title="${uiLabelMap.VvOrderId}">

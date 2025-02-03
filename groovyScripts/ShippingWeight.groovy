@@ -61,5 +61,32 @@ for (GenericValue entry: shippingWeight){
 	shipWeights.add(e)
 
 }
+shipItems = select("shipmentId","productId", "quantity").from("VvShipmentItem").where(searchCond).cache(false).queryList()
+
+shipItemsTot = select("shipmentId","productId", "quantityShipped").from("VvShippingItemQtySumViewNoOrder").where(searchCond).cache(false).queryList()
+
+Map<String,Object> itemsTotMap = new HashMap<String,Object>()
+for (GenericValue entry: shipItemsTot){
+	String productId = entry.get("productId")
+	System.out.println(productId + " " + entry.get("quantityShipped") )
+	itemsTotMap.put(productId, entry.get("quantityShipped"))
+}
+List<HashMap<String,Object>> shipItemsList= new ArrayList<HashMap<String,Object>>()
+for (GenericValue entry: shipItems){
+	Map<String,Object> e = new HashMap<String,Object>()
+	String productId = entry.get("productId")
+	BigDecimal quantityShipped = itemsTotMap.get(productId)
+	e.put("productId", productId)
+	e.put("quantityShipped", quantityShipped)
+    itemsTotMap.remove(productId)
+	if (quantityShipped) {
+	shipItemsList.add(e)
+	}
+
+}
+
+
+
 
 context.totalShippedWeight=totalShippedWeight
+context.shipItemsList=shipItemsList

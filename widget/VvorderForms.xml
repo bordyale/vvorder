@@ -537,17 +537,17 @@
 	</form>
 
 
-	<form name="ListVvShipmentItemsTot" type="list" list-name="listIt" target="updateVvShipmentItem" paginate-target="EditVvShipmentItemsTot" default-entity-name="VvShippingItemQtySumViewNoOrder" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2"
+	<form name="ListVvShipmentItemsTot" type="list" list-name="shipItemsList" target="updateVvShipmentItem" paginate-target="EditVvShipmentItemsTot" default-entity-name="VvShippingItemQtySumViewNoOrder" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2"
 		default-table-style="basic-table hover-bar">
-		<actions>
-			<service service-name="performFind" result-map="result" result-map-list="listIt">
-				<field-map field-name="inputFields" from-field="requestParameters" />
-				<field-map field-name="entityName" value="VvShippingItemQtySumViewNoOrder" />
-				<field-map field-name="orderBy" from-field="sortField" />
-				<field-map field-name="viewIndex" from-field="viewIndex" />
-				<field-map field-name="viewSize" from-field="viewSize" />
-			</service>
-		</actions>
+		<!-- <actions> -->
+		<!-- 	<service service-name="performFind" result-map="result" result-map-list="listIt"> -->
+		<!-- 		<field-map field-name="inputFields" from-field="requestParameters" /> -->
+		<!-- 		<field-map field-name="entityName" value="VvShippingItemQtySumViewNoOrder" /> -->
+		<!-- 		<field-map field-name="orderBy" from-field="sortField" /> -->
+		<!-- 		<field-map field-name="viewIndex" from-field="viewIndex" /> -->
+		<!-- 		<field-map field-name="viewSize" from-field="viewSize" /> -->
+		<!-- 	</service> -->
+		<!-- </actions> -->
 		<field name="shipmentId">
 			<hidden />
 		</field>
