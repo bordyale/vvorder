@@ -295,7 +295,7 @@
 		<field name="partnerId" title="${uiLabelMap.VvPartnerId}" widget-style="buttontext" sort-field="true">
 			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}" />
 		</field>
-		<field name="orderDate" title="${uiLabelMap.vvorderDate}">
+		<field name="orderDate" title="${uiLabelMap.vvorderDate}" sort-field="true">
 			<display type="date" />
 		</field>
 		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}" sort-field="true">
