@@ -42,6 +42,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityConditionList;
 import org.apache.ofbiz.entity.condition.EntityExpr;
+import org.apache.ofbiz.entity.condition.EntityJoinOperator;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 
 /**
@@ -214,14 +215,25 @@ public class VvOrderServices {
 
 			// lookup payment applications which took place before the
 			// asOfDateTime for this invoice
-			EntityConditionList<EntityExpr> dateCondition = EntityCondition.makeCondition(
-					UtilMisc.toList(EntityCondition.makeCondition("quantityShippable", EntityOperator.EQUALS, null),
-							EntityCondition.makeCondition("quantityShippable", EntityOperator.GREATER_THAN, BigDecimal.ZERO)), EntityOperator.OR);
+			String partnerId = (String) shipment.get("partnerId");
+			
+			
+			List<EntityExpr> othExpr = UtilMisc.toList(EntityCondition.makeCondition("quantityShippable", EntityOperator.EQUALS, null));
+            othExpr.add(EntityCondition.makeCondition("quantityShippable", EntityOperator.GREATER_THAN, BigDecimal.ZERO));
+            EntityCondition con1 = EntityCondition.makeCondition(othExpr, EntityJoinOperator.OR);
+            EntityCondition prodExpr = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId);
+            EntityCondition con2 = EntityCondition.makeCondition(UtilMisc.toList(con1, prodExpr), EntityOperator.AND);
+            EntityCondition partExpr = EntityCondition.makeCondition("partnerId", EntityOperator.EQUALS, partnerId);
+            EntityCondition con3 = EntityCondition.makeCondition(UtilMisc.toList(con2, partExpr), EntityOperator.AND);
 
-			EntityConditionList<EntityCondition> conditions = EntityCondition.makeCondition(
-					UtilMisc.toList(dateCondition, EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId)), EntityOperator.AND);
 
-			List<GenericValue> vfOrdItemShipItems = delegator.findList("VvOrderItemShippingItemView", conditions, null, null, null, false);
+			List<GenericValue> vfOrdItemShipItems = delegator.findList("VvOrderItemShippingItemView", con3, null, UtilMisc.toList("shipBeforeDate"), null, false);
+
+			
+			
+			
+			
+			
 
 			if (quantityToShip.equals(BigDecimal.ZERO)) {
 				return result; 

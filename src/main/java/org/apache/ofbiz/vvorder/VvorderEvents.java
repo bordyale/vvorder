@@ -38,6 +38,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -45,12 +46,13 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.CellType;
-
 import org.apache.ofbiz.vvorder.spreadsheetimport.ImportSpreadsheetHelper;
+
 import java.io.RandomAccessFile;
 import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.file.StandardOpenOption;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -73,6 +75,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityConditionList;
 import org.apache.ofbiz.entity.condition.EntityExpr;
+import org.apache.ofbiz.entity.condition.EntityJoinOperator;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
@@ -94,7 +97,6 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.control.RequestHandler;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -116,7 +118,7 @@ public class VvorderEvents {
 
 	public static final MathContext generalRounding = new MathContext(10);
 
-	public static String addShippingItemWithOpenOrder(HttpServletRequest request, HttpServletResponse response) {
+	/*public static String addShippingItemWithOpenOrder(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 		Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -175,16 +177,20 @@ public class VvorderEvents {
 
 		try {
 
+			String partnerId = (String) shipment.get("partnerId");
 			// lookup payment applications which took place before the
-			// asOfDateTime for this invoice
-			EntityConditionList<EntityExpr> dateCondition = EntityCondition.makeCondition(
-					UtilMisc.toList(EntityCondition.makeCondition("quantityShippable", EntityOperator.EQUALS, null),
-							EntityCondition.makeCondition("quantityShippable", EntityOperator.GREATER_THAN, BigDecimal.ZERO)), EntityOperator.OR);
+			// asOfDateTime for this invoice	
+			
+			List<EntityExpr> othExpr = UtilMisc.toList(EntityCondition.makeCondition("quantityShippable", EntityOperator.EQUALS, null));
+            othExpr.add(EntityCondition.makeCondition("quantityShippable", EntityOperator.GREATER_THAN, BigDecimal.ZERO));
+            EntityCondition con1 = EntityCondition.makeCondition(othExpr, EntityJoinOperator.OR);
+            EntityCondition prodExpr = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId);
+            EntityCondition con2 = EntityCondition.makeCondition(UtilMisc.toList(con1, prodExpr), EntityOperator.AND);
+            EntityCondition partExpr = EntityCondition.makeCondition("partnerId", EntityOperator.EQUALS, partnerId);
+            EntityCondition con3 = EntityCondition.makeCondition(UtilMisc.toList(con2, partExpr), EntityOperator.AND);
 
-			EntityConditionList<EntityCondition> conditions = EntityCondition.makeCondition(
-					UtilMisc.toList(dateCondition, EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId)), EntityOperator.AND);
 
-			List<GenericValue> vfOrdItemShipItems = delegator.findList("VvOrderItemShippingItemView", conditions, null, null, null, false);
+			List<GenericValue> vfOrdItemShipItems = delegator.findList("VvOrderItemShippingItemView", con3, null, UtilMisc.toList("shipBeforeDate"), null, false);
 
 			if (quantityToShip.equals(BigDecimal.ZERO)) {
 				return "success";
@@ -242,7 +248,7 @@ public class VvorderEvents {
 
 		return "success";
 
-	}
+	}*/
 
 	public static String updateInventoryShipment(HttpServletRequest request, HttpServletResponse response) {
 
@@ -325,7 +331,7 @@ public class VvorderEvents {
 
 	public static String uploadVvOrderItem(HttpServletRequest request, HttpServletResponse response) {
 		Locale locale = UtilHttp.getLocale(request);
-		Delegator delegator = (Delegator) request.getAttribute("delegator");	
+		Delegator delegator = (Delegator) request.getAttribute("delegator");
 		HttpSession session = request.getSession();
 		GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 		LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -339,7 +345,7 @@ public class VvorderEvents {
 		if (paramMap.containsKey("orderId")) {
 			orderId = (String) paramMap.get("orderId");
 		}
-//		request.setAttribute("orderId", orderId);
+		// request.setAttribute("orderId", orderId);
 		String rowsNumberStr = null;
 		BigDecimal rowsNumber = null;
 		if (paramMap.containsKey("rows")) {
@@ -349,70 +355,49 @@ public class VvorderEvents {
 			rowsNumber = new BigDecimal(rowsNumberStr);
 		} catch (Exception e) {
 		}
-/*
+		/*
+		 * try { lst = UtilGenerics.checkList(fu.parseRequest(request)); } catch
+		 * (FileUploadException e4) { }
+		 * 
+		 * if (lst.size() == 0 &&
+		 * UtilValidate.isNotEmpty(request.getAttribute("fileItems"))) { lst =
+		 * UtilGenerics.cast(request.getAttribute("fileItems")); } if
+		 * (lst.size() == 0) { return "error"; }
+		 * 
+		 * // This code finds the idField and the upload FileItems //
+		 * request.removeAttribute("fileItems");
+		 * 
+		 * FileItem fi = null; FileItem imageFi = null; for (int i = 0; i <
+		 * lst.size(); i++) { fi = lst.get(i); String fieldName =
+		 * fi.getFieldName(); String fieldStr = fi.getString(); if
+		 * (fieldName.equals("uploadFile")) { imageFi = fi; // MimeType of
+		 * upload file results.put("uploadMimeType", fi.getContentType()); } }
+		 * 
+		 * byte[] imageBytes = imageFi.get(); ByteBuffer byteWrap =
+		 * ByteBuffer.wrap(imageBytes); results.put("imageData", byteWrap);
+		 * results.put("imageFileName", imageFi.getName());
+		 * 
+		 * String imageName = results.get("imageFileName").toString(); String
+		 * mimType = results.get("uploadMimeType").toString(); ByteBuffer
+		 * imageData = (ByteBuffer) results.get("imageData"); try { String
+		 * dirPath = "/plugins/vvorder/orderitemupload/"; String completeDirPath
+		 * = prefix + dirPath; System.out.println("dirPath: " +
+		 * completeDirPath); File dir = new File(completeDirPath); if
+		 * (!dir.exists()) { boolean createDir = dir.mkdir(); if (!createDir) {
+		 * request.setAttribute("_ERROR_MESSAGE_", completeDirPath); return
+		 * "error"; } } String imagePath = "/plugins/vvorder/orderitemupload/" +
+		 * imageName; System.out.println("imagePath: " + prefix + imagePath);
+		 * File file = new File(prefix + "/" + imagePath); if (file.exists()) {
+		 * request.setAttribute("_ERROR_MESSAGE_",
+		 * "There is an existing frame, please select from the existing frame."
+		 * ); return "error"; } Path tmpFile = Files.createTempFile(null, null);
+		 * Files.write(tmpFile, imageData.array(), StandardOpenOption.APPEND);
+		 * Files.delete(tmpFile); RandomAccessFile out = new
+		 * RandomAccessFile(file, "rw"); out.write(imageData.array());
+		 * out.close();
+		 */
 		try {
-			lst = UtilGenerics.checkList(fu.parseRequest(request));
-		} catch (FileUploadException e4) {
-		}
-
-		if (lst.size() == 0 && UtilValidate.isNotEmpty(request.getAttribute("fileItems"))) {
-			lst = UtilGenerics.cast(request.getAttribute("fileItems"));
-		}
-		if (lst.size() == 0) {
-			return "error";
-		}
-
-		// This code finds the idField and the upload FileItems
-//		request.removeAttribute("fileItems");
-
-		FileItem fi = null;
-		FileItem imageFi = null;
-		for (int i = 0; i < lst.size(); i++) {
-			fi = lst.get(i);
-			String fieldName = fi.getFieldName();
-			String fieldStr = fi.getString();
-			if (fieldName.equals("uploadFile")) {
-				imageFi = fi;
-				// MimeType of upload file
-				results.put("uploadMimeType", fi.getContentType());
-			}
-		}
-
-		byte[] imageBytes = imageFi.get();
-		ByteBuffer byteWrap = ByteBuffer.wrap(imageBytes);
-		results.put("imageData", byteWrap);
-		results.put("imageFileName", imageFi.getName());
-
-		String imageName = results.get("imageFileName").toString();
-		String mimType = results.get("uploadMimeType").toString();
-		ByteBuffer imageData = (ByteBuffer) results.get("imageData");
-		try {
-			String dirPath = "/plugins/vvorder/orderitemupload/";
-			String completeDirPath = prefix + dirPath;
-			System.out.println("dirPath: " + completeDirPath);
-			File dir = new File(completeDirPath);
-			if (!dir.exists()) {
-				boolean createDir = dir.mkdir();
-				if (!createDir) {
-					request.setAttribute("_ERROR_MESSAGE_", completeDirPath);
-					return "error";
-				}
-			}
-			String imagePath = "/plugins/vvorder/orderitemupload/" + imageName;
-			System.out.println("imagePath: " + prefix + imagePath);
-			File file = new File(prefix + "/" + imagePath);
-			if (file.exists()) {
-				request.setAttribute("_ERROR_MESSAGE_", "There is an existing frame, please select from the existing frame.");
-				return "error";
-			}
-			Path tmpFile = Files.createTempFile(null, null);
-			Files.write(tmpFile, imageData.array(), StandardOpenOption.APPEND);
-			Files.delete(tmpFile);
-			RandomAccessFile out = new RandomAccessFile(file, "rw");
-			out.write(imageData.array());
-			out.close();*/
-		try {
-			File file = ImportSpreadsheetHelper.uploadFile(request,"/plugins/vvorder/orderitemupload/");
+			File file = ImportSpreadsheetHelper.uploadFile(request, "/plugins/vvorder/orderitemupload/");
 			//
 			// // read all xls file and create workbook one by one.
 			List<Map<String, Object>> dbrows = new LinkedList<>();
@@ -425,15 +410,14 @@ public class VvorderEvents {
 				Debug.logError("Unable to read or create workbook from file", module);
 			}
 
-			
 			// get first sheet
 			HSSFSheet sheet = wb.getSheetAt(0);
 			wb.close();
 			String tableName = "VvOrderItem";
 			int sheetLastRowNumber = 0;
-			if (rowsNumber == null){
+			if (rowsNumber == null) {
 				sheetLastRowNumber = sheet.getLastRowNum();
-			}else{
+			} else {
 				sheetLastRowNumber = rowsNumber.intValue();
 			}
 			for (int j = 1; j <= sheetLastRowNumber; j++) {
@@ -459,24 +443,26 @@ public class VvorderEvents {
 			// entity
 			// // in database
 			for (int j = 0; j < dbrows.size(); j++) {
-			//	GenericValue productGV = delegator.makeValue(tableName, dbrows.get(j));
+				// GenericValue productGV = delegator.makeValue(tableName,
+				// dbrows.get(j));
 
-			//	try {
-			//		delegator.create(productGV);
-			//		Debug.logInfo("Inserted row: " + j, module);
-			//	} catch (GenericEntityException e) {
-			//		Debug.logError("Cannot store product", module);
-			//	}
-				
-						try {
-							Map serviceCtx = UtilMisc.toMap("userLogin", userLogin, "productId", dbrows.get(j).get("productId"),"orderId", dbrows.get(j).get("orderId"),"orderItemSeqId", dbrows.get(j).get("orderItemSeqId"),"quantity", dbrows.get(j).get("quantity"));
+				// try {
+				// delegator.create(productGV);
+				// Debug.logInfo("Inserted row: " + j, module);
+				// } catch (GenericEntityException e) {
+				// Debug.logError("Cannot store product", module);
+				// }
 
-							dispatcher.runSync("createVvOrderItemJava", serviceCtx);
+				try {
+					Map serviceCtx = UtilMisc.toMap("userLogin", userLogin, "productId", dbrows.get(j).get("productId"), "orderId", dbrows.get(j).get("orderId"), "orderItemSeqId",
+							dbrows.get(j).get("orderItemSeqId"), "quantity", dbrows.get(j).get("quantity"));
 
-						} catch (GenericServiceException e) {
-							Debug.logError(e, module);
-							return "error";
-						}
+					dispatcher.runSync("createVvOrderItemJava", serviceCtx);
+
+				} catch (GenericServiceException e) {
+					Debug.logError(e, module);
+					return "error";
+				}
 			}
 			file.delete();
 
@@ -487,9 +473,10 @@ public class VvorderEvents {
 
 		return "success";
 	}
+
 	public static String uploadVvShipmentItem(HttpServletRequest request, HttpServletResponse response) {
 		Locale locale = UtilHttp.getLocale(request);
-		Delegator delegator = (Delegator) request.getAttribute("delegator");	
+		Delegator delegator = (Delegator) request.getAttribute("delegator");
 		HttpSession session = request.getSession();
 		GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 		LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -503,7 +490,7 @@ public class VvorderEvents {
 		if (paramMap.containsKey("shipmentId")) {
 			shipmentId = (String) paramMap.get("shipmentId");
 		}
-//		request.setAttribute("orderId", orderId);
+		// request.setAttribute("orderId", orderId);
 		String rowsNumberStr = null;
 		BigDecimal rowsNumber = null;
 		if (paramMap.containsKey("rows")) {
@@ -513,70 +500,49 @@ public class VvorderEvents {
 			rowsNumber = new BigDecimal(rowsNumberStr);
 		} catch (Exception e) {
 		}
-/*
+		/*
+		 * try { lst = UtilGenerics.checkList(fu.parseRequest(request)); } catch
+		 * (FileUploadException e4) { }
+		 * 
+		 * if (lst.size() == 0 &&
+		 * UtilValidate.isNotEmpty(request.getAttribute("fileItems"))) { lst =
+		 * UtilGenerics.cast(request.getAttribute("fileItems")); } if
+		 * (lst.size() == 0) { return "error"; }
+		 * 
+		 * // This code finds the idField and the upload FileItems //
+		 * request.removeAttribute("fileItems");
+		 * 
+		 * FileItem fi = null; FileItem imageFi = null; for (int i = 0; i <
+		 * lst.size(); i++) { fi = lst.get(i); String fieldName =
+		 * fi.getFieldName(); String fieldStr = fi.getString(); if
+		 * (fieldName.equals("uploadFile")) { imageFi = fi; // MimeType of
+		 * upload file results.put("uploadMimeType", fi.getContentType()); } }
+		 * 
+		 * byte[] imageBytes = imageFi.get(); ByteBuffer byteWrap =
+		 * ByteBuffer.wrap(imageBytes); results.put("imageData", byteWrap);
+		 * results.put("imageFileName", imageFi.getName());
+		 * 
+		 * String imageName = results.get("imageFileName").toString(); String
+		 * mimType = results.get("uploadMimeType").toString(); ByteBuffer
+		 * imageData = (ByteBuffer) results.get("imageData"); try { String
+		 * dirPath = "/plugins/vvorder/orderitemupload/"; String completeDirPath
+		 * = prefix + dirPath; System.out.println("dirPath: " +
+		 * completeDirPath); File dir = new File(completeDirPath); if
+		 * (!dir.exists()) { boolean createDir = dir.mkdir(); if (!createDir) {
+		 * request.setAttribute("_ERROR_MESSAGE_", completeDirPath); return
+		 * "error"; } } String imagePath = "/plugins/vvorder/orderitemupload/" +
+		 * imageName; System.out.println("imagePath: " + prefix + imagePath);
+		 * File file = new File(prefix + "/" + imagePath); if (file.exists()) {
+		 * request.setAttribute("_ERROR_MESSAGE_",
+		 * "There is an existing frame, please select from the existing frame."
+		 * ); return "error"; } Path tmpFile = Files.createTempFile(null, null);
+		 * Files.write(tmpFile, imageData.array(), StandardOpenOption.APPEND);
+		 * Files.delete(tmpFile); RandomAccessFile out = new
+		 * RandomAccessFile(file, "rw"); out.write(imageData.array());
+		 * out.close();
+		 */
 		try {
-			lst = UtilGenerics.checkList(fu.parseRequest(request));
-		} catch (FileUploadException e4) {
-		}
-
-		if (lst.size() == 0 && UtilValidate.isNotEmpty(request.getAttribute("fileItems"))) {
-			lst = UtilGenerics.cast(request.getAttribute("fileItems"));
-		}
-		if (lst.size() == 0) {
-			return "error";
-		}
-
-		// This code finds the idField and the upload FileItems
-//		request.removeAttribute("fileItems");
-
-		FileItem fi = null;
-		FileItem imageFi = null;
-		for (int i = 0; i < lst.size(); i++) {
-			fi = lst.get(i);
-			String fieldName = fi.getFieldName();
-			String fieldStr = fi.getString();
-			if (fieldName.equals("uploadFile")) {
-				imageFi = fi;
-				// MimeType of upload file
-				results.put("uploadMimeType", fi.getContentType());
-			}
-		}
-
-		byte[] imageBytes = imageFi.get();
-		ByteBuffer byteWrap = ByteBuffer.wrap(imageBytes);
-		results.put("imageData", byteWrap);
-		results.put("imageFileName", imageFi.getName());
-
-		String imageName = results.get("imageFileName").toString();
-		String mimType = results.get("uploadMimeType").toString();
-		ByteBuffer imageData = (ByteBuffer) results.get("imageData");
-		try {
-			String dirPath = "/plugins/vvorder/orderitemupload/";
-			String completeDirPath = prefix + dirPath;
-			System.out.println("dirPath: " + completeDirPath);
-			File dir = new File(completeDirPath);
-			if (!dir.exists()) {
-				boolean createDir = dir.mkdir();
-				if (!createDir) {
-					request.setAttribute("_ERROR_MESSAGE_", completeDirPath);
-					return "error";
-				}
-			}
-			String imagePath = "/plugins/vvorder/orderitemupload/" + imageName;
-			System.out.println("imagePath: " + prefix + imagePath);
-			File file = new File(prefix + "/" + imagePath);
-			if (file.exists()) {
-				request.setAttribute("_ERROR_MESSAGE_", "There is an existing frame, please select from the existing frame.");
-				return "error";
-			}
-			Path tmpFile = Files.createTempFile(null, null);
-			Files.write(tmpFile, imageData.array(), StandardOpenOption.APPEND);
-			Files.delete(tmpFile);
-			RandomAccessFile out = new RandomAccessFile(file, "rw");
-			out.write(imageData.array());
-			out.close();*/
-		try {
-			File file = ImportSpreadsheetHelper.uploadFile(request,"/plugins/vvorder/orderitemupload/");
+			File file = ImportSpreadsheetHelper.uploadFile(request, "/plugins/vvorder/orderitemupload/");
 
 			//
 			// // read all xls file and create workbook one by one.
@@ -590,15 +556,14 @@ public class VvorderEvents {
 				Debug.logError("Unable to read or create workbook from file", module);
 			}
 
-			
 			// get first sheet
 			HSSFSheet sheet = wb.getSheetAt(0);
 			wb.close();
 			String tableName = "VvShipmentItem";
 			int sheetLastRowNumber = 0;
-			if (rowsNumber == null){
+			if (rowsNumber == null) {
 				sheetLastRowNumber = sheet.getLastRowNum();
-			}else{
+			} else {
 				sheetLastRowNumber = rowsNumber.intValue();
 			}
 			for (int j = 1; j <= sheetLastRowNumber; j++) {
@@ -606,7 +571,8 @@ public class VvorderEvents {
 				if (row != null) {
 
 					Map<String, Object> fields = new HashMap<>();
-					//fields.put("shipmentItemSeqId", delegator.getNextSeqId(tableName));
+					// fields.put("shipmentItemSeqId",
+					// delegator.getNextSeqId(tableName));
 					fields.put("shipmentId", shipmentId);
 
 					fields.put("productId", ImportSpreadsheetHelper.importString(0, row));
@@ -624,24 +590,26 @@ public class VvorderEvents {
 			// entity
 			// // in database
 			for (int j = 0; j < dbrows.size(); j++) {
-			//	GenericValue productGV = delegator.makeValue(tableName, dbrows.get(j));
+				// GenericValue productGV = delegator.makeValue(tableName,
+				// dbrows.get(j));
 
-			//	try {
-			//		delegator.create(productGV);
-			//		Debug.logInfo("Inserted row: " + j, module);
-			//	} catch (GenericEntityException e) {
-			//		Debug.logError("Cannot store product", module);
-			//	}
-				
-						try {
-							Map serviceCtx = UtilMisc.toMap("userLogin", userLogin, "productId", dbrows.get(j).get("productId"),"shipmentId", dbrows.get(j).get("shipmentId"),"quantityToShip", dbrows.get(j).get("quantity"));
+				// try {
+				// delegator.create(productGV);
+				// Debug.logInfo("Inserted row: " + j, module);
+				// } catch (GenericEntityException e) {
+				// Debug.logError("Cannot store product", module);
+				// }
 
-							dispatcher.runSync("addShippingItemWithOpenOrder", serviceCtx);
+				try {
+					Map serviceCtx = UtilMisc.toMap("userLogin", userLogin, "productId", dbrows.get(j).get("productId"), "shipmentId", dbrows.get(j).get("shipmentId"), "quantityToShip", dbrows.get(j)
+							.get("quantity"));
 
-						} catch (GenericServiceException e) {
-							Debug.logError(e, module);
-							return "error";
-						}
+					dispatcher.runSync("addShippingItemWithOpenOrder", serviceCtx);
+
+				} catch (GenericServiceException e) {
+					Debug.logError(e, module);
+					return "error";
+				}
 			}
 			file.delete();
 

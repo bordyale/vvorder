@@ -358,7 +358,6 @@
 							<widgets>
 								<screenlet title="${uiLabelMap.ListVvShipmentItems}">
 									<include-form name="ListVvShipmentItems" location="component://vvorder/widget/VvorderForms.xml" />
-									<!--									<include-form name="AddVvShipmentItem" location="component://vvorder/widget/VvorderForms.xml" />-->
 								</screenlet>
 								<screenlet>
 									<label style="h1">${uiLabelMap.TotalNetWeight} - ${totalShippedWeight} Kg</label>
@@ -367,6 +366,9 @@
 									<platform-specific>
 										<html><html-template location="component://vvorder/templates/Contents.ftl"/></html>
 									</platform-specific>
+								</screenlet>
+								<screenlet title="${uiLabelMap.AddProductToShippingManual}">
+									<include-form name="AddVvShipmentItem" location="component://vvorder/widget/VvorderForms.xml" />
 								</screenlet>
 							</widgets>
 						</section>

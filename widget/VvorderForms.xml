@@ -646,15 +646,21 @@
 
 
 	<form name="AddVvShipmentItem" type="single" target="createVvShipmentItem" title="">
-		<auto-fields-service service-name="createVvShipmentItem" />
+		<!-- <auto-fields-service service-name="createVvShipmentItem" /> -->
 		<field name="shipmentId">
 			<hidden />
+		</field>
+		<field name="orderId" title="${uiLabelMap.VvOrderId}">
+			<text size="10" maxlength="10" />
+		</field>
+		<field name="orderItemSeqId" title="${uiLabelMap.VvOrderItemId}">
+			<text size="10" maxlength="10" />
 		</field>
 		<field name="productId" title="${uiLabelMap.VvProductId}">
 			<lookup target-form-name="LookupProduct" position="center" />
 		</field>
 		<field name="quantity">
-			<text size="30" />
+			<text size="5" maxlength="10" />
 		</field>
 
 		<field name="submitButton" title="${uiLabelMap.CommonAdd}">

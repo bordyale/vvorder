@@ -236,6 +236,14 @@
 		<value xml:lang="en">Order Id</value>
 		<value xml:lang="hu">Rendelés Azonosító</value>
 	</property>
+	<property key="VvOrderItemId">
+		<value xml:lang="en">Order Item Id</value>
+		<value xml:lang="hu">Rendelés Tétel Azonosító</value>
+	</property>
+	<property key="AddProductToShippingManual">
+		<value xml:lang="en">Add Product To Shipping Manual</value>
+		<value xml:lang="hu">Termék hozzaadása manualisan</value>
+	</property>
 	<property key="orderWeight">
 		<value xml:lang="en">Order Weight</value>
 		<value xml:lang="hu">Rendelés Súlya</value>
