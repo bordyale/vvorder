@@ -118,143 +118,125 @@ public class VvorderEvents {
 
 	public static final MathContext generalRounding = new MathContext(10);
 
-	/*public static String addShippingItemWithOpenOrder(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
-		GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-		Delegator delegator = (Delegator) request.getAttribute("delegator");
-		LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+	/*
+	 * public static String addShippingItemWithOpenOrder(HttpServletRequest
+	 * request, HttpServletResponse response) { HttpSession session =
+	 * request.getSession(); GenericValue userLogin = (GenericValue)
+	 * session.getAttribute("userLogin"); Delegator delegator = (Delegator)
+	 * request.getAttribute("delegator"); LocalDispatcher dispatcher =
+	 * (LocalDispatcher) request.getAttribute("dispatcher");
+	 * 
+	 * String controlDirective = null; Map<String, Object> result = null;
+	 * 
+	 * // Get the parameters as a MAP, remove the productId and quantity //
+	 * params. Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
+	 * 
+	 * String shipmentId = null;
+	 * 
+	 * String productId = null;
+	 * 
+	 * BigDecimal quantity = BigDecimal.ZERO; BigDecimal quantityShipped =
+	 * BigDecimal.ZERO; BigDecimal quantityToShip = BigDecimal.ZERO; BigDecimal
+	 * quantityShippable = BigDecimal.ZERO;
+	 * 
+	 * controlDirective = null; // re-initialize each time
+	 * 
+	 * // get the params if (paramMap.containsKey("shipmentId")) { shipmentId =
+	 * (String) paramMap.remove("shipmentId"); } if
+	 * (paramMap.containsKey("productId")) { productId = (String)
+	 * paramMap.remove("productId"); }
+	 * 
+	 * request.setAttribute("shipmentId", shipmentId); String quantityToShipStr
+	 * = null; if (paramMap.containsKey("quantityToShip")) { quantityToShipStr =
+	 * (String) paramMap.remove("quantityToShip"); } if ((quantityToShipStr ==
+	 * null) || (quantityToShipStr.equals(""))) { quantityToShipStr = "0"; } try
+	 * { quantityToShip = new BigDecimal(quantityToShipStr); } catch (Exception
+	 * e) { Debug.logWarning(e, "Problems parsing quantity string: " +
+	 * quantityToShipStr, module); quantityToShip = BigDecimal.ZERO; }
+	 * 
+	 * GenericValue vfOrdItemShipItem = null; GenericValue shipment = null; try
+	 * { shipment = delegator.findOne("VvShipment", UtilMisc.toMap("shipmentId",
+	 * shipmentId), false); } catch (GenericEntityException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); } Integer shipItemId = 1;
+	 * 
+	 * try {
+	 * 
+	 * String partnerId = (String) shipment.get("partnerId"); // lookup payment
+	 * applications which took place before the // asOfDateTime for this invoice
+	 * 
+	 * List<EntityExpr> othExpr =
+	 * UtilMisc.toList(EntityCondition.makeCondition("quantityShippable",
+	 * EntityOperator.EQUALS, null));
+	 * othExpr.add(EntityCondition.makeCondition("quantityShippable",
+	 * EntityOperator.GREATER_THAN, BigDecimal.ZERO)); EntityCondition con1 =
+	 * EntityCondition.makeCondition(othExpr, EntityJoinOperator.OR);
+	 * EntityCondition prodExpr = EntityCondition.makeCondition("productId",
+	 * EntityOperator.EQUALS, productId); EntityCondition con2 =
+	 * EntityCondition.makeCondition(UtilMisc.toList(con1, prodExpr),
+	 * EntityOperator.AND); EntityCondition partExpr =
+	 * EntityCondition.makeCondition("partnerId", EntityOperator.EQUALS,
+	 * partnerId); EntityCondition con3 =
+	 * EntityCondition.makeCondition(UtilMisc.toList(con2, partExpr),
+	 * EntityOperator.AND);
+	 * 
+	 * 
+	 * List<GenericValue> vfOrdItemShipItems =
+	 * delegator.findList("VvOrderItemShippingItemView", con3, null,
+	 * UtilMisc.toList("shipBeforeDate"), null, false);
+	 * 
+	 * if (quantityToShip.equals(BigDecimal.ZERO)) { return "success"; }
+	 * BigDecimal qtyRemainToShip = quantityToShip; for (GenericValue item :
+	 * vfOrdItemShipItems) { BigDecimal itemQty = (BigDecimal)
+	 * item.get("quantityShippable"); String orderId = (String)
+	 * item.get("orderId"); String orderItemSeqId = (String)
+	 * item.get("orderItemSeqId"); ; if (itemQty == null) { itemQty =
+	 * (BigDecimal) item.get("quantity"); } if
+	 * (qtyRemainToShip.compareTo(itemQty) >= 0) {
+	 * 
+	 * try { Map<String, Object> tmpResult =
+	 * dispatcher.runSync("createVvShipmentItem", UtilMisc.<String, Object>
+	 * toMap("userLogin", userLogin, "shipmentId", shipmentId, "productId",
+	 * productId, "orderId", orderId, "orderItemSeqId", orderItemSeqId,
+	 * "quantity", itemQty));
+	 * 
+	 * } catch (GenericServiceException e) { Debug.logError(e, module); }
+	 * 
+	 * qtyRemainToShip = qtyRemainToShip.subtract(itemQty); } else {
+	 * 
+	 * try { Map<String, Object> tmpResult =
+	 * dispatcher.runSync("createVvShipmentItem", UtilMisc.<String, Object>
+	 * toMap("userLogin", userLogin, "shipmentId", shipmentId, "productId",
+	 * productId, "orderId", orderId, "orderItemSeqId", orderItemSeqId,
+	 * "quantity", qtyRemainToShip));
+	 * 
+	 * } catch (GenericServiceException e) { Debug.logError(e, module); }
+	 * 
+	 * qtyRemainToShip = BigDecimal.ZERO; } if
+	 * (qtyRemainToShip.compareTo(BigDecimal.ZERO) == 0) break;
+	 * 
+	 * } if (qtyRemainToShip.compareTo(BigDecimal.ZERO) > 0) { try { Map<String,
+	 * Object> tmpResult = dispatcher.runSync("createVvShipmentItem",
+	 * UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId",
+	 * shipmentId, "productId", productId, "quantity", qtyRemainToShip));
+	 * 
+	 * } catch (GenericServiceException e) { Debug.logError(e, module); } }
+	 * 
+	 * } catch (GenericEntityException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); }
+	 * 
+	 * return "success";
+	 * 
+	 * }
+	 */
 
-		String controlDirective = null;
-		Map<String, Object> result = null;
-
-		// Get the parameters as a MAP, remove the productId and quantity
-		// params.
-		Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
-
-		String shipmentId = null;
-
-		String productId = null;
-
-		BigDecimal quantity = BigDecimal.ZERO;
-		BigDecimal quantityShipped = BigDecimal.ZERO;
-		BigDecimal quantityToShip = BigDecimal.ZERO;
-		BigDecimal quantityShippable = BigDecimal.ZERO;
-
-		controlDirective = null; // re-initialize each time
-
-		// get the params
-		if (paramMap.containsKey("shipmentId")) {
-			shipmentId = (String) paramMap.remove("shipmentId");
-		}
-		if (paramMap.containsKey("productId")) {
-			productId = (String) paramMap.remove("productId");
-		}
-
-		request.setAttribute("shipmentId", shipmentId);
-		String quantityToShipStr = null;
-		if (paramMap.containsKey("quantityToShip")) {
-			quantityToShipStr = (String) paramMap.remove("quantityToShip");
-		}
-		if ((quantityToShipStr == null) || (quantityToShipStr.equals(""))) {
-			quantityToShipStr = "0";
-		}
-		try {
-			quantityToShip = new BigDecimal(quantityToShipStr);
-		} catch (Exception e) {
-			Debug.logWarning(e, "Problems parsing quantity string: " + quantityToShipStr, module);
-			quantityToShip = BigDecimal.ZERO;
-		}
-
-		GenericValue vfOrdItemShipItem = null;
-		GenericValue shipment = null;
-		try {
-			shipment = delegator.findOne("VvShipment", UtilMisc.toMap("shipmentId", shipmentId), false);
-		} catch (GenericEntityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Integer shipItemId = 1;
-
-		try {
-
-			String partnerId = (String) shipment.get("partnerId");
-			// lookup payment applications which took place before the
-			// asOfDateTime for this invoice	
-			
-			List<EntityExpr> othExpr = UtilMisc.toList(EntityCondition.makeCondition("quantityShippable", EntityOperator.EQUALS, null));
-            othExpr.add(EntityCondition.makeCondition("quantityShippable", EntityOperator.GREATER_THAN, BigDecimal.ZERO));
-            EntityCondition con1 = EntityCondition.makeCondition(othExpr, EntityJoinOperator.OR);
-            EntityCondition prodExpr = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId);
-            EntityCondition con2 = EntityCondition.makeCondition(UtilMisc.toList(con1, prodExpr), EntityOperator.AND);
-            EntityCondition partExpr = EntityCondition.makeCondition("partnerId", EntityOperator.EQUALS, partnerId);
-            EntityCondition con3 = EntityCondition.makeCondition(UtilMisc.toList(con2, partExpr), EntityOperator.AND);
-
-
-			List<GenericValue> vfOrdItemShipItems = delegator.findList("VvOrderItemShippingItemView", con3, null, UtilMisc.toList("shipBeforeDate"), null, false);
-
-			if (quantityToShip.equals(BigDecimal.ZERO)) {
-				return "success";
-			}
-			BigDecimal qtyRemainToShip = quantityToShip;
-			for (GenericValue item : vfOrdItemShipItems) {
-				BigDecimal itemQty = (BigDecimal) item.get("quantityShippable");
-				String orderId = (String) item.get("orderId");
-				String orderItemSeqId = (String) item.get("orderItemSeqId");
-				;
-				if (itemQty == null) {
-					itemQty = (BigDecimal) item.get("quantity");
-				}
-				if (qtyRemainToShip.compareTo(itemQty) >= 0) {
-
-					try {
-						Map<String, Object> tmpResult = dispatcher.runSync("createVvShipmentItem", UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId", shipmentId, "productId",
-								productId, "orderId", orderId, "orderItemSeqId", orderItemSeqId, "quantity", itemQty));
-
-					} catch (GenericServiceException e) {
-						Debug.logError(e, module);
-					}
-
-					qtyRemainToShip = qtyRemainToShip.subtract(itemQty);
-				} else {
-
-					try {
-						Map<String, Object> tmpResult = dispatcher.runSync("createVvShipmentItem", UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId", shipmentId, "productId",
-								productId, "orderId", orderId, "orderItemSeqId", orderItemSeqId, "quantity", qtyRemainToShip));
-
-					} catch (GenericServiceException e) {
-						Debug.logError(e, module);
-					}
-
-					qtyRemainToShip = BigDecimal.ZERO;
-				}
-				if (qtyRemainToShip.compareTo(BigDecimal.ZERO) == 0)
-					break;
-
-			}
-			if (qtyRemainToShip.compareTo(BigDecimal.ZERO) > 0) {
-				try {
-					Map<String, Object> tmpResult = dispatcher.runSync("createVvShipmentItem",
-							UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId", shipmentId, "productId", productId, "quantity", qtyRemainToShip));
-
-				} catch (GenericServiceException e) {
-					Debug.logError(e, module);
-				}
-			}
-
-		} catch (GenericEntityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return "success";
-
-	}*/
-
-	public static String updateInventoryShipment(HttpServletRequest request, HttpServletResponse response) {
+	public static String updateInventoryShipment(HttpServletRequest request,
+			HttpServletResponse response) {
 
 		Delegator delegator = (Delegator) request.getAttribute("delegator");
-		LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-		GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
+		LocalDispatcher dispatcher = (LocalDispatcher) request
+				.getAttribute("dispatcher");
+		GenericValue userLogin = (GenericValue) request.getSession()
+				.getAttribute("userLogin");
 		String shipmentId = null;
 		String facilityId = null;
 		String isReturnShipment = null;
@@ -273,19 +255,25 @@ public class VvorderEvents {
 
 		GenericValue shipment = null;
 		try {
-			shipment = delegator.findOne("VvShipment", UtilMisc.toMap("shipmentId", shipmentId), false);
+			shipment = delegator.findOne("VvShipment",
+					UtilMisc.toMap("shipmentId", shipmentId), false);
 
 			if ("Y".equals(isReturnShipment)) {
-				List<GenericValue> invDetails = delegator.findByAnd("VvWarehouse", UtilMisc.toMap("shipmentId", shipmentId), null, false);
+				List<GenericValue> invDetails = delegator.findByAnd(
+						"VvWarehouse",
+						UtilMisc.toMap("shipmentId", shipmentId), null, false);
 				if (invDetails != null) {
 					List<EntityCondition> exprs = new LinkedList<EntityCondition>();
 					for (GenericValue det : invDetails) {
-						exprs.add(EntityCondition.makeCondition("whId", EntityOperator.EQUALS, det.get("whId")));
+						exprs.add(EntityCondition.makeCondition("whId",
+								EntityOperator.EQUALS, det.get("whId")));
 					}
 					// delegator.removeByAnd("VvWarehouse",
 					// UtilMisc.toMap("shipmentId", shipmentId));
-					EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(exprs, EntityOperator.OR);
-					List<GenericValue> inv = EntityQuery.use(delegator).from("VvWarehouse").where(ecl).queryList();
+					EntityConditionList<EntityCondition> ecl = EntityCondition
+							.makeCondition(exprs, EntityOperator.OR);
+					List<GenericValue> inv = EntityQuery.use(delegator)
+							.from("VvWarehouse").where(ecl).queryList();
 					delegator.removeAll(inv);
 				}
 
@@ -293,7 +281,9 @@ public class VvorderEvents {
 			} else {
 				List<GenericValue> shipmentItems = null;
 				try {
-					shipmentItems = delegator.findByAnd("VvShipmentItem", UtilMisc.toMap("shipmentId", shipmentId), null, false);
+					shipmentItems = delegator.findByAnd("VvShipmentItem",
+							UtilMisc.toMap("shipmentId", shipmentId), null,
+							false);
 
 				} catch (GenericEntityException e1) {
 					// TODO Auto-generated catch block
@@ -304,8 +294,12 @@ public class VvorderEvents {
 
 						try {
 							BigDecimal qty = (BigDecimal) si.get("quantity");
-							Map serviceCtx = UtilMisc.toMap("productId", si.get("productId"), "shipmentId", shipmentId, "userLogin", userLogin, "quantity", qty.negate(), "statusId", "VV_WH_CHANGE_2",
-									"date", shipment.get("shipmentDate"));
+							Map serviceCtx = UtilMisc.toMap("productId",
+									si.get("productId"), "shipmentId",
+									shipmentId, "userLogin", userLogin,
+									"quantity", qty.negate(), "statusId",
+									"VV_WH_CHANGE_2", "date",
+									shipment.get("shipmentDate"));
 
 							dispatcher.runSync("createVvWh", serviceCtx);
 
@@ -329,15 +323,19 @@ public class VvorderEvents {
 
 	}
 
-	public static String uploadVvOrderItem(HttpServletRequest request, HttpServletResponse response) {
+	public static String uploadVvOrderItem(HttpServletRequest request,
+			HttpServletResponse response) {
 		Locale locale = UtilHttp.getLocale(request);
 		Delegator delegator = (Delegator) request.getAttribute("delegator");
 		HttpSession session = request.getSession();
-		GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-		LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+		GenericValue userLogin = (GenericValue) session
+				.getAttribute("userLogin");
+		LocalDispatcher dispatcher = (LocalDispatcher) request
+				.getAttribute("dispatcher");
 		String prefix = System.getProperty("user.dir");
 		Map<String, Object> results = new HashMap<String, Object>();
-		ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File(new File("runtime"), "tmp")));
+		ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(
+				10240, new File(new File("runtime"), "tmp")));
 		List<FileItem> lst = null;
 
 		Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
@@ -397,7 +395,8 @@ public class VvorderEvents {
 		 * out.close();
 		 */
 		try {
-			File file = ImportSpreadsheetHelper.uploadFile(request, "/plugins/vvorder/orderitemupload/");
+			File file = ImportSpreadsheetHelper.uploadFile(request,
+					"/plugins/vvorder/orderitemupload/");
 			//
 			// // read all xls file and create workbook one by one.
 			List<Map<String, Object>> dbrows = new LinkedList<>();
@@ -407,7 +406,8 @@ public class VvorderEvents {
 				fs = new POIFSFileSystem(new FileInputStream(file));
 				wb = new HSSFWorkbook(fs);
 			} catch (IOException e) {
-				Debug.logError("Unable to read or create workbook from file", module);
+				Debug.logError("Unable to read or create workbook from file",
+						module);
 			}
 
 			// get first sheet
@@ -425,14 +425,24 @@ public class VvorderEvents {
 				if (row != null) {
 
 					Map<String, Object> fields = new HashMap<>();
-					fields.put("orderItemSeqId", delegator.getNextSeqId(tableName));
+					fields.put("orderItemSeqId",
+							delegator.getNextSeqId(tableName));
 					fields.put("orderId", orderId);
+					
+					String cell0 = ImportSpreadsheetHelper.importString(0, row);
+					if (cell0 == null || cell0.length() == 0) {
+						break;
+					}
+					fields.put("productId", cell0);
+					BigDecimal cell1 = ImportSpreadsheetHelper
+							.importBigDecimal(1, row);
+					if (cell1 == null || cell1.equals(BigDecimal.ZERO)) {
+						break;
+					}
+					fields.put("quantity", cell1);
 
-					fields.put("productId", ImportSpreadsheetHelper.importString(0, row));
-
-					fields.put("quantity", ImportSpreadsheetHelper.importBigDecimal(1, row));
-
-					Debug.logInfo("Processed row:" + j + " " + row.toString(), module);
+					Debug.logInfo("Processed row:" + j + " " + row.toString(),
+							module);
 
 					dbrows.add(fields);
 
@@ -442,6 +452,7 @@ public class VvorderEvents {
 			// // create and store values in "Product" and "InventoryItem"
 			// entity
 			// // in database
+			file.delete();
 			for (int j = 0; j < dbrows.size(); j++) {
 				// GenericValue productGV = delegator.makeValue(tableName,
 				// dbrows.get(j));
@@ -454,35 +465,45 @@ public class VvorderEvents {
 				// }
 
 				try {
-					Map serviceCtx = UtilMisc.toMap("userLogin", userLogin, "productId", dbrows.get(j).get("productId"), "orderId", dbrows.get(j).get("orderId"), "orderItemSeqId",
-							dbrows.get(j).get("orderItemSeqId"), "quantity", dbrows.get(j).get("quantity"));
+					Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,
+							"productId", dbrows.get(j).get("productId"),
+							"orderId", dbrows.get(j).get("orderId"),
+							"orderItemSeqId",
+							dbrows.get(j).get("orderItemSeqId"), "quantity",
+							dbrows.get(j).get("quantity"));
 
 					dispatcher.runSync("createVvOrderItemJava", serviceCtx);
 
 				} catch (GenericServiceException e) {
 					Debug.logError(e, module);
+					request.setAttribute("_ERROR_MESSAGE_",
+							"Üres cellak a fajlban.");
 					return "error";
 				}
 			}
-			file.delete();
 
 		} catch (Exception e) {
 			System.out.println(e);
+			return "error";
 
 		}
 
 		return "success";
 	}
 
-	public static String uploadVvShipmentItem(HttpServletRequest request, HttpServletResponse response) {
+	public static String uploadVvShipmentItem(HttpServletRequest request,
+			HttpServletResponse response) {
 		Locale locale = UtilHttp.getLocale(request);
 		Delegator delegator = (Delegator) request.getAttribute("delegator");
 		HttpSession session = request.getSession();
-		GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-		LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+		GenericValue userLogin = (GenericValue) session
+				.getAttribute("userLogin");
+		LocalDispatcher dispatcher = (LocalDispatcher) request
+				.getAttribute("dispatcher");
 		String prefix = System.getProperty("user.dir");
 		Map<String, Object> results = new HashMap<String, Object>();
-		ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File(new File("runtime"), "tmp")));
+		ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(
+				10240, new File(new File("runtime"), "tmp")));
 		List<FileItem> lst = null;
 
 		Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
@@ -542,7 +563,8 @@ public class VvorderEvents {
 		 * out.close();
 		 */
 		try {
-			File file = ImportSpreadsheetHelper.uploadFile(request, "/plugins/vvorder/orderitemupload/");
+			File file = ImportSpreadsheetHelper.uploadFile(request,
+					"/plugins/vvorder/orderitemupload/");
 
 			//
 			// // read all xls file and create workbook one by one.
@@ -553,7 +575,8 @@ public class VvorderEvents {
 				fs = new POIFSFileSystem(new FileInputStream(file));
 				wb = new HSSFWorkbook(fs);
 			} catch (IOException e) {
-				Debug.logError("Unable to read or create workbook from file", module);
+				Debug.logError("Unable to read or create workbook from file",
+						module);
 			}
 
 			// get first sheet
@@ -574,12 +597,20 @@ public class VvorderEvents {
 					// fields.put("shipmentItemSeqId",
 					// delegator.getNextSeqId(tableName));
 					fields.put("shipmentId", shipmentId);
+					String cell0 = ImportSpreadsheetHelper.importString(0, row);
+					if (cell0 == null || cell0.length() == 0) {
+						break;
+					}
+					fields.put("productId", cell0);
+					BigDecimal cell1 = ImportSpreadsheetHelper
+							.importBigDecimal(1, row);
+					if (cell1 == null || cell1.equals(BigDecimal.ZERO)) {
+						break;
+					}
+					fields.put("quantity", cell1);
 
-					fields.put("productId", ImportSpreadsheetHelper.importString(0, row));
-
-					fields.put("quantity", ImportSpreadsheetHelper.importBigDecimal(1, row));
-
-					Debug.logInfo("Processed row:" + j + " " + row.toString(), module);
+					Debug.logInfo("Processed row:" + j + " " + row.toString(),
+							module);
 
 					dbrows.add(fields);
 
@@ -589,6 +620,7 @@ public class VvorderEvents {
 			// // create and store values in "Product" and "InventoryItem"
 			// entity
 			// // in database
+			file.delete();
 			for (int j = 0; j < dbrows.size(); j++) {
 				// GenericValue productGV = delegator.makeValue(tableName,
 				// dbrows.get(j));
@@ -601,21 +633,25 @@ public class VvorderEvents {
 				// }
 
 				try {
-					Map serviceCtx = UtilMisc.toMap("userLogin", userLogin, "productId", dbrows.get(j).get("productId"), "shipmentId", dbrows.get(j).get("shipmentId"), "quantityToShip", dbrows.get(j)
-							.get("quantity"));
+					Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,
+							"productId", dbrows.get(j).get("productId"),
+							"shipmentId", dbrows.get(j).get("shipmentId"),
+							"quantityToShip", dbrows.get(j).get("quantity"));
 
-					dispatcher.runSync("addShippingItemWithOpenOrder", serviceCtx);
+					dispatcher.runSync("addShippingItemWithOpenOrder",
+							serviceCtx);
 
 				} catch (GenericServiceException e) {
 					Debug.logError(e, module);
+					request.setAttribute("_ERROR_MESSAGE_",
+							"Üres cellak a fajlban.");
 					return "error";
 				}
 			}
-			file.delete();
 
 		} catch (Exception e) {
 			System.out.println(e);
-
+			return "error";
 		}
 
 		return "success";

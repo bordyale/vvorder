@@ -21,13 +21,15 @@ under the License.
  <#if (order)?has_content><input type="hidden" name="orderId" value="${order.orderId}"/></#if>
   <#if (shipment)?has_content><input type="hidden" name="shipmentId" value="${shipment.shipmentId}"/></#if>
         <input type="file" name="uploadFile" class="required error" size="25"/>
-        <div>
+       <#-- <div>
       <div class="label">${uiLabelMap.orderItemRowsNumber}</div>
       </div>
         <div>
         <input type="text" name="rows" size="4" maxlength="4"/>
-        </div>
+        </div>-->
+        <div>
         <input type="submit" value="${uiLabelMap.CommonUpload}" />
+        </div>
       </form>
       </div>
   <script type="application/javascript">

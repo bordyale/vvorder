@@ -26,13 +26,14 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import java.util.List;
 import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.file.StandardOpenOption;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -41,12 +42,16 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilGenerics;
+
 import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -119,7 +124,7 @@ public final class ImportSpreadsheetHelper {
 
 		return UtilDateTime.toTimestamp(date);
 	}
-	public static File uploadFile(HttpServletRequest request,String dirPath) {
+	public static File uploadFile(HttpServletRequest request,String dirPath) throws GeneralException{
 		//dont forget to delete uploaded returnet File
 		HttpSession session = request.getSession();
 		GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
@@ -162,6 +167,10 @@ public final class ImportSpreadsheetHelper {
 		results.put("imageFileName", imageFi.getName());
 
 		String imageName = results.get("imageFileName").toString();
+		if (imageName != null & !imageName.endsWith(".xls")){
+            request.setAttribute("_ERROR_MESSAGE_", "Ádááááááám  csak .xls lehet:-)");
+           	throw new GeneralException("Erro file extention, just .xsl allowed");
+		}
 		String mimType = results.get("uploadMimeType").toString();
 		ByteBuffer imageData = (ByteBuffer) results.get("imageData");
 		try {
