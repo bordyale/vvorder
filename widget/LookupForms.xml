@@ -32,17 +32,20 @@
 		<actions>
 			<service service-name="performFind" result-map="result" result-map-list="listIt">
 				<field-map field-name="inputFields" from-field="parameters" />
-				<field-map field-name="entityName" value="VvProduct" />
+				<field-map field-name="entityName" value="VvProductPartner" />
 			</service>
 
 		</actions>
 		<!--<auto-fields-entity entity-name="PartyNameView" default-field-type="display"/> -->
-		<field name="productId" title="${uiLabelMap.productId}" widget-style="smallSubmit">
+		<field name="productId" title="${uiLabelMap.ProductId}" widget-style="smallSubmit">
 			<hyperlink description="${productId}" target="javascript:set_value('${productId}')" also-hidden="false"
 				target-type="plain" />
 		</field>
 
-		<field name="name" title="${uiLabelMap.Name}">
+		<field name="productName" title="${uiLabelMap.Name}">
+			<display />
+		</field>
+		<field name="partnerName" title="${uiLabelMap.VvPartnerId}">
 			<display />
 		</field>
 

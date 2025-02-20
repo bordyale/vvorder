@@ -411,6 +411,7 @@
 		<section>
 			<actions>
 				<!-- for uiLabelMap.filclientnoteFrom -->
+				<set field="titleProperty" value="VvReports" />
 				<property-map resource="VvorderUiLabels" map-name="uiLabelMap" global="true" />
 				<property-map resource="VvproductionUiLabels" map-name="uiLabelMap" global="true" />
 				<property-map resource="VvwarehouseUiLabels" map-name="uiLabelMap" global="true" />

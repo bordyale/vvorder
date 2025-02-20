@@ -42,8 +42,8 @@
 
 	</property>
 	<property key="FindVvPartners">
-		<value xml:lang="en">Find Vulkán Partners</value>
-		<value xml:lang="hu">Vulkán Partnerek</value>
+		<value xml:lang="en">Partners</value>
+		<value xml:lang="hu">Partnerek</value>
 
 	</property>
 
@@ -275,6 +275,14 @@
 	<property key="TotalOpenWeight">
 		<value xml:lang="en">Total Open Weight</value>
 		<value xml:lang="hu">Nyított Rendelések Össz. Súly (Kg)</value>
+	</property>
+	<property key="EditVvProduct">
+		<value xml:lang="en">Edit Product</value>
+		<value xml:lang="hu">Termék módósítása</value>
+	</property>
+	<property key="ProductId">
+		<value xml:lang="en">Product</value>
+		<value xml:lang="hu">Termék</value>
 	</property>
 	
 </resource>
