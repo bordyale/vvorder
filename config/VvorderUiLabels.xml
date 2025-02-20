@@ -51,6 +51,10 @@
 		<value xml:lang="en">Partners</value>
 		<value xml:lang="hu">Partners</value>
 	</property>
+	<property key="VvPartnerName">
+		<value xml:lang="en">Partner Name</value>
+		<value xml:lang="hu">Partner</value>
+	</property>
 	<property key="VvProducts">
 		<value xml:lang="en">Products</value>
 		<value xml:lang="hu">Termékek</value>

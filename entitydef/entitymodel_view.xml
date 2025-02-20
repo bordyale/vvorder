@@ -178,6 +178,18 @@
 		<alias entity-alias="VSI" name="quantityShipped" field="quantity" function="sum" />
 	</view-entity>
 
+	<view-entity entity-name="VvProductPartner" package-name="org.apache.ofbiz.vvshipment.vvshipment"
+		never-cache="true" title="Order Items and ShippingItem View Entity">
+		<member-entity entity-alias="PR" entity-name="VvProduct" />
+		<member-entity entity-alias="PA" entity-name="VvPartner" />
+		<alias-all entity-alias="PR" />
+		<alias-all entity-alias="PA" />
+		<alias name="partnerName" entity-alias="PA" field="name" />
+		<alias name="productName" entity-alias="PR" field="name" />
+		<view-link entity-alias="PR" rel-entity-alias="PA">
+			<key-map field-name="partnerId" />
+		</view-link>
+	</view-entity>
 
 
 

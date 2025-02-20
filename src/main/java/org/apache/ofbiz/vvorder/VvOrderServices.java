@@ -219,12 +219,12 @@ public class VvOrderServices {
 			
 			
 			List<EntityExpr> othExpr = UtilMisc.toList(EntityCondition.makeCondition("quantityShippable", EntityOperator.EQUALS, null));
-            othExpr.add(EntityCondition.makeCondition("quantityShippable", EntityOperator.GREATER_THAN, BigDecimal.ZERO));
-            EntityCondition con1 = EntityCondition.makeCondition(othExpr, EntityJoinOperator.OR);
-            EntityCondition prodExpr = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId);
-            EntityCondition con2 = EntityCondition.makeCondition(UtilMisc.toList(con1, prodExpr), EntityOperator.AND);
-            EntityCondition partExpr = EntityCondition.makeCondition("partnerId", EntityOperator.EQUALS, partnerId);
-            EntityCondition con3 = EntityCondition.makeCondition(UtilMisc.toList(con2, partExpr), EntityOperator.AND);
+			    othExpr.add(EntityCondition.makeCondition("quantityShippable", EntityOperator.GREATER_THAN, BigDecimal.ZERO));
+			    EntityCondition con1 = EntityCondition.makeCondition(othExpr, EntityJoinOperator.OR);
+			    EntityCondition prodExpr = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId);
+			    EntityCondition con2 = EntityCondition.makeCondition(UtilMisc.toList(con1, prodExpr), EntityOperator.AND);
+			    EntityCondition partExpr = EntityCondition.makeCondition("partnerId", EntityOperator.EQUALS, partnerId);
+			    EntityCondition con3 = EntityCondition.makeCondition(UtilMisc.toList(con2, partExpr), EntityOperator.AND);
 
 
 			List<GenericValue> vfOrdItemShipItems = delegator.findList("VvOrderItemShippingItemView", con3, null, UtilMisc.toList("shipBeforeDate"), null, false);

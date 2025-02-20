@@ -338,7 +338,7 @@
 			<display />
 		</field>
 		<field name="productId" title="${uiLabelMap.VvName}">
-			<display-entity entity-name="VvProduct" key-field-name="productId" description="${name}" />
+			<display-entity entity-name="VvProductPartner" key-field-name="productId" description="${productName} : ${partnerName}" />
 		</field>
 		<field name="quantity" title="${uiLabelMap.VvQuantity}">
 			<text />
@@ -404,14 +404,14 @@
 		<field name="orderItemSeqId">
 			<ignored /><!-- this will be auto-sequenced -->
 		</field>
-		<field name="quantity" title="${uiLabelMap.VvQuantity}" required-field="true"> 
-			<text size="10" maxlength="10" />
-		</field>
 		<field name="productId" title="${uiLabelMap.VvProductId}" required-field="true">
 			<lookup target-form-name="LookupProduct" position="center" />
 		</field>
-		<field name="comment" title="${uiLabelMap.VvComment}">
+		<field name="quantity" title="${uiLabelMap.VvQuantity}" required-field="true"> 
 			<text size="10" maxlength="10" />
+		</field>
+		<field name="comment" title="${uiLabelMap.VvComment}">
+			<text size="20" maxlength="30" />
 		</field>
 
 
@@ -521,7 +521,7 @@
 			<display />
 		</field>
 		<field name="productId" title="${uiLabelMap.VvName}">
-			<display-entity entity-name="VvProduct" key-field-name="productId" description="${name}" />
+			<display-entity entity-name="VvProductPartner" key-field-name="productId" description="${productName} : ${partnerName}" />
 		</field>
 		<field name="quantity" title="${uiLabelMap.VvQuantity}">
 			<display/>
