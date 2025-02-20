@@ -644,7 +644,7 @@ public class VvorderEvents {
 				} catch (GenericServiceException e) {
 					Debug.logError(e, module);
 					request.setAttribute("_ERROR_MESSAGE_",
-							"Üres cellak a fajlban.");
+							"Rossz cellak tartalom a fajlban.");
 					return "error";
 				}
 			}
