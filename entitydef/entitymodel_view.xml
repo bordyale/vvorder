@@ -80,6 +80,7 @@
 		<alias entity-alias="PR" name="name" />
 		<alias entity-alias="VSI" name="shipmentId" />
 		<alias entity-alias="SH" name="shipmentDate" />
+		<alias entity-alias="SH" name="type" />
 		<alias entity-alias="SH" name="partnerId" />
 		<alias entity-alias="VSI" name="shipmentItemSeqId" />
 		<alias entity-alias="VSI" name="quantity" />
@@ -119,6 +120,7 @@
 		<member-entity entity-alias="SIV" entity-name="VvShippingItemView" />
 		<alias entity-alias="SIV" name="shipmentDate" group-by="true" />
 		<alias entity-alias="SIV" name="shipmentId" group-by="true" />
+		<alias entity-alias="SIV" name="type" group-by="true" />
 		<alias entity-alias="SIV" name="partnerId" group-by="true" />
 		<alias entity-alias="SIV" name="productId" group-by="true" />
 		<alias entity-alias="SIV" name="netWeight" field="netWeight" function="sum" />
@@ -163,6 +165,7 @@
 		title="ShippingItems Summary">
 		<member-entity entity-alias="SIV" entity-name="VvShippingItemView" />
 		<alias entity-alias="SIV" name="productId" group-by="true" />
+		<alias entity-alias="SIV" name="type" />
 		<alias entity-alias="SIV" name="name" group-by="true" />
 		<alias entity-alias="SIV" name="partnerId" group-by="true" />
 		<alias entity-alias="SIV" name="shipmentDate" />

@@ -424,6 +424,8 @@
 				<property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
 				<set field="filproductId" from-field="parameters.filproductId" />
 				<set field="filpartnerId" from-field="parameters.filpartnerId" />
+				<set field="filtype" from-field="parameters.filtype" />
+				<set field="filpartnerId" from-field="parameters.filpartnerId" />
 				<set field="fildate1From" from-field="parameters.fildate1From" />
 				<set field="fildate1FromTitle" value="${groovy: uiLabelMap.From}" />
 				<set field="fildate2From" from-field="parameters.fildate2From" />
@@ -453,6 +455,7 @@
 								<parameter param-name="fildate1From" />
 								<parameter param-name="fildate2From" />
 								<parameter param-name="filpartnerId" />
+								<parameter param-name="filtype" />
 								<parameter param-name="filshowFaseA" />
 							</link>
 							<!-- <link target="ReportExportPdf" text="${uiLabelMap.CommonPdf}" style="buttontext create" target-window="_blank"> <parameter 
@@ -503,6 +506,8 @@
 				<set field="headerItem" value="findVvShipments" />
 				<set field="AddVvShipmentItemPage" value="Y" />
 				<set field="shipmentId" from-field="parameters.shipmentId" />
+				<entity-one entity-name="VvShipment" value-field="shipment" />
+				<set field="partnerId" from-field="shipment.partnerId" />
 
 			</actions>
 			<widgets>

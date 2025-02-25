@@ -43,6 +43,7 @@ orderShipBeforeFrom = parameters.orderShipBeforeFrom
 orderShipBeforeTo = parameters.orderShipBeforeTo
 partyIdTo = parameters.filpartnerId
 productId = parameters.filproductId
+type = parameters.filtype
 filshowFaseA = parameters.filshowFaseA
 
 List searchCond = []
@@ -59,6 +60,9 @@ if (partyIdTo) {
 }
 if (productId) {
 	searchCond.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId))
+}
+if (type) {
+	searchCond.add(EntityCondition.makeCondition("type", EntityOperator.EQUALS, type))
 }
 
 List<HashMap<String,Object>> hashMaps = new ArrayList<HashMap<String,Object>>()
@@ -178,24 +182,25 @@ if(filshowFaseA.equals("Y")){
 }
 
 
-productQuantity = select("productId","name","weight","quantity").from("VvShippingProductQuantity").where(searchCond).cache(false).queryList()
-
-productQuantity = EntityUtil.orderBy(productQuantity,  ["productId"])
-
 List<HashMap<String,Object>> prodQty = new ArrayList<HashMap<String,Object>>()
-BigDecimal progresQuantity = BigDecimal.ZERO
-for (GenericValue entry: productQuantity){
-	Map<String,Object> e = new HashMap<String,Object>()
-	e.put("productId",entry.get("productId"))
-	e.put("name",entry.get("name"))
-	e.put("weight",entry.get("weight"))
-	//e.put("handlingInstructions",entry.get("handlingInstructions"))
-	BigDecimal qty = entry.get("quantity")
-	e.put("quantity",qty)
+if(filshowFaseA.equals("Y")){
+	productQuantity = select("productId","name","weight","quantity").from("VvShippingProductQuantity").where(searchCond).cache(false).queryList()
 
-	prodQty.add(e)
+	productQuantity = EntityUtil.orderBy(productQuantity,  ["productId"])
+
+	BigDecimal progresQuantity = BigDecimal.ZERO
+	for (GenericValue entry: productQuantity){
+		Map<String,Object> e = new HashMap<String,Object>()
+		e.put("productId",entry.get("productId"))
+		e.put("name",entry.get("name"))
+		e.put("weight",entry.get("weight"))
+		//e.put("handlingInstructions",entry.get("handlingInstructions"))
+		BigDecimal qty = entry.get("quantity")
+		e.put("quantity",qty)
+
+		prodQty.add(e)
+	}
 }
-
 
 
 context.totalShippedWeight=totalShippedWeight

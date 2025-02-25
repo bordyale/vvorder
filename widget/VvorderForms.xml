@@ -443,6 +443,12 @@
 		<field name="shipmentDate" title="${uiLabelMap.VvShipmentDate}">
 			<date-time type="date" />
 		</field>
+		<field name="type" title="${uiLabelMap.VvShipmentType}">
+			<drop-down allow-empty="true" no-current-selected-key="STANDARD">
+				<option key="STANDARD" description="${uiLabelMap.VvStandard}" />
+				<option key="CORRECTIVE" description="${uiLabelMap.VvCorrective}" />
+			</drop-down>
+		</field>
 
 		<field name="submitButton" use-when="VvShipment==null" title="${uiLabelMap.CommonCreate}">
 			<submit button-type="button" />
@@ -461,6 +467,12 @@
 		</field>
 		<field name="partnerId" title="${uiLabelMap.VvPartnerId}">
 			<lookup target-form-name="LookupPartner" position="center" />
+		</field>
+		<field name="type" title="${uiLabelMap.VvShipmentType}">
+			<drop-down allow-empty="true" no-current-selected-key="STANDARD">
+				<option key="STANDARD" description="${uiLabelMap.VvStandard}" />
+				<option key="CORRECTIVE" description="${uiLabelMap.VvCorrective}" />
+			</drop-down>
 		</field>
 		<field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
 			<submit button-type="button" />
@@ -484,6 +496,12 @@
 			<hyperlink description="${shipmentId}" target="EditVvShipment" also-hidden="false">
 				<parameter param-name="shipmentId" />
 			</hyperlink>
+		</field>
+		<field name="type" title="${uiLabelMap.VvShipmentType}">
+			<drop-down allow-empty="true" no-current-selected-key="STANDARD" disabled="true">
+				<option key="STANDARD" description="${uiLabelMap.VvStandard}" />
+				<option key="CORRECTIVE" description="${uiLabelMap.VvCorrective}" />
+			</drop-down>
 		</field>
 		<field name="partnerId" title="${uiLabelMap.VvPartnerId}" widget-style="buttontext" sort-field="true">
 			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}" />
@@ -706,6 +724,12 @@
 		<field name="filpartnerId" title="${uiLabelMap.VvPartnerId}">
 			<lookup target-form-name="LookupPartner" position="center" />
 		</field>
+		<field name="filtype" title="${uiLabelMap.VvShipmentType}">
+			<drop-down allow-empty="true">
+				<option key="STANDARD" description="${uiLabelMap.VvStandard}" />
+				<option key="CORRECTIVE" description="${uiLabelMap.VvCorrective}" />
+			</drop-down>
+		</field>
 
 
 
@@ -770,6 +794,7 @@
 		<actions>
 			<set field="requestParameters.noConditionFind" value="Y" />
 			<set field="sortField" from-field="parameters.sortField" default-value="-orderId" />
+			<set field="requestParameters.partnerId" from-field="partnerId"/>
 			<service service-name="performFindList" result-map="result" result-map-list="list">
 				<field-map field-name="inputFields" from-field="requestParameters" />
 				<field-map field-name="entityName" value="VvOrder" />

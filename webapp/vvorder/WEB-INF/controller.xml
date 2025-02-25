@@ -89,7 +89,7 @@
 		<response name="success" type="request-redirect" value="EditVvShipmentItems">
 			<redirect-parameter name="shipmentId" />
 		</response>
-		<response name="error" type="request-redirect" value="AddShippingItemOrderItem">
+		<response name="error" type="request-redirect" value="AddVvShipmentItemOrderItem">
 			<redirect-parameter name="shipmentId" />
 			<redirect-parameter name="orderId" />
 		</response>

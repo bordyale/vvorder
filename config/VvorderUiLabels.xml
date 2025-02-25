@@ -296,5 +296,17 @@
 		<value xml:lang="en">Shipment</value>
 		<value xml:lang="hu">Szállítás</value>
 	</property>
+	<property key="VvShipmentType">
+		<value xml:lang="en">Shipment Type</value>
+		<value xml:lang="hu">Szállítás Típus</value>
+	</property>
+	<property key="VvStandard">
+		<value xml:lang="en">Starndard</value>
+		<value xml:lang="hu">Standard</value>
+	</property>
+	<property key="VvCorrective">
+		<value xml:lang="en">Corrective</value>
+		<value xml:lang="hu">Rendelés Korrekciós</value>
+	</property>
 	
 </resource>
