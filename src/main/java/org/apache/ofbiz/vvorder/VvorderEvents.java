@@ -656,4 +656,140 @@ public class VvorderEvents {
 
 		return "success";
 	}
+
+	public static String updateOrderShippingItems(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+		Delegator delegator = (Delegator) request.getAttribute("delegator");
+		LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+
+		String controlDirective = null;
+		Map<String, Object> result = null;
+
+		Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
+
+		String itemGroupNumber = request.getParameter("itemGroupNumber");
+
+
+		// The number of multi form rows is retrieved
+		int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
+		if (rowCount < 1) {
+			Debug.logWarning("No rows to process, as rowCount = " + rowCount, module);
+		} else {
+			for (int i = 0; i < rowCount; i++) {
+				String shipmentId = null;
+				String orderId = null;
+				String orderItemSeqId = null;
+				String productId = null;
+
+				BigDecimal quantity = BigDecimal.ZERO;
+				BigDecimal quantityShipped = BigDecimal.ZERO;
+				BigDecimal quantityToShip = BigDecimal.ZERO;
+				BigDecimal quantityShippable = BigDecimal.ZERO;
+
+				controlDirective = null; // re-initialize each time
+				String thisSuffix = UtilHttp.getMultiRowDelimiter() + i;
+
+				// get the params
+				if (paramMap.containsKey("shipmentId" + thisSuffix)) {
+					shipmentId = (String) paramMap.remove("shipmentId" + thisSuffix);
+				}
+				if (paramMap.containsKey("orderId" + thisSuffix)) {
+					orderId = (String) paramMap.remove("orderId" + thisSuffix);
+				}
+				request.setAttribute("shipmentId", shipmentId);
+				request.setAttribute("orderId", orderId);
+				if (paramMap.containsKey("orderItemSeqId" + thisSuffix)) {
+					orderItemSeqId = (String) paramMap.remove("orderItemSeqId" + thisSuffix);
+				}
+				String quantityToShipStr = null;
+				if (paramMap.containsKey("quantityToShip" + thisSuffix)) {
+					quantityToShipStr = (String) paramMap.remove("quantityToShip" + thisSuffix);
+				}
+				if ((quantityToShipStr == null) || (quantityToShipStr.equals(""))) {
+					quantityToShipStr = "0";
+				}
+				try {
+					quantityToShip = new BigDecimal(quantityToShipStr);
+				} catch (Exception e) {
+					Debug.logWarning(e, "Problems parsing quantity string: " + quantityToShipStr, module);
+					quantityToShip = BigDecimal.ZERO;
+				}
+				if (quantityToShip.compareTo(BigDecimal.ZERO) == 0) {
+					continue;
+				}
+
+				GenericValue vfOrdItemShipItem = null;
+				GenericValue shipment = null;
+				try {
+					shipment = delegator.findOne("VvShipment", UtilMisc.toMap("shipmentId", shipmentId), false);
+				} catch (GenericEntityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// Integer shipItemId = 1;
+				if (orderId != null) {
+					try {
+						vfOrdItemShipItem = delegator.findOne("VvOrderItemShippingItemView", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), false);
+
+						quantity = (BigDecimal) vfOrdItemShipItem.get("quantity");
+						productId = (String) vfOrdItemShipItem.get("productId");
+
+						// BigDecimal tmp = (BigDecimal) shipment.get("estimatedShipCost");
+						// shipItemId = (tmp == null) ? null : tmp.toBigInteger().intValue();
+
+					} catch (GenericEntityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					if (vfOrdItemShipItem != null) {
+						quantityShipped = vfOrdItemShipItem.getBigDecimal("quantityShipped");
+						if (quantityShipped == null) {
+							quantityShipped = BigDecimal.ZERO;
+						}
+						quantityShippable = quantity.subtract(quantityShipped);
+					}
+				} else {
+					if (paramMap.containsKey("productId" + thisSuffix)) {
+						productId = (String) paramMap.remove("productId" + thisSuffix);
+					}
+				}
+				if (orderId != null && quantityToShip.compareTo(quantityShippable) > 0) {
+					request.setAttribute("_ERROR_MESSAGE_", "errore");
+					return "error";
+				} else {
+
+					BigDecimal qty = BigDecimal.ZERO;
+					GenericValue vfshipmentItem = null;
+					vfshipmentItem = delegator.makeValue("VvShipmentItem");
+					vfshipmentItem.set("shipmentId", shipmentId);
+					vfshipmentItem.set("orderId", orderId);
+					vfshipmentItem.set("orderItemSeqId", orderItemSeqId);
+					qty = qty.add(quantityToShip);
+
+					if (qty.compareTo(BigDecimal.ZERO) != 0) {
+						try {
+							Map<String, Object> tmpResult = dispatcher.runSync("createVvShipmentItem", UtilMisc.<String, Object> toMap("userLogin", userLogin, "shipmentId", shipmentId, "productId",
+									productId, "orderId", orderId, "orderItemSeqId", orderItemSeqId, "quantity", qty));
+							// vfshipmentItem.set("shipmentItemSeqId", (String) tmpResult.get("shipmentItemSeqId"));
+
+						} catch (GenericServiceException e) {
+							Debug.logError(e, module);
+						}
+						// delegator.createOrStore(shipmentItem);
+						// delegator.createOrStore(vfshipmentItem);
+					}
+
+				}
+
+			}
+			return "success";
+
+		}
+
+		return "error";
+
+	}
+
 }

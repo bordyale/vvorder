@@ -75,6 +75,25 @@
 	</request-map>
 
 
+	<request-map uri="AddVvShipmentItem">
+		<security https="true" auth="true" />
+		<response name="success" type="view" value="AddVvShipmentItem" />
+	</request-map>
+	<request-map uri="AddVvShipmentItemOrderItem">
+		<security https="true" auth="true" />
+		<response name="success" type="view" value="AddVvShipmentItemOrderItem" />
+	</request-map>
+	<request-map uri="UpdateShippingItems">
+		<security https="true" auth="true" />
+		<event type="java" path="org.apache.ofbiz.vvorder.VvorderEvents" invoke="updateOrderShippingItems" />
+		<response name="success" type="request-redirect" value="EditVvShipmentItems">
+			<redirect-parameter name="shipmentId" />
+		</response>
+		<response name="error" type="request-redirect" value="AddShippingItemOrderItem">
+			<redirect-parameter name="shipmentId" />
+			<redirect-parameter name="orderId" />
+		</response>
+	</request-map>
 
 	<request-map uri="findVvOrders">
 		<security https="true" auth="true" />
@@ -343,6 +362,8 @@
 	<view-map name="EditVvShipment" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvShipment" />
 	<view-map name="EditVvShipmentItems" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvShipmentItems" />
 	<view-map name="EditVvShipmentItemsTot" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvShipmentItemsTot" />
+	<view-map name="AddVvShipmentItem" type="screen" page="component://vvorder/widget/VvorderScreens.xml#AddVvShipmentItem" />
+	<view-map name="AddVvShipmentItemOrderItem" type="screen" page="component://vvorder/widget/VvorderScreens.xml#AddVvShipmentItemOrderItem" />
 
 	<view-map name="findVvReports" type="screen" page="component://vvorder/widget/VvorderScreens.xml#FindVvReports" />
 

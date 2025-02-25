@@ -164,6 +164,7 @@
 			<actions>
 				<set field="titleProperty" value="FindVvOrders" />
 				<set field="headerItem" value="findVvOrders" />
+				<set field="FindVvOrderPage" value="Y" />
 
 				<set field="formShippingListName" value="${groovy: return 'ListVvOrders';}" />
 				<!-- <script location="component://vforder/groovyScripts/FindShipping.groovy" /> -->
@@ -362,6 +363,11 @@
 								<screenlet>
 									<label style="h1">${uiLabelMap.TotalNetWeight} - ${totalShippedWeight} Kg</label>
 								</screenlet>
+								<screenlet title="${uiLabelMap.AddVvShippingItem}">
+									<link target="AddVvShipmentItem" text="${uiLabelMap.AddVvShippingItem}" style="buttontext create">
+										<parameter param-name="shipmentId" />
+									</link>
+								</screenlet>
 								<screenlet title="${uiLabelMap.UploadShipmentDetails}">
 									<platform-specific>
 										<html><html-template location="component://vvorder/templates/Contents.ftl"/></html>
@@ -483,6 +489,64 @@
 
 							<include-form name="ProdShippedQuantity" location="component://vvorder/widget/CsvForms.xml" />
 
+						</screenlet>
+					</decorator-section>
+				</decorator-screen>
+			</widgets>
+		</section>
+	</screen>
+
+	<screen name="AddVvShipmentItem">
+		<section>
+			<actions>
+				<set field="titleProperty" value="FindVvOrders" />
+				<set field="headerItem" value="findVvShipments" />
+				<set field="AddVvShipmentItemPage" value="Y" />
+				<set field="shipmentId" from-field="parameters.shipmentId" />
+
+			</actions>
+			<widgets>
+				<decorator-screen name="VvorderCommonDecorator" location="${parameters.mainDecoratorLocation}">
+					<decorator-section name="body">
+						<section>
+							<widgets>
+								<decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+									<decorator-section name="search-options">
+										<include-form name="FindVvOrders" location="component://vvorder/widget/VvorderForms.xml" />
+									</decorator-section>
+									<decorator-section name="search-results">
+										<include-form name="ListVvShiOrders" location="component://vvorder/widget/VvorderForms.xml" />
+									</decorator-section>
+								</decorator-screen>
+
+							</widgets>
+						</section>
+					</decorator-section>
+				</decorator-screen>
+			</widgets>
+		</section>
+	</screen>
+	<screen name="AddVvShipmentItemOrderItem">
+		<section>
+			<actions>
+				<set field="titleProperty" value="AddShipmentItemOrderItem" />
+				<set field="headerItem" value="findVvShipments" />
+				<!-- <set field="AddVvShipmentItemPage" value="Y" /> -->
+				<set field="shipmentId" from-field="parameters.shipmentId" />
+				<set field="orderId" from-field="parameters.orderId" />
+				<set field="titleProperty" value="${shipmentId} -- ${orderId}" />
+
+				<script location="component://vvorder/groovyScripts/AddShippingItemOrderItem.groovy" />
+
+			</actions>
+			<widgets>
+				<decorator-screen name="VvorderCommonDecorator" location="${parameters.mainDecoratorLocation}">
+					<decorator-section name="body">
+						<screenlet>
+							<label style="h1">${uiLabelMap.VvOrder}: ${orderId} ${uiLabelMap.VvShipment}: ${shipmentId}</label>
+						</screenlet>
+						<screenlet>
+							<include-form name="AddShippingItemOrderItem" location="component://vvorder/widget/VvorderForms.xml" />
 						</screenlet>
 					</decorator-section>
 				</decorator-screen>

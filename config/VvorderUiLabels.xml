@@ -284,5 +284,17 @@
 		<value xml:lang="en">Product</value>
 		<value xml:lang="hu">Termék</value>
 	</property>
+	<property key="AddVvShippingItem">
+		<value xml:lang="en">Add Shipping Item</value>
+		<value xml:lang="hu">Termék hozzaadás új oldala.</value>
+	</property>
+	<property key="VvOrder">
+		<value xml:lang="en">Order</value>
+		<value xml:lang="hu">Rendelés</value>
+	</property>
+	<property key="VvShipment">
+		<value xml:lang="en">Shipment</value>
+		<value xml:lang="hu">Szállítás</value>
+	</property>
 	
 </resource>

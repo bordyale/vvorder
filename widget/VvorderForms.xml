@@ -250,8 +250,12 @@
 	</form>
 
 	<form name="FindVvOrders" type="single" target="findVvOrders" default-entity-name="VvOrder">
+		<alt-target use-when="AddVvShipmentItemPage=='Y'" target="AddVvShipmentItem" />
 		<field name="noConditionFind">
 			<hidden value="Y" /><!-- if this isn't there then with all fields empty no query will be done -->
+		</field>
+		<field name="shipmentId">
+			<display />
 		</field>
 		<field name="orderName" title="${uiLabelMap.VvOrderName}">
 			<text-find />
@@ -284,7 +288,7 @@
 				<parameter param-name="orderId" />
 			</hyperlink>
 		</field>
-		<field name="exportOrder" title="" widget-style="buttontext">
+		<field name="exportOrder" widget-style="buttontext">
 			<hyperlink description="${uiLabelMap.CommonExport}" target="VvOrderExport.csv" also-hidden="false">
 				<parameter param-name="orderId" />
 			</hyperlink>
@@ -722,6 +726,86 @@
 
 
 	</form>
+	<form name="AddShippingItemOrderItem" type="multi" use-row-submit="true" list-name="orderItems" title="" target="UpdateShippingItems"
+		odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="AddShippingItemOrderItem">
+		<!-- <row-actions> <entity-one entity-name="OrderItem" value-field="product" auto-field-map="true"/> </row-actions> -->
+		<field name="shipmentId">
+			<hidden value="${shipmentId}" />
+		</field>
+		<field name="orderId">
+			<hidden value="${orderId}" />
+		</field>
+		<field name="orderItemSeqId">
+			<hidden value="${orderItemSeqId}" />
+		</field>
+		<!-- <field name="orderId" title="${uiLabelMap.OrderOrderId}" widget-style="buttontext"> <hyperlink description="${orderId}" target="/catalog/control/EditProductInventoryItems" 
+			target-type="inter-app"> <parameter param-name="orderId"/> </hyperlink> </field> -->
+		<field name="productId" title="${uiLabelMap.VvProductId}">
+			<display />
+		</field>
+		<field name="name" title="${uiLabelMap.VvName}">
+			<display />
+		</field>
+		<field name="quantity" title="${uiLabelMap.VvQuantity}">
+			<display />
+		</field>
+		<field name="quantityShipped" title="${uiLabelMap.VvQuantityShipped}">
+			<display />
+		</field>
+		<field name="quantityShippable" title="${uiLabelMap.VvQuantityShippable}">
+			<display />
+		</field>
+		<field name="quantityToShip" title="${uiLabelMap.OrderQuantity}">
+			<text size="5" maxlength="10" />
+		</field>
+		<field name="submitButton" title="${uiLabelMap.OrderAddToOrder}" widget-style="smallSubmit">
+			<submit />
+		</field>
 
+	</form>
+
+	<form name="ListVvShiOrders" list-name="list" target="AddVvShipmentItemOrderItem" title="" type="list" paginate-target="AddVvShipmentItem" odd-row-style="alternate-row"
+		default-table-style="basic-table hover-bar" header-row-style="header-row-2" override-list-size="true">
+
+		<actions>
+			<set field="requestParameters.noConditionFind" value="Y" />
+			<set field="sortField" from-field="parameters.sortField" default-value="-orderId" />
+			<service service-name="performFindList" result-map="result" result-map-list="list">
+				<field-map field-name="inputFields" from-field="requestParameters" />
+				<field-map field-name="entityName" value="VvOrder" />
+				<field-map field-name="orderBy" from-field="sortField" />
+				<field-map field-name="viewIndex" from-field="viewIndex" />
+				<field-map field-name="viewSize" from-field="viewSize" />
+			</service>
+		</actions>
+		<field name="orderId" title="${uiLabelMap.VvOrderId}">
+			<display />
+		</field>
+		<field name="orderName" title="${uiLabelMap.VvName}">
+			<display />
+		</field>
+		<field name="partnerId" title="${uiLabelMap.VvPartnerId}" widget-style="buttontext" sort-field="true">
+			<display-entity entity-name="VvPartner" key-field-name="partnerId" description="${name}" />
+		</field>
+		<field name="orderDate" title="${uiLabelMap.vvorderDate}" sort-field="true">
+			<display type="date" />
+		</field>
+		<field name="shipBeforeDate" title="${uiLabelMap.dueDate}" sort-field="true">
+			<display type="date" />
+		</field>
+		<field name="shipmentId">
+			<hidden value="${shipmentId}"/>
+		</field>
+		<field use-when="AddVvShipmentItemPage=='Y'" name="submitButton" title="${uiLabelMap.OrderAddToOrder}">
+			<submit button-type="button" />
+		</field>
+		<!-- <field use-when="AddVvShipmentItemPage=='Y'" name="AddVVShipmentItemOrderItem" title=" " widget-style="buttontext"> -->
+			<!-- <hyperlink description="${uiLabelMap.AddVVShipmentItemOrderItem}" target="AddVvShipmentItemOrderItem" also-hidden="false" -->
+				<!-- confirmation-message="${uiLabelMap.CommonConfirmDelete}" image-location="${iconsLocation}/delete.png"> -->
+				<!-- <parameter param-name="orderId" /> -->
+				<!-- <parameter param-name="shipmentId" /> -->
+			<!-- </hyperlink> -->
+		<!-- </field> -->
+	</form>
 
 </forms>

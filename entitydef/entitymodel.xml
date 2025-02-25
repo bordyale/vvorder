@@ -82,6 +82,7 @@
 		<field name="statusId" type="id"></field>
 		<field name="partnerId" type="id"></field>
 
+		<field name="type" type="value"></field>
 		<field name="description" type="description"></field>
 		<field name="comments" type="comment"></field>
 		<field name="shipmentDate" type="date-time"></field>
