@@ -534,12 +534,12 @@
 	<screen name="AddVvShipmentItemOrderItem">
 		<section>
 			<actions>
-				<set field="titleProperty" value="AddShipmentItemOrderItem" />
+				<!-- <set field="titleProperty" value="AddShipmentItemOrderItem" /> -->
 				<set field="headerItem" value="findVvShipments" />
 				<!-- <set field="AddVvShipmentItemPage" value="Y" /> -->
 				<set field="shipmentId" from-field="parameters.shipmentId" />
 				<set field="orderId" from-field="parameters.orderId" />
-				<set field="titleProperty" value="${shipmentId} -- ${orderId}" />
+				<set field="titleProperty" value="AddVvShippingItem" />
 
 				<script location="component://vvorder/groovyScripts/AddShippingItemOrderItem.groovy" />
 

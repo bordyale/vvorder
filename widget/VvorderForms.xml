@@ -284,7 +284,7 @@
 			</service>
 		</actions>
 		<field name="orderId" title="${uiLabelMap.GeneralId}" widget-style="buttontext" sort-field="true">
-			<hyperlink description="${orderId}" target="EditVvOrder" also-hidden="false">
+			<hyperlink description="${orderId}" target="EditVvOrderItems" also-hidden="false">
 				<parameter param-name="orderId" />
 			</hyperlink>
 		</field>
@@ -493,12 +493,12 @@
 			</service>
 		</actions>
 		<field name="shipmentId" title="${uiLabelMap.VvShipmentId}" widget-style="buttontext" sort-field="true">
-			<hyperlink description="${shipmentId}" target="EditVvShipment" also-hidden="false">
+			<hyperlink description="${shipmentId}" target="EditVvShipmentItems" also-hidden="false">
 				<parameter param-name="shipmentId" />
 			</hyperlink>
 		</field>
-		<field name="type" title="${uiLabelMap.VvShipmentType}">
-			<drop-down allow-empty="true" no-current-selected-key="STANDARD" disabled="true">
+		<field name="type" title="${uiLabelMap.VvShipmentType}" disabled="true">
+			<drop-down allow-empty="true" no-current-selected-key="STANDARD" >
 				<option key="STANDARD" description="${uiLabelMap.VvStandard}" />
 				<option key="CORRECTIVE" description="${uiLabelMap.VvCorrective}" />
 			</drop-down>
