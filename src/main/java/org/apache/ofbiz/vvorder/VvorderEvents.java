@@ -483,7 +483,7 @@ public class VvorderEvents {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 			return "error";
 
 		}
@@ -650,7 +650,7 @@ public class VvorderEvents {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 			return "error";
 		}
 

@@ -96,6 +96,8 @@ public final class ImportSpreadsheetHelper {
 
 	public static String importString(Integer columnIndex,HSSFRow row) {
 		HSSFCell cell = row.getCell(columnIndex);
+		if (cell == null)
+			return null;
 		cell.setCellType(CellType.STRING);
 		String field = cell.getRichStringCellValue().toString();
 		return field;
@@ -103,6 +105,8 @@ public final class ImportSpreadsheetHelper {
 
 	public static BigDecimal importBigDecimal(Integer columnIndex,HSSFRow row) {
 		HSSFCell cell = row.getCell(columnIndex);
+		if (cell == null)
+			return null;
 		BigDecimal field = BigDecimal.ZERO;
 		if (cell != null && cell.getCellType() == CellType.NUMERIC) {
 			field = new BigDecimal(cell.getNumericCellValue());
@@ -112,7 +116,8 @@ public final class ImportSpreadsheetHelper {
 
 	public static Timestamp importDate(Integer columnIndex,HSSFRow row) {
 		HSSFCell cell = row.getCell(columnIndex);
-
+		if (cell == null)
+			return null;
 		// String cellValue = String.valueOf(cell.getNumericCellValue());
 		Date date;
 		// if (HSSFDateUtil.isCellDateFormatted(cell2)) {

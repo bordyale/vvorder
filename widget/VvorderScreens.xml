@@ -233,6 +233,7 @@
 				<set field="tabButtonItem" value="EditVvOrderItems" />uploadVvOrderItem
 				<set field="target" value="uploadVvOrderItem" />
 				<set field="orderId" from-field="parameters.orderId" />
+				<set field="viewSize" from-field="parameters.VIEW_SIZE_1" type="Integer" default-value="200" />
 				<entity-one entity-name="VvOrder" value-field="order" />
 			</actions>
 			<widgets>
@@ -345,6 +346,7 @@
 				<set field="headerItem" value="findVvShipments" />
 				<set field="tabButtonItem" value="EditVvShipmentItems" />
 				<set field="shipmentId" from-field="parameters.shipmentId" />
+				<set field="viewSize" from-field="parameters.VIEW_SIZE_1" type="Integer" default-value="200" />
 				<entity-one entity-name="VvShipment" value-field="shipment" />
 				<set field="target" value="uploadVvShipmentItem" />
 				<script location="component://vvorder/groovyScripts/ShippingWeight.groovy" />
@@ -392,6 +394,7 @@
 				<set field="headerItem" value="findVvShipments" />
 				<set field="tabButtonItem" value="EditVvShipmentItemsTot" />
 				<set field="shipmentId" from-field="parameters.shipmentId" />
+				<set field="viewSize" from-field="parameters.VIEW_SIZE_1" type="Integer" default-value="200" />
 				<entity-one entity-name="VvShipment" value-field="shipment" />
 				<set field="target" value="uploadVvShipmentItem" />
 				<script location="component://vvorder/groovyScripts/ShippingWeight.groovy" />
