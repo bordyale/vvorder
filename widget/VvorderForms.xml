@@ -361,6 +361,12 @@
 				<parameter param-name="orderItemSeqId" />
 			</hyperlink>
 		</field>
+        <field name="newExample" title=" " widget-style="buttontext">
+			<hyperlink description="${uiLabelMap.VvShipmentDetails}" target="ShowOrderItemShippingLayer" also-hidden="false" link-type="layered-modal">
+				<parameter param-name="orderId"/>
+				<parameter param-name="orderItemSeqId"/>
+			</hyperlink>
+        </field>
 
 	</form>
 
@@ -831,6 +837,34 @@
 				<!-- <parameter param-name="shipmentId" /> -->
 			<!-- </hyperlink> -->
 		<!-- </field> -->
+	</form>
+	<form name="ListOrderItemShipping" type="list" list-name="listIt" paginate-target="EditShippingItems" odd-row-style="alternate-row"
+		default-table-style="basic-table hover-bar" header-row-style="header-row-2" override-list-size="true">
+		<actions>
+			<service service-name="performFind" result-map="result" result-map-list="listIt">
+				<field-map field-name="inputFields" from-field="parameters" />
+				<field-map field-name="entityName" value="VvShippingItemView" />
+			</service>
+		</actions>
+
+		<field name="shipmentId" title="${uiLabelMap.VvShipmentId}" widget-style="buttontext">
+			<hyperlink description="${shipmentId}" target="EditVvShipmentItems" also-hidden="false">
+				<parameter param-name="shipmentId" />
+			</hyperlink>
+		</field>
+		<field name="shipmentDate" title="${uiLabelMap.VvShipmentDate}" sort-field="true">
+			<display description="${groovy:org.apache.ofbiz.base.util.UtilDateTime.toDateString(shipmentDate, &quot;yyyy.MM.dd.&quot;);}" />
+		</field>
+
+
+
+		<field name="quantity" title="${uiLabelMap.VvQuantity}">
+			<display />
+		</field>
+		<!-- <field name="shipmentId" widget-style="buttontext"> <hyperlink description="${billingAccountId}" target="EditBillingAccount"> 
+			<parameter param-name="billingAccountId"/> </hyperlink> </field> -->
+
+
 	</form>
 
 </forms>

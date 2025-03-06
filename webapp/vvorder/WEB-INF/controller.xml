@@ -344,6 +344,10 @@
 		<security https="true" auth="true" />
 		<response name="success" type="view" value="main" />
 	</request-map>
+	<request-map uri="ShowOrderItemShippingLayer">
+		<security https="true" auth="true" />
+		<response name="success" type="view" value="ShowOrderItemShippingLayer" />
+	</request-map>
 
 	<!-- View Mappings -->
 	<view-map name="main" type="screen" page="component://vvorder/widget/VvorderScreens.xml#main" />
@@ -364,6 +368,8 @@
 	<view-map name="EditVvShipmentItemsTot" type="screen" page="component://vvorder/widget/VvorderScreens.xml#EditVvShipmentItemsTot" />
 	<view-map name="AddVvShipmentItem" type="screen" page="component://vvorder/widget/VvorderScreens.xml#AddVvShipmentItem" />
 	<view-map name="AddVvShipmentItemOrderItem" type="screen" page="component://vvorder/widget/VvorderScreens.xml#AddVvShipmentItemOrderItem" />
+	<view-map name="ShowOrderItemShippingLayer" type="screen"
+		page="component://vvorder/widget/VvorderScreens.xml#ShowOrderItemShippingLayer" />
 
 	<view-map name="findVvReports" type="screen" page="component://vvorder/widget/VvorderScreens.xml#FindVvReports" />
 

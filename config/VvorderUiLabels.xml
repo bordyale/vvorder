@@ -308,5 +308,9 @@
 		<value xml:lang="en">Corrective</value>
 		<value xml:lang="hu">Rendelés Korrekciós</value>
 	</property>
+	<property key="VvShipmentDetails">
+		<value xml:lang="en">Shipments Details</value>
+		<value xml:lang="hu">Szállítás részletek</value>
+	</property>
 	
 </resource>
