@@ -342,7 +342,7 @@
 			<display />
 		</field>
 		<field name="productId" title="${uiLabelMap.VvName}">
-			<display-entity entity-name="VvProductPartner" key-field-name="productId" description="${productName} : [${partnerName}]" />
+			<display-entity entity-name="VvProductPartner" key-field-name="productId" description="${productName} : [${weight} Kg] [${partnerName}]" />
 		</field>
 		<field name="quantity" title="${uiLabelMap.VvQuantity}">
 			<text />
