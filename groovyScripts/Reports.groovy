@@ -29,6 +29,7 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import java.text.SimpleDateFormat
 import org.apache.ofbiz.order.order.OrderReadHelper
 
+import java.math.RoundingMode
 import java.sql.Timestamp
 
 def sdf = new SimpleDateFormat("yyyy-MM-dd")
@@ -108,6 +109,7 @@ notShippedItems = EntityUtil.orderBy(notShippedItems,  ["shipBeforeDate"])
 List<HashMap<String,Object>> hashMaps2 = new ArrayList<HashMap<String,Object>>()
 int i=0
 BigDecimal progresNetWeigh = BigDecimal.ZERO
+BigDecimal quantityTot = BigDecimal.ZERO
 for (GenericValue entry: notShippedItems){
 	i=notShippedItems.size()
 	Map<String,Object> e = new HashMap<String,Object>()
@@ -129,7 +131,7 @@ for (GenericValue entry: notShippedItems){
 	BigDecimal quantityShippable =quantity.subtract(quantityShipped)
 	e.put("quantityShipped",quantityShipped)
 	e.put("quantityShippable",quantityShippable)
-
+    quantityTot = quantityTot.add(quantityShippable)
 	BigDecimal productWeight = entry.get("weight")
 	BigDecimal netWeight = quantityShippable.multiply(productWeight)
 	e.put("netWeight",netWeight)
@@ -202,6 +204,11 @@ if(filshowFaseA.equals("Y")){
 	}
 }
 
+BigDecimal openAverageWeight = BigDecimal.ZERO 
+
+if (quantityTot.compareTo(BigDecimal.ZERO)!=0){
+	openAverageWeight = progresNetWeigh.divide(quantityTot,2,RoundingMode.HALF_UP)
+}
 
 context.totalShippedWeight=totalShippedWeight
 context.orderItems2 = hashMaps2
@@ -210,3 +217,5 @@ context.notShippedOrders = notShippedOrdersMap
 context.shipWeights = shipWeights
 context.prodQty = prodQty
 context.progresNetWeigh = progresNetWeigh 
+context.quantityTot= quantityTot
+context.openAverageWeight = openAverageWeight

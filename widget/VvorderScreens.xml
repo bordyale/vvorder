@@ -481,7 +481,7 @@
 								<label style="h2" text="${uiLabelMap.VvOpenOrders}" />
 							</container>
 							<container>
-								<label style="h2" text="${uiLabelMap.TotalOpenWeight} : ${progresNetWeigh}" />
+								<label style="h2" text="${uiLabelMap.TotalOpenWeight} : ${progresNetWeigh} ${uiLabelMap.OpenAverageWeight} : ${openAverageWeight}" />
 							</container>
 							<include-form name="OpenOrdersHeaderExport" location="component://vvorder/widget/CsvForms.xml" />
 							<container>

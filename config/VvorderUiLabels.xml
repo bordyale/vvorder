@@ -276,6 +276,10 @@
 		<value xml:lang="en">Total Open Weight</value>
 		<value xml:lang="hu">Nyított Rendelések Össz. Súly (Kg)</value>
 	</property>
+	<property key="OpenAverageWeight">
+		<value xml:lang="en">Product Average Weight</value>
+		<value xml:lang="hu">Termék Atlag Súly (Kg)</value>
+	</property>
 	<property key="EditVvProduct">
 		<value xml:lang="en">Edit Product</value>
 		<value xml:lang="hu">Termék módósítása</value>
