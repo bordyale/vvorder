@@ -79,6 +79,9 @@
 		<field name="orderId" title="${uiLabelMap.VvOrderId}">
 			<display />
 		</field>
+		<field name="orderName" title="${uiLabelMap.VvOrderName}">
+			<display />
+		</field>
 		<field name="orderItemSeqId">
 			<display />
 		</field>
