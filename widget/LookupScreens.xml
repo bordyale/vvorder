@@ -55,7 +55,7 @@
 	<screen name="LookupPartner">
 		<section>
 			<condition>
-				<if-service-permission service-name="vvproductionGenericPermission" main-action="VIEW" />
+				<if-service-permission service-name="vvorderGenericPermission" main-action="VIEW" />
 			</condition>
 			<actions>
 				<property-map resource="VvorderUiLabels" map-name="uiLabelMap" global="true"/>

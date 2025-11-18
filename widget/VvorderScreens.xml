@@ -444,7 +444,8 @@
 				<script location="component://vvorder/groovyScripts/Reports.groovy" />
 			</actions>
 			<widgets>
-				<decorator-screen name="VvorderCommonDecorator" location="${parameters.mainDecoratorLocation}">
+				<decorator-screen name="VvorderCommonDecoratorView" location="${parameters.mainDecoratorLocation}">
+
 					<decorator-section name="body">
 
 						<!-- <container style="button-bar"> <link target="ReportExportPdf" text="${uiLabelMap.CommonPdf}" style="buttontext create" target-window="_blank"> 
